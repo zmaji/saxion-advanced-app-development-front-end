@@ -3,6 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 import HomePage from '../views/HomePage.vue';
 import PartyIndex from '../views/party/PartyIndex.vue';
 import ShowParty from '../views/party/ShowParty.vue';
+import CreateParty from '@/views/party/CreateParty.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -23,6 +24,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/party',
     name: 'party',
     component: ShowParty
+  },
+  {
+    path: '/parties/create',
+    name: 'Create Party',
+    component: CreateParty
   }
 ]
 
