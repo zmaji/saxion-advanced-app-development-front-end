@@ -13,49 +13,64 @@
       <ion-grid>
         <ion-row>
           <ion-col v-for="party in parties" :key="party.id" size="auto">
-            <MediaCard :party="party" />
+            <MediaCard :party="party" @click="openPartyModal(party)" />
           </ion-col>
         </ion-row>
       </ion-grid>
+
+      <PartyModal :party="selectedParty" :is-open="isOpen" @modal-closed="onModalClosed" />
 
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-  import { MediaCard } from "@/components";
+import { ref } from 'vue';
+import { MediaCard } from "@/components";
+import { PartyModal } from "@/components";
 
-  // TODO: Move to store and fill store on startup
-  const parties = ref<Party[]>([]);
-  const partyOne: Party = {
-    id: 1,
-    title: 'Party at Saxion',
-    description: 'description',
-    location: 'location 1',
-    imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
-  };
+const selectedParty = ref<Party | null>(null);
+const isOpen = ref(false);
 
-  const partyTwo: Party = {
-    id: 2,
-    title: 'Domino\'s',
-    description: 'description',
-    location: 'location 2',
-    imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
-  };
+const openPartyModal = (party: Party) => {
+  isOpen.value = true;
+  selectedParty.value = party;
+};
 
-  const partyThree: Party = {
-    id: 3,
-    title: 'Max his project X chess party',
-    description: 'description',
-    location: 'location 3',
-    imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
-  };
+const onModalClosed = () => {
+  isOpen.value = false;
+};
 
-  parties.value.push(partyOne);
-  parties.value.push(partyTwo);
-  parties.value.push(partyThree);
+// TODO: Move to store and fill store on startup
+const parties = ref<Party[]>([]);
+const partyOne: Party = {
+  id: 1,
+  title: 'Party at Saxion',
+  description: 'description',
+  location: 'location 1',
+  imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
+};
+
+const partyTwo: Party = {
+  id: 2,
+  title: 'Domino\'s',
+  description: 'description',
+  location: 'location 2',
+  imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
+};
+
+const partyThree: Party = {
+  id: 3,
+  title: 'Max his project X chess party',
+  description: 'description',
+  location: 'location 3',
+  imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
+};
+
+parties.value.push(partyOne);
+parties.value.push(partyTwo);
+parties.value.push(partyThree);
+
 </script>
 
 <style scoped></style>

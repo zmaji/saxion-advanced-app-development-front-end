@@ -13,19 +13,19 @@
 </template>
 
 <script setup lang="ts">
-  import type { Party } from '@/types/party';
+import type { Party } from '@/types/party';
 
-  import {
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle
-  } from '@ionic/vue';
+import {
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle
+} from '@ionic/vue';
 
-  interface Props {
-    party: Party;
-  }
+interface Props {
+  party: Party;
+}
 
-  defineProps<Props>();
+defineProps<Props>();
 </script>
