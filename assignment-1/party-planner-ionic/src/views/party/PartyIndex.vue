@@ -12,8 +12,7 @@
 
       <!-- Iterate through parties and use MediaCard component for each party -->
       <ion-item v-for="party in parties" :key="party.id">
-        <MediaCard :title="party.title" :description="party.description" :imageUrl="party.imageUrl"
-          :location="party.location" />
+        <MediaCard :party="party"/>
       </ion-item>
     </ion-content>
   </ion-page>
@@ -22,8 +21,8 @@
 <script setup lang="ts">
 import { IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import { ref } from 'vue';
-import { defineComponent } from 'vue';
-import MediaCard from "@/components/MediaCard.vue";
+import MediaCard from "@/components/MediaCard/MediaCard.vue";
+
 
 // TODO: Move to store and fill store on startup
 const parties = ref<Party[]>([]);
