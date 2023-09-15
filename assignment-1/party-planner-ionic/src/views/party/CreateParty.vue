@@ -1,24 +1,42 @@
 <template>
   <ion-content class="ion-padding">
-    <h1>Create Party</h1>
+    <h1>Create a Party</h1>
 
-    <form action="#">
+    <ion-button id="open-createPartyModal" expand="block">Open</ion-button>
 
-      <ion-item>
-        <ion-input label="Part name"></ion-input>
-      </ion-item>
+    <CreatePartyModal @partyCreated="fetchParties" />
 
-      <ion-item>
-        <label for="">When is the party?</label>
-        <ion-datetime value="2022-04-21T00:00:00" min="2022-03-01T00:00:00" max="2024-05-31T23:59:59"></ion-datetime>
-      </ion-item>
-      <ion-button>Submit</ion-button>
-    </form>
+    <ion-grid>
+      <ion-row>
+        <ion-col v-for="party in parties" :key="party.id" size="auto">
+          <MediaCard :party="party" />
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
   </ion-content>
 </template>
 
 <script setup lang="ts">
- //TODO: For store perhaps use Pinia
+import {onMounted, ref} from "vue";
+
+//TODO: For store perhaps use Pinia
+import {IonButton, IonContent} from '@ionic/vue';
+import {CreatePartyModal, MediaCard} from '@/components';
+
+const parties = ref<Party[]>([]);
+
+  function fetchParties(): void {
+    const partiesJSON = localStorage.getItem('parties');
+    parties.value = partiesJSON ? JSON.parse(partiesJSON) : [];
+
+    console.log('Fetching parties from LocalStorage');
+  }
+
+  onMounted(() => {
+    fetchParties();
+  });
 </script>
 
 
