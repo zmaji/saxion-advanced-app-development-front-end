@@ -10,19 +10,25 @@
       <p>Explore the details, mark your calendars, and prepare for an epic journey through the latest and greatest parties
         in town!</p>
 
-      <!-- Iterate through parties and use MediaCard component for each party -->
-      <ion-item v-for="party in parties" :key="party.id">
-        <MediaCard :party="party"/>
-      </ion-item>
+      <!-- Creating a grid out of each party entry with an auto width based on the screen size -->
+      <ion-grid>
+        <ion-row>
+          <!-- Iterate through parties and use MediaCard component for each party -->
+          <ion-col v-for="party in parties" :key="party.id" size="auto">
+            <MediaCard :party="party" />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
 import { IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/vue';
 import { ref } from 'vue';
 import MediaCard from "@/components/MediaCard/MediaCard.vue";
-
 
 // TODO: Move to store and fill store on startup
 const parties = ref<Party[]>([]);
