@@ -3,5 +3,6 @@ interface Party {
   title: string,
   description: string,
   location: string,
-  imageUrl: string
+  datetime: string,
+  imageUrl?: string
 }
