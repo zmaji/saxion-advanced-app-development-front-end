@@ -1,6 +1,7 @@
 interface Party {
-    id: number,
-    title: string,
-    description: string,
-    location: string
+  id: number,
+  title: string,
+  description: string,
+  location: string,
+  imageUrl: string
 }

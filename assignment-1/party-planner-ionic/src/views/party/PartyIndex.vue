@@ -2,66 +2,58 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Blank</ion-title>
+        <ion-title>Party overview</ion-title>
       </ion-toolbar>
     </ion-header>
-
     <ion-content class="ion-padding">
-      <h1>All parties</h1>
+      <h1>All upcoming parties</h1>
+      <p>Explore the details, mark your calendars, and prepare for an epic journey through the latest and greatest parties
+        in town!</p>
 
-      <p>Here's a small text description for the content. Nothing more, nothing less.</p>
-
-      <ion-grid>
-        <ion-row>
-          <ion-col
-              v-for="party in parties"
-              :key="party.id"
-              class="ion-align-self-start">
-            <div>
-              <h4>{{ party.title }}</h4>
-              <p>{{ party.description }}</p>
-              <small>{{ party.location }}</small>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <!-- Iterate through parties and use MediaCard component for each party -->
+      <ion-item v-for="party in parties" :key="party.id">
+        <MediaCard :title="party.title" :description="party.description" :imageUrl="party.imageUrl"
+          :location="party.location" />
+      </ion-item>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-  import {IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/vue';
-  import {ref} from 'vue';
+import { IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { ref } from 'vue';
+import { defineComponent } from 'vue';
+import MediaCard from "@/components/MediaCard.vue";
 
+// TODO: Move to store and fill store on startup
+const parties = ref<Party[]>([]);
+const partyOne: Party = {
+  id: 1,
+  title: 'Party at Saxion',
+  description: 'description',
+  location: 'location 1',
+  imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
+};
 
-  // TODO: Move to store and fill store on startup
-  const parties = ref([]);
-  const partyOne: Party = {
-    id: 1,
-    title: 'Party at Saxion',
-    description: 'description',
-    location: 'location'
-  };
+const partyTwo: Party = {
+  id: 2,
+  title: 'Domino\'s',
+  description: 'description',
+  location: 'location 2',
+  imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
+};
 
-  const partyTwo: Party = {
-    id: 2,
-    title: 'Domino\'s',
-    description: 'description',
-    location: 'location'
-  };
+const partyThree: Party = {
+  id: 3,
+  title: 'Max his project X chess party',
+  description: 'description',
+  location: 'location 3',
+  imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
+};
 
-  const partyThree: Party =  {
-    id: 3,
-    title: 'Max his project X chess party',
-    description: 'description',
-    location: 'location'
-  };
-
-  parties.value.push(partyOne);
-  parties.value.push(partyTwo);
-  parties.value.push(partyThree);
+parties.value.push(partyOne);
+parties.value.push(partyTwo);
+parties.value.push(partyThree);
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
