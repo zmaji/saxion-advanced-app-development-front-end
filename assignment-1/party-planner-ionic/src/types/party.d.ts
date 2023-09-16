@@ -4,5 +4,4 @@ interface Party {
   description: string,
   location: string,
   datetime: string,
-  imageUrl?: string
 }

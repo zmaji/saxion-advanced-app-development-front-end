@@ -6,9 +6,10 @@
 
     <ion-content class="ion-padding">
       <ion-item>
+        <ion-label position="stacked" class="ion-padding-bottom">Name the party</ion-label>
+
         <ion-input
             v-model="newParty.title"
-            label="Name the party"
             label-placement="floating"
             type="text"
             placeholder="Party name"
@@ -16,9 +17,10 @@
       </ion-item>
 
       <ion-item>
+        <ion-label position="stacked" class="ion-padding-bottom">What's the party about?</ion-label>
+
         <ion-textarea
             v-model="newParty.description"
-            label="What's the party about?"
             label-placement="floating"
             placeholder="Party description"
             :auto-grow="true"
@@ -26,9 +28,10 @@
       </ion-item>
 
       <ion-item>
+        <ion-label position="stacked" class="ion-padding-bottom">Where is the party?</ion-label>
+
         <ion-input
             v-model="newParty.location"
-            label="Where is the party?"
             label-placement="floating"
             type="text"
             placeholder="Party location"
@@ -37,7 +40,8 @@
 
       <ion-item>
         <ion-label position="stacked" class="ion-padding-bottom">When is the party?</ion-label>
-        <ion-datetime-button v-model="newParty.datetime" label="When is the party?" datetime="datetime"/>
+
+        <ion-datetime v-model="newParty.datetime"/>
       </ion-item>
     </ion-content>
 
@@ -53,10 +57,6 @@
       </ion-toolbar>
     </ion-footer>
   </ion-modal>
-
-  <ion-modal :keep-contents-mounted="true">
-    <ion-datetime id="datetime"></ion-datetime>
-  </ion-modal>
 </template>
 
 <script setup lang="ts">
@@ -67,7 +67,6 @@
     IonButtons,
     IonButton,
     IonDatetime,
-    IonDatetimeButton,
     IonFooter,
     IonModal,
     IonHeader,
@@ -89,8 +88,7 @@
     title: null,
     description: null,
     location: null,
-    datetime: null,
-    imageUrl: null
+    datetime: null
   });
 
   const cancel = () => createPartyModal.value.$el.dismiss(null, 'cancel');
@@ -118,7 +116,6 @@
     newParty.description = '';
     newParty.location = '';
     newParty.datetime = null;
-    newParty.imageUrl = '';
   }
 
   const onWillDismiss = (event: CustomEvent<OverlayEventDetail>) => {
