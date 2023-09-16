@@ -41,36 +41,35 @@ const onModalClosed = () => {
   isOpen.value = false;
 };
 
-// TODO: Move to store and fill store on startup
-const parties = ref<Party[]>([]);
-const partyOne: Party = {
-  id: 1,
-  title: 'Party at Saxion',
-  description: 'description',
-  location: 'location 1',
-  imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
-};
+  // TODO: Move to store and fill store on startup
+  const parties = ref<Party[]>([]);
+  const partyOne: Party = {
+    id: 1,
+    title: 'Party at Saxion',
+    description: 'description',
+    location: 'location 1',
+    datetime: new Date().toISOString()
+  };
 
-const partyTwo: Party = {
-  id: 2,
-  title: 'Domino\'s',
-  description: 'description',
-  location: 'location 2',
-  imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
-};
+  const partyTwo: Party = {
+    id: 2,
+    title: 'Domino\'s',
+    description: 'description',
+    location: 'location 2',
+    datetime: new Date().toISOString()
+  };
 
-const partyThree: Party = {
-  id: 3,
-  title: 'Max his project X chess party',
-  description: 'description',
-  location: 'location 3',
-  imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
-};
+  const partyThree: Party = {
+    id: 3,
+    title: 'Max his project X chess party',
+    description: 'description',
+    location: 'location 3',
+    datetime: new Date().toISOString()
+  };
 
-parties.value.push(partyOne);
-parties.value.push(partyTwo);
-parties.value.push(partyThree);
-
+  parties.value.push(partyOne);
+  parties.value.push(partyTwo);
+  parties.value.push(partyThree);
 </script>
 
 <style scoped></style>
