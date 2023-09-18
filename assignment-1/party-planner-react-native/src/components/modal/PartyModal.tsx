@@ -24,15 +24,19 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closeModal })
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
+
           <Text style={styles.modalText}>
             {party.title}</Text>
-          <Text>{party.location}
-          </Text>
+
+          <Text>{party.location}</Text>
+
           <Text>{party.description}</Text>
+
           <TouchableOpacity
             style={styles.button}
             onPress={closeModal}
           >
+
             <Text style={styles.buttonText}>Close</Text>
           </TouchableOpacity>
         </View>

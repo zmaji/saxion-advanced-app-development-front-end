@@ -14,10 +14,12 @@ const MediaCard: React.FC<PartyProps> = ({ party }) => {
         <Text style={styles.title}>
           {party.title}
         </Text>
+
         <Text style={styles.location}>
           {party.location}
         </Text>
       </View>
+
       <View>
         <Text style={styles.description}>
           {party.description}
