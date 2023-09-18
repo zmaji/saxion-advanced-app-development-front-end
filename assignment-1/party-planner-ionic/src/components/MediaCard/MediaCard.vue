@@ -2,6 +2,7 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title>{{ party.title }}</ion-card-title>
+
       <ion-card-subtitle>{{ party.location }}</ion-card-subtitle>
     </ion-card-header>
 
@@ -12,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Party } from '@/types/party';
+import type { Party } from '@/types/Party';
 
 import {
   IonCard,

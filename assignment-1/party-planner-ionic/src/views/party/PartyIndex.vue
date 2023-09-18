@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-  import { Party } from "@/types/party";
+  import { Party } from "@/types/Party";
 
   import { onMounted, ref } from 'vue';
   import { CreatePartyModal, MediaCard, PartyModal } from "@/components";
@@ -51,7 +51,7 @@
     IonToolbar,
     IonTitle,
   } from "@ionic/vue";
-  import { addPartyToLocalstorage } from "@/model/Party";
+  import { addPartyToLocalstorage } from "@/helper/PartyHelper";
 
   const parties = ref<Party[]>([]);
   const selectedParty = ref<Party | null>(null);
@@ -65,7 +65,7 @@
   const onModalClosed = () => {
     isOpen.value = false;
   };
-  
+
   function fetchParties(): void {
     const partiesJSON = localStorage.getItem('parties');
     parties.value = partiesJSON ? JSON.parse(partiesJSON) : [];

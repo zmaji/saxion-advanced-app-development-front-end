@@ -65,9 +65,9 @@
 </template>
 
 <script setup lang="ts">
-  import type { Party } from '@/types/party';
+  import type { Party } from '@/types/Party';
 
-  import {reactive, ref} from 'vue';
+  import { reactive, ref } from 'vue';
   import {
     IonButtons,
     IonButton,
@@ -84,7 +84,7 @@
     IonLabel,
   } from '@ionic/vue';
   import { OverlayEventDetail } from '@ionic/core/components';
-  import { addPartyToLocalstorage } from "@/model/Party";
+  import { addPartyToLocalstorage } from "@/helper/PartyHelper";
 
   const emit = defineEmits<{(event: 'partyCreated', value: Party): void}>();
 
@@ -95,7 +95,7 @@
     title: '',
     description: '',
     location: '',
-    datetime: null
+    datetime: ''
   });
 
   const cancel = () => createPartyModal.value.$el.dismiss(null, 'cancel');
@@ -108,7 +108,7 @@
     newParty.title = '';
     newParty.description = '';
     newParty.location = '';
-    newParty.datetime = null;
+    newParty.datetime = '';
   }
 
   const onWillDismiss = (event: CustomEvent<OverlayEventDetail>) => {

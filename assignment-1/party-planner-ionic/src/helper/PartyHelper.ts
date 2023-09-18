@@ -1,4 +1,4 @@
-import type { Party } from '@/types/party';
+import type { Party } from '@/types/Party';
 
 export const addPartyToLocalstorage = (party: Party): void => {
     const existingPartiesJSON = localStorage.getItem('parties');

@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Party } from "@/types/party";
+import type { Party } from "@/types/Party";
 
 import {onMounted, ref} from "vue";
 
