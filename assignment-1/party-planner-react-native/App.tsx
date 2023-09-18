@@ -34,6 +34,7 @@ export default function App() {
 
     const closePartyModal = () => {
         setSelectedParty(null);
+    }
 
     const showCreatePartyModal = () => {
         setCreatePartyModalVisible(true);
