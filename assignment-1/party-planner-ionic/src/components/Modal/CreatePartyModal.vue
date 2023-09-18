@@ -95,7 +95,7 @@
     title: '',
     description: '',
     location: '',
-    datetime: ''
+    datetime: new Date().toISOString()
   });
 
   const cancel = () => createPartyModal.value.$el.dismiss(null, 'cancel');
@@ -108,7 +108,7 @@
     newParty.title = '';
     newParty.description = '';
     newParty.location = '';
-    newParty.datetime = '';
+    newParty.datetime = new Date().toISOString();
   }
 
   const onWillDismiss = (event: CustomEvent<OverlayEventDetail>) => {
