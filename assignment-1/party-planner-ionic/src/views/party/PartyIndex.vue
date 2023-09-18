@@ -5,10 +5,20 @@
         <ion-title>Party overview</ion-title>
       </ion-toolbar>
     </ion-header>
+
     <ion-content class="ion-padding">
-      <h1>All upcoming parties</h1>
-      <p>Explore the details, mark your calendars, and prepare for an epic journey through the latest and greatest parties
-        in town!</p>
+      <h1>
+        All upcoming parties
+      </h1>
+
+      <ion-button id="open-createPartyModal">
+        Add a party
+      </ion-button>
+
+      <p>
+        Explore the details, mark your calendars, and prepare for an epic journey through the latest and greatest parties
+        in town!
+      </p>
 
       <ion-grid>
         <ion-row>
@@ -19,58 +29,84 @@
       </ion-grid>
 
       <PartyModal :party="selectedParty" :is-open="isOpen" @modal-closed="onModalClosed" />
+      <CreatePartyModal @partyCreated="fetchParties" />
 
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { MediaCard } from "@/components";
-import { PartyModal } from "@/components";
+  import { Party } from "@/types/Party";
 
-const selectedParty = ref<Party | null>(null);
-const isOpen = ref(false);
+  import { onMounted, ref } from 'vue';
+  import { CreatePartyModal, MediaCard, PartyModal } from "@/components";
+  import {
+    IonButton,
+    IonCol,
+    IonContent,
+    IonGrid,
+    IonHeader,
+    IonPage,
+    IonRow,
+    IonToolbar,
+    IonTitle,
+  } from "@ionic/vue";
+  import { addPartyToLocalstorage } from "@/helper/PartyHelper";
 
-const openPartyModal = (party: Party) => {
-  isOpen.value = true;
-  selectedParty.value = party;
-};
+  const parties = ref<Party[]>([]);
+  const selectedParty = ref<Party | null>(null);
+  const isOpen = ref(false);
 
-const onModalClosed = () => {
-  isOpen.value = false;
-};
+  const openPartyModal = (party: Party) => {
+    isOpen.value = true;
+    selectedParty.value = party;
+  };
 
-// TODO: Move to store and fill store on startup
-const parties = ref<Party[]>([]);
-const partyOne: Party = {
-  id: 1,
-  title: 'Party at Saxion',
-  description: 'description',
-  location: 'location 1',
-  imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
-};
+  const onModalClosed = () => {
+    isOpen.value = false;
+  };
 
-const partyTwo: Party = {
-  id: 2,
-  title: 'Domino\'s',
-  description: 'description',
-  location: 'location 2',
-  imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
-};
+  function fetchParties(): void {
+    const partiesJSON = localStorage.getItem('parties');
+    parties.value = partiesJSON ? JSON.parse(partiesJSON) : [];
 
-const partyThree: Party = {
-  id: 3,
-  title: 'Max his project X chess party',
-  description: 'description',
-  location: 'location 3',
-  imageUrl: 'https://ionicframework.com/docs/img/demos/card-media.png'
-};
+    console.log('Fetching parties from LocalStorage');
+  }
 
-parties.value.push(partyOne);
-parties.value.push(partyTwo);
-parties.value.push(partyThree);
+  onMounted(() => {
+    //Temporary to leave clean entries within localstorage
+    localStorage.clear();
 
+    const partyOne: Party = {
+      id: 1,
+      title: 'Party at Saxion',
+      description: 'description',
+      location: 'location 1',
+      datetime: new Date().toISOString()
+    };
+
+    const partyTwo: Party = {
+      id: 2,
+      title: 'Domino\'s',
+      description: 'description',
+      location: 'location 2',
+      datetime: new Date().toISOString()
+    };
+
+    const partyThree: Party = {
+      id: 3,
+      title: 'Max his project X chess party',
+      description: 'description',
+      location: 'location 3',
+      datetime: new Date().toISOString()
+    };
+
+    addPartyToLocalstorage(partyOne);
+    addPartyToLocalstorage(partyTwo);
+    addPartyToLocalstorage(partyThree);
+
+    fetchParties();
+  });
 </script>
 
 <style scoped></style>

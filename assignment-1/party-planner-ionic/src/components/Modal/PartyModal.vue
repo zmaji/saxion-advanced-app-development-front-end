@@ -3,16 +3,19 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>{{ party.title }}</ion-title>
+
         <ion-buttons slot="end">
           <ion-button @click="closeModal">Close</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
+
     <ion-content>
       <ion-card>
         <ion-card-header>
           <ion-card-title>{{ party.location }}</ion-card-title>
         </ion-card-header>
+
         <ion-card-content>
           {{ party.description }}
         </ion-card-content>
@@ -22,9 +25,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Party } from '@/types/party';
-import { ref, defineProps, defineEmits } from 'vue';
+import type { Party } from '@/types/Party';
 
+import { ref, defineProps, defineEmits } from 'vue';
 import {
   IonModal,
   IonHeader,
@@ -46,7 +49,7 @@ interface Props {
 defineProps<Props>();
 
 const partyModal = ref();
-const emit = defineEmits();
+const emit = defineEmits(); //TODO: Define the specific event that will get emitted i.e. modal-closed
 
 const closeModal = () => {
   partyModal.value.$el.dismiss(null, 'cancel');
