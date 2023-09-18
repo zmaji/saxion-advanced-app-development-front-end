@@ -19,12 +19,14 @@
 </template>
 
 <script setup lang="ts">
+import type { Party } from "@/types/party";
+
 import {onMounted, ref} from "vue";
 
-//TODO: For store perhaps use Pinia
 import {IonButton, IonContent} from '@ionic/vue';
 import {CreatePartyModal, MediaCard} from '@/components';
 
+//TODO: Remove CreateParty page and route if model gets accepted
 const parties = ref<Party[]>([]);
 
   function fetchParties(): void {

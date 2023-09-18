@@ -1,7 +1,9 @@
 <template>
   <ion-modal ref="createPartyModal" trigger="open-createPartyModal" @willDismiss="onWillDismiss">
     <ion-header class="ion-padding">
-        <ion-title>Create a party</ion-title>
+        <ion-title>
+          Create a party
+        </ion-title>
     </ion-header>
 
     <ion-content class="ion-padding">
@@ -13,6 +15,7 @@
             label-placement="floating"
             type="text"
             placeholder="Party name"
+            aria-label="Party name input"
         />
       </ion-item>
 
@@ -23,6 +26,7 @@
             v-model="newParty.description"
             label-placement="floating"
             placeholder="Party description"
+            aria-label="Party description input"
             :auto-grow="true"
         />
       </ion-item>
@@ -35,6 +39,7 @@
             label-placement="floating"
             type="text"
             placeholder="Party location"
+            aria-label="Party location input"
         />
       </ion-item>
 
@@ -79,15 +84,17 @@
     IonLabel,
   } from '@ionic/vue';
   import { OverlayEventDetail } from '@ionic/core/components';
+  import { addPartyToLocalstorage } from "@/model/Party";
 
   const emit = defineEmits<{(event: 'partyCreated', value: Party): void}>();
 
   const createPartyModal = ref();
 
   const newParty: Party = reactive({
-    title: null,
-    description: null,
-    location: null,
+    id: 1,
+    title: '',
+    description: '',
+    location: '',
     datetime: null
   });
 
@@ -96,20 +103,6 @@
   const confirm = () => {
     createPartyModal.value.$el.dismiss(newParty, 'confirm');
   };
-
-  const addPartyToLocalstorage = (party: Party): void => {
-    const existingPartiesJSON = localStorage.getItem('parties');
-    const existingParties: Party[] = existingPartiesJSON
-        ? JSON.parse(existingPartiesJSON)
-        : [];
-
-    const maxId = existingParties.reduce((max, party) => (party.id || 0) > max ? (party.id || 0) : max, 0);
-    party.id = maxId + 1;
-
-    existingParties.push(party);
-
-    localStorage.setItem('parties', JSON.stringify(existingParties));
-  }
 
   const resetNewParty = (): void => {
     newParty.title = '';
