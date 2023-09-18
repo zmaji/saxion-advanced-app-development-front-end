@@ -2,6 +2,7 @@ import type { Party } from '../../types/Party';
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { isPartyPast } from "../../helpers/PartyHelper";
 
 interface PartyProps {
   party: Party;
@@ -9,19 +10,19 @@ interface PartyProps {
 
 const MediaCard: React.FC<PartyProps> = ({ party }) => {
   return (
-    <View style={styles.mediaCard}>
+      <View style={[styles.mediaCard, isPartyPast(party) ? styles.pastPartyMediaCard : null]}>
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>
+        <Text style={styles.titleText}>
           {party.title}
         </Text>
 
-        <Text style={styles.location}>
+        <Text style={styles.locationText}>
           {party.location}
         </Text>
       </View>
 
       <View>
-        <Text style={styles.description}>
+        <Text style={styles.descriptionText}>
           {party.description}
         </Text>
       </View>
@@ -33,6 +34,8 @@ const styles = StyleSheet.create({
   mediaCard: {
     backgroundColor: 'white',
     borderRadius: 5,
+    borderStartWidth: 5,
+    borderStartColor: '#2196F3',
     padding: 20,
     shadowColor: '#000',
     shadowOffset: {
@@ -43,18 +46,21 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 5,
   },
+  pastPartyMediaCard: {
+    borderStartColor: '#de0c1e'
+  },
   contentContainer: {
     marginBottom: 10,
   },
-  title: {
+  titleText: {
     fontSize: 18,
     fontWeight: 'bold',
   },
-  location: {
+  locationText: {
     fontSize: 14,
     color: '#888',
   },
-  description: {
+  descriptionText: {
     fontSize: 16,
   },
 });
