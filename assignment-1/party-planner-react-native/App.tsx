@@ -1,84 +1,100 @@
 import type { Party } from './src/types/Party';
-import { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity
-} from 'react-native';
 
+import React, { useState, useEffect } from 'react';
+import {
+    Button,
+    FlatList,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
+import { getPartiesFromStorage } from './src/helpers/PartyHelper';
+import CreatePartyModal from './src/components/modal/CreatePartyModal';
 import MediaCard from './src/components/MediaCard/MediaCard';
 import PartyModal from './src/components/modal/PartyModal';
 
-const partyOne: Party = {
-  id: 1,
-  title: 'Party at Saxion',
-  description: 'description',
-  location: 'location 1',
-  datetime: new Date().toISOString(),
-};
+export default function App() {
+    const [parties, setParties] = useState<Party[]>([]);
+    const [isCreatePartyModalVisible, setCreatePartyModalVisible] = useState(false);
+    const [selectedParty, setSelectedParty] = useState<Party | null>(null);
 
-const partyTwo: Party = {
-  id: 2,
-  title: "Domino's",
-  description: 'description',
-  location: 'location 2',
-  datetime: new Date().toISOString(),
-};
+    const fetchParties = async () => {
+        const storedParties = await getPartiesFromStorage();
+        setParties(storedParties);
+    };
 
-const partyThree: Party = {
-  id: 3,
-  title: 'Max his project X chess party',
-  description: 'description',
-  location: 'location 3',
-  datetime: new Date().toISOString(),
-};
+    useEffect(() => {
+         fetchParties();
+    }, []);
 
-const partyArray: Party[] = [partyOne, partyTwo, partyThree];
+    const openPartyModal = (party: Party) => {
+        setSelectedParty(party);
+    };
 
-const PartyOverview: React.FC<{ parties: Party[] }> = () => {
-  const [selectedParty, setSelectedParty] = useState<Party | null>(null);
+    const closePartyModal = () => {
+        setSelectedParty(null);
+    }
 
-  const openPartyModal = (party: Party) => {
-    setSelectedParty(party);
-  };
+    const showCreatePartyModal = () => {
+        setCreatePartyModalVisible(true);
+    };
 
-  const closeModal = () => {
-    setSelectedParty(null);
-  };
+    const hideCreatePartyModal = () => {
+        setCreatePartyModalVisible(false);
+    };
 
-  return (
-    <View style={styles.container}>
-      {/* TODO: FIX HEADER */}
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Party overview</Text>
-      </View>
+    const handlePartyCreation = () => {
+        hideCreatePartyModal();
+    };
 
-      <Text style={styles.subheader}>All upcoming parties</Text>
-
-      <Text style={styles.context}>
-        Explore the details, mark your calendars, and prepare for an epic journey through the latest and greatest parties in town!
-      </Text>
-
-      <FlatList
-        data={partyArray}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => openPartyModal(item)}>
-            <View style={styles.partyContainer}>
-              <MediaCard party={item} />
+    return (
+        <View style={styles.container}>
+            {/* TODO: FIX HEADER */}
+            <View style={styles.header}>
+                <Text style={styles.headerText}>Party overview</Text>
             </View>
-          </TouchableOpacity>
-        )}
-        keyExtractor={(party) => party.id.toString()}
-      />
 
-      {selectedParty && (
-        <PartyModal party={selectedParty} isVisible={true} closeModal={closeModal} />
-      )}
-    </View>
-  );
-};
+            <Text style={styles.subheader}>All upcoming parties</Text>
+
+            <Text style={styles.context}>
+                Explore the details, mark your calendars, and prepare for an epic journey through the latest and greatest parties in town!
+            </Text>
+
+            <Button title="Create Party" onPress={showCreatePartyModal} />
+
+            <FlatList
+                data={parties}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => openPartyModal(item)}>
+                        <View style={styles.partyContainer}>
+                            <MediaCard party={item} />
+                        </View>
+                    </TouchableOpacity>
+                )}
+                keyExtractor={(party) => party.id.toString()}
+            />
+
+            <Text>List of Parties:</Text>
+            {parties.map((party) => (
+                <View key={party.id}>
+                    <Text>{party.title}</Text>
+                </View>
+            ))}
+
+            {selectedParty && (
+                <PartyModal party={selectedParty} isVisible={true} closeModal={closePartyModal} />
+            )}
+
+            <CreatePartyModal
+                visible={isCreatePartyModalVisible}
+                onCancel={hideCreatePartyModal}
+                onConfirm={handlePartyCreation}
+                onPartySaved={fetchParties}
+            />
+        </View>
+    );
+}
 
 const styles = StyleSheet.create({
   centeredView: {
@@ -113,5 +129,3 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
-
-export default PartyOverview;

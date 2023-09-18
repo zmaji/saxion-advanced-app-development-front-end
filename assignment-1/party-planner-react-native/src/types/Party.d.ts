@@ -3,5 +3,6 @@ export interface Party {
   title: string,
   description: string,
   location: string,
-  datetime: string,
+  date: string,
+  time: string,
 }
