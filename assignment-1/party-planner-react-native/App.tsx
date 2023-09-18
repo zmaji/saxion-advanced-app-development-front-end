@@ -16,38 +16,38 @@ import MediaCard from './src/components/MediaCard/MediaCard';
 import PartyModal from './src/components/modal/PartyModal';
 
 export default function App() {
-    const [parties, setParties] = useState<Party[]>([]);
-    const [isCreatePartyModalVisible, setCreatePartyModalVisible] = useState(false);
-    const [selectedParty, setSelectedParty] = useState<Party | null>(null);
+  const [parties, setParties] = useState<Party[]>([]);
+  const [isCreatePartyModalVisible, setCreatePartyModalVisible] = useState(false);
+  const [selectedParty, setSelectedParty] = useState<Party | null>(null);
 
-    const fetchParties = async () => {
-        const storedParties = await getPartiesFromStorage();
-        setParties(storedParties);
-    };
+  const fetchParties = async () => {
+    const storedParties = await getPartiesFromStorage();
+    setParties(storedParties);
+  };
 
-    useEffect(() => {
-         fetchParties();
-    }, []);
+  useEffect(() => {
+    fetchParties();
+  }, []);
 
-    const openPartyModal = (party: Party) => {
-        setSelectedParty(party);
-    };
+  const openPartyModal = (party: Party) => {
+    setSelectedParty(party);
+  };
 
-    const closePartyModal = () => {
-        setSelectedParty(null);
-    }
+  const closePartyModal = () => {
+    setSelectedParty(null);
+  }
 
-    const showCreatePartyModal = () => {
-        setCreatePartyModalVisible(true);
-    };
+  const showCreatePartyModal = () => {
+    setCreatePartyModalVisible(true);
+  };
 
-    const hideCreatePartyModal = () => {
-        setCreatePartyModalVisible(false);
-    };
+  const hideCreatePartyModal = () => {
+    setCreatePartyModalVisible(false);
+  };
 
-    const handlePartyCreation = () => {
-        hideCreatePartyModal();
-    };
+  const handlePartyCreation = () => {
+    hideCreatePartyModal();
+  };
 
     return (
         <ScrollView>
@@ -86,7 +86,7 @@ export default function App() {
             </View>
 
             {selectedParty && (
-                <PartyModal party={selectedParty} isVisible={true} closeModal={closePartyModal} />
+                <PartyModal party={selectedParty} isVisible={true} closePartyModal={closePartyModal} />
             )}
 
             <CreatePartyModal

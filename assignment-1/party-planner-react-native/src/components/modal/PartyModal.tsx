@@ -1,8 +1,11 @@
 import type { Party } from '../../types/Party';
 
+import * as Contacts from 'expo-contacts';
+
 import {
   Modal,
-  Text,
+  Text, 
+  TouchableOpacity,
   View,
   StyleSheet,
   Pressable
@@ -13,16 +16,32 @@ import { isPartyPast } from "../../helpers/PartyHelper";
 interface PartyModalProps {
   party: Party;
   isVisible: boolean;
-  closeModal: () => void;
+  closePartyModal: () => void;
 }
 
-const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closeModal }) => {
+const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyModal }) => {
+  const openContactPicker = async () => {
+    const { status } = await Contacts.requestPermissionsAsync();
+    console.log('STATUS!')
+    console.log(status)
+    if (status === 'granted') {
+      const { data } = await Contacts.getContactsAsync({
+        fields: [Contacts.Fields.Name],
+      });
+
+      if (data.length > 0) {
+        const contact = data[0];
+        console.log(contact);
+      }
+    }
+  };
+
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={isVisible}
-      onRequestClose={closeModal}
+      onRequestClose={closePartyModal}
     >
       <View style={styles.modalView}>
         <View style={styles.header}>
@@ -39,18 +58,23 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closeModal })
           <Text style={styles.labelText}>Party description</Text>
           <Text style={styles.partyInfoText}>{party.description}</Text>
 
-
-
           <Text style={styles.labelText}>Date and time</Text>
           <Text style={[styles.partyInfoText, styles.noMargin, isPartyPast(party) ? styles.pastPartyText : styles.futurePartyText]}>
             {party.date} at {party.time}
           </Text>
+
+          <TouchableOpacity
+              style={[styles.button, styles.green]}
+              onPress={openContactPicker}
+          >
+              <Text style={styles.buttonTextStyle}>Add attendee</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.buttonContainer}>
           <Pressable
               style={[styles.button, styles.closeButton]}
-              onPress={closeModal}>
+              onPress={closePartyModal}>
             <Text style={styles.buttonTextStyle}>Close</Text>
           </Pressable>
         </View>
@@ -122,6 +146,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  }, 
+  green: {
+    backgroundColor: 'green',
+  },
+  blue: {
+    backgroundColor: '#2196F3',
   },
   noMargin: {
     marginBottom: 0,
