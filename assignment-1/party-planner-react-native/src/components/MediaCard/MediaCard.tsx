@@ -1,6 +1,7 @@
+import type { Party } from '../../types/Party';
+
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Party } from '../../types/Party';
 
 interface PartyProps {
   party: Party;
@@ -10,11 +11,17 @@ const MediaCard: React.FC<PartyProps> = ({ party }) => {
   return (
     <View style={styles.mediaCard}>
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>{party.title}</Text>
-        <Text style={styles.location}>{party.location}</Text>
+        <Text style={styles.title}>
+          {party.title}
+        </Text>
+        <Text style={styles.location}>
+          {party.location}
+        </Text>
       </View>
       <View>
-        <Text style={styles.description}>{party.description}</Text>
+        <Text style={styles.description}>
+          {party.description}
+        </Text>
       </View>
     </View>
   );

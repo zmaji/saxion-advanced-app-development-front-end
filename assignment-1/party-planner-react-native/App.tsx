@@ -1,3 +1,4 @@
+import type { Party } from './src/types/Party';
 import { useState } from 'react';
 import {
   StyleSheet,
@@ -7,7 +8,6 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import { Party } from './src/types/Party';
 import MediaCard from './src/components/MediaCard/MediaCard';
 import PartyModal from './src/components/modal/PartyModal';
 

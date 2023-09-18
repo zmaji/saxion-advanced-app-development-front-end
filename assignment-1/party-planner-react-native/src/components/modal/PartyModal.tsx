@@ -1,3 +1,5 @@
+import type { Party } from '../../types/Party';
+
 import {
   Modal,
   Text,
@@ -5,8 +7,6 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
-
-import { Party } from '../../types/Party';
 
 interface PartyModalProps {
   party: Party;
@@ -24,8 +24,10 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closeModal })
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>{party.title}</Text>
-          <Text>{party.location}</Text>
+          <Text style={styles.modalText}>
+            {party.title}</Text>
+          <Text>{party.location}
+          </Text>
           <Text>{party.description}</Text>
           <TouchableOpacity
             style={styles.button}
