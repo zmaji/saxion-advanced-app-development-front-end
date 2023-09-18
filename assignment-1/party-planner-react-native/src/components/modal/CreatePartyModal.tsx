@@ -130,6 +130,7 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
 
                 <TouchableOpacity style={styles.marginBottom} onPress={() => setShowDatePicker(true)}>
                     <Text>When is the party?</Text>
+
                     <Text>{newParty.date}</Text>
                 </TouchableOpacity>
 
@@ -144,6 +145,7 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
 
                 <TouchableOpacity onPress={() => setShowTimePicker(true)}>
                     <Text>What time is the party?</Text>
+
                     <Text>{newParty.time}</Text>
                 </TouchableOpacity>
 
