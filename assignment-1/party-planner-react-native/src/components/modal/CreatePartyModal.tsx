@@ -2,13 +2,13 @@ import type { Party } from '../../types/Party';
 
 import React, { useState } from 'react';
 import {
-    Modal,
-    Pressable,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { addPartyToLocalstorage } from '../../helpers/PartyHelper';
@@ -27,78 +27,80 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
                                                                onPartySaved,
                                                            }) => {
 
-    const formatDate = (date: Date): string => {
-        return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-    }
+  const formatDate = (date: Date): string => {
+    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  }
 
-    const formatTime = (date: Date): string => {
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
+  const formatTime = (date: Date): string => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
 
-        return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
-    }
+    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+  }
 
-    const [newParty, setNewParty] = useState<Party>({
-        id: 1,
-        title: '',
-        description: '',
-        location: '',
-        date: '',
-        time: '',
+  const [newParty, setNewParty] = useState<Party>({
+    id: 1,
+    title: '',
+    description: '',
+    location: '',
+    date: '',
+    time: '',
+    attendees: [],
+  });
+
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [selectedTime, setSelectedTime] = useState(new Date());
+
+  const resetNewParty = (): void => {
+    setNewParty({
+      id: 1,
+      title: '',
+      description: '',
+      location: '',
+      date: '',
+      time: '',
+      attendees: [],
     });
+  };
 
+  const onPartyConfirm = async () => {
+    onConfirm(newParty);
+    console.log(newParty);
+    await addPartyToLocalstorage(newParty);
+    resetNewParty();
 
-    const [showDatePicker, setShowDatePicker] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    if (onPartySaved) {
+      onPartySaved();
+    }
+  };
 
-    const [showTimePicker, setShowTimePicker] = useState(false);
-    const [selectedTime, setSelectedTime] = useState(new Date());
+  const handleDateChange = (event, selected) => {
+    setShowDatePicker(false);
 
-    const resetNewParty = (): void => {
-        setNewParty({
-            id: 1,
-            title: '',
-            description: '',
-            location: '',
-            date: '',
-            time: '',
-        });
-    };
+    if (selected) {
+      setSelectedDate(selected);
+      setNewParty({
+        ...newParty,
+        date: formatDate(selected),
+      });
+    }
+  };
 
-    const onPartyConfirm = async () => {
-        onConfirm(newParty);
-        console.log(newParty);
-        await addPartyToLocalstorage(newParty);
-        resetNewParty();
+  const handleTimeChange = (event, selected) => {
+    setShowTimePicker(false);
 
-        if (onPartySaved) {
-            onPartySaved();
-        }
-    };
-
-    const handleDateChange = (event, selected) => {
-        setShowDatePicker(false);
-
-        if (selected) {
-            setSelectedDate(selected);
-            setNewParty({
-                ...newParty,
-                date: formatDate(selected),
-            });
-        }
-    };
-
-    const handleTimeChange = (event, selected) => {
-        setShowTimePicker(false);
-
-        if (selected) {
-            setSelectedTime(selected);
-            setNewParty({
-                ...newParty,
-                time: formatTime(selected),
-            });
-        }
-    };
+    if (selected) {
+      setSelectedTime(selected);
+      setNewParty({
+        ...newParty,
+        time: formatTime(selected),
+      });
+    }
+  };
 
     return (
         <Modal animationType="slide" transparent={true} visible={visible}>

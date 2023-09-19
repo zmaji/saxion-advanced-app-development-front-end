@@ -1,4 +1,5 @@
 import type { Party } from '../../types/Party';
+import type { Person } from '../../types/Person';
 
 import * as Contacts from 'expo-contacts';
 import { useState } from 'react';
@@ -27,19 +28,24 @@ interface PartyModalProps {
 const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyModal }) => {
   const [contacts, setContacts] = useState<any[]>([]);
   const [selectedContacts, setSelectedContacts] = useState<any[]>([]);
+  const [partyWithAttendees, setPartyWithAttendees] = useState<Party>({
+    ...party,
+    attendees: [],
+  });
 
   const openContactPicker = async () => {
     const { status } = await Contacts.requestPermissionsAsync();
     if (status === 'granted') {
       const { data } = await Contacts.getContactsAsync({
-        fields: [Contacts.Fields.Name],
+        fields: [Contacts.Fields.Name, Contacts.Fields.FirstName, Contacts.Fields.PhoneNumbers],
       });
 
       if (data.length > 0) {
-        setContacts(data);
+        const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
+        setContacts(sortedData);
       }
     } else {
-      //TODO: Handle denied or restricted permission
+      // TODO: Handle denied or restricted permission
     }
   };
 
@@ -49,6 +55,22 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
     } else {
       setSelectedContacts([...selectedContacts, contact]);
     }
+    console.log('Selected contacts');
+    console.log(selectedContacts);
+  };
+
+  const addSelectedContactsToParty = () => {
+    const attendees: Person[] = selectedContacts.map((contact) => {
+      return {
+        id: contact.id,
+        name: contact.name,
+        phoneNumber: contact.phoneNumber || '',
+      };
+    });
+
+    const updatedParty = { ...partyWithAttendees, attendees: [...partyWithAttendees.attendees, ...attendees] };
+    setPartyWithAttendees(updatedParty);
+    setSelectedContacts([]);
   };
 
   const renderItem = ({ item }: { item: any }) => (
@@ -91,6 +113,22 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
             {party.date} at {party.time}
           </Text>
 
+            {selectedContacts.length > 0 ? (
+                <TouchableOpacity
+                    style={[styles.button, styles.green]}
+                    onPress={addSelectedContactsToParty}
+                >
+                    <Text style={styles.buttonTextStyle}>Add Selected Contacts</Text>
+                </TouchableOpacity>
+            ) : (
+                <TouchableOpacity
+                    style={[styles.button, styles.green]}
+                    onPress={openContactPicker}
+                >
+                    <Text style={styles.buttonTextStyle}>Add Attendee</Text>
+                </TouchableOpacity>
+            )}
+
           <TouchableOpacity
               style={[styles.button, styles.green]}
               onPress={openContactPicker}
@@ -107,6 +145,25 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
                     />
                 </SafeAreaView>
             )}
+
+            {contacts.length > 0 && (
+                <FlatList
+                    data={contacts}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                />
+            )}
+
+            <View>
+                <Text>Attendees:</Text>
+                {partyWithAttendees.attendees ? (
+                    partyWithAttendees.attendees.map((attendee) => (
+                        <Text key={attendee.id}>{attendee.name}</Text>
+                    ))
+                ) : (
+                    <Text>No attendees yet.</Text>
+                )}
+            </View>
         </View>
 
         <View style={styles.buttonContainer}>
