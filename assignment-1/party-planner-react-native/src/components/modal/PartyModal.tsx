@@ -1,6 +1,8 @@
 import type { Party } from '../../types/Party';
 
 import * as Contacts from 'expo-contacts';
+import { useState } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 
 import {
   Modal,
@@ -8,7 +10,9 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
-  Pressable
+  Pressable,
+  SafeAreaView,
+  FlatList
 } from 'react-native';
 import React from "react";
 import { isPartyPast } from "../../helpers/PartyHelper";
@@ -20,21 +24,44 @@ interface PartyModalProps {
 }
 
 const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyModal }) => {
+  const [contacts, setContacts] = useState<any[]>([]);
+  const [selectedContacts, setSelectedContacts] = useState<any[]>([]);
+
   const openContactPicker = async () => {
     const { status } = await Contacts.requestPermissionsAsync();
-    console.log('STATUS!')
-    console.log(status)
     if (status === 'granted') {
       const { data } = await Contacts.getContactsAsync({
         fields: [Contacts.Fields.Name],
       });
 
       if (data.length > 0) {
-        const contact = data[0];
-        console.log(contact);
+        setContacts(data);
       }
+    } else {
+      //TODO: Handle denied or restricted permission
     }
   };
+
+  const toggleContactSelection = (contact: any) => {
+    if (selectedContacts.includes(contact)) {
+      setSelectedContacts(selectedContacts.filter((c) => c !== contact));
+    } else {
+      setSelectedContacts([...selectedContacts, contact]);
+    }
+  };
+
+  const renderItem = ({ item }: { item: any }) => (
+    <View style={styles.contactItem}>
+      <TouchableOpacity onPress={() => toggleContactSelection(item)} style={styles.checkboxButton}>
+        {selectedContacts.includes(item) ? (
+          <FontAwesome name="check-square-o" size={24} color="green" />
+        ) : (
+          <FontAwesome name="square-o" size={24} color="gray" />
+        )}
+      </TouchableOpacity>
+      <Text>{item.name}</Text>
+    </View>
+  );
 
   return (
     <Modal
@@ -69,6 +96,16 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
           >
               <Text style={styles.buttonTextStyle}>Add attendee</Text>
           </TouchableOpacity>
+
+            {contacts.length > 0 && (
+                <SafeAreaView style={styles.contactPicker}>
+                    <FlatList
+                        data={contacts}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id}
+                    />
+                </SafeAreaView>
+            )}
         </View>
 
         <View style={styles.buttonContainer}>
@@ -158,6 +195,20 @@ const styles = StyleSheet.create({
     marginStart: 0,
     marginEnd: 0,
     marginTop: 0
+  },
+  contactPicker: {
+    marginTop: 20,
+    flex: 1,
+  },
+  contactItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  checkboxButton: {
+    marginRight: 16
   },
 });
 
