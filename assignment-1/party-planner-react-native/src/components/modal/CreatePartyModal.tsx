@@ -12,20 +12,21 @@ import {
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { addPartyToLocalstorage } from '../../helpers/PartyHelper';
+import * as Calendar from 'expo-calendar';
 
 type CreatePartyModalProps = {
-    visible: boolean;
-    onCancel: () => void;
-    onConfirm: (party: Party) => void;
-    onPartySaved: () => void;
+  visible: boolean;
+  onCancel: () => void;
+  onConfirm: (party: Party) => void;
+  onPartySaved: () => void;
 };
 
 const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
-                                                               visible,
-                                                               onCancel,
-                                                               onConfirm,
-                                                               onPartySaved,
-                                                           }) => {
+  visible,
+  onCancel,
+  onConfirm,
+  onPartySaved,
+}) => {
 
   const formatDate = (date: Date): string => {
     return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
@@ -48,6 +49,61 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
     attendees: [],
   });
 
+  const addToCalendar = async () => {
+    const calendarPermission = await Calendar.requestCalendarPermissionsAsync();
+    const remindersPermission = await Calendar.requestRemindersPermissionsAsync();
+
+    if (
+      calendarPermission.status === 'granted' &&
+      remindersPermission.status === 'granted'
+    ) {
+      const calendars = await Calendar.getCalendarsAsync();
+      console.log('All your users calendars:')
+      console.log(calendars)
+      const defaultCalendar = await Calendar.getDefaultCalendarAsync();
+
+      if (defaultCalendar) {
+        //TODO: Clean up, simplify or put in function
+        const date = newParty.date;
+        const dateComponents = date.split('-')
+        console.log('dateComponents')
+        console.log(dateComponents)
+        const day = parseInt(dateComponents[0]);
+        const month = parseInt(dateComponents[1])
+        const year = parseInt(dateComponents[2]);
+        const formattedDate = year + '-' + month + '-' + day
+
+        console.log('formattedDate')
+        console.log(formattedDate + 'T' + newParty.time)
+
+        const eventDetails = {
+          title: newParty.title,
+          startDate: new Date(formattedDate + 'T' + newParty.time),
+          endDate: new Date(formattedDate + 'T' + newParty.time),
+          timeZone: 'UTC',
+          location: newParty.location,
+        };
+
+        console.log('Event details:')
+        console.log(eventDetails)
+
+        //TODO: Add a message that says event has been added to your calendar
+        try {
+          const eventId = await Calendar.createEventAsync(
+            defaultCalendar.id,
+            eventDetails
+          );
+          console.log('Event added to calendar with ID:', eventId);
+        } catch (error) {
+          console.error('Error adding event to calendar:', error);
+        }
+      } else {
+        console.warn('No default calendar found.');
+      }
+    } else {
+      console.warn('Calendar or reminders permission denied.');
+    }
+  };
 
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -76,6 +132,8 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
     if (onPartySaved) {
       onPartySaved();
     }
+
+    await addToCalendar();
   };
 
   const handleDateChange = (event, selected) => {
@@ -102,158 +160,158 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
     }
   };
 
-    return (
-        <Modal animationType="slide" transparent={true} visible={visible}>
-            <View style={styles.modalView}>
-                <View style={styles.header}>
-                    <Text style={styles.headerText}>Create a party</Text>
-                </View>
+  return (
+    <Modal animationType="slide" transparent={true} visible={visible}>
+      <View style={styles.modalView}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Create a party</Text>
+        </View>
 
-                <View style={styles.modalContainer}>
-                    <Text style={styles.inputLabel}>Name the party</Text>
-                    <TextInput
-                        style={styles.inputField}
-                        placeholder="Party name"
-                        value={newParty.title}
-                        onChangeText={(text) => setNewParty({ ...newParty, title: text })}
-                    />
+        <View style={styles.modalContainer}>
+          <Text style={styles.inputLabel}>Name the party</Text>
+          <TextInput
+            style={styles.inputField}
+            placeholder="Party name"
+            value={newParty.title}
+            onChangeText={(text) => setNewParty({ ...newParty, title: text })}
+          />
 
-                    <Text>What's the party about?</Text>
-                    <TextInput
-                        style={styles.inputField}
-                        placeholder="Party description"
-                        multiline={true}
-                        value={newParty.description}
-                        onChangeText={(text) =>
-                            setNewParty({ ...newParty, description: text })
-                        }
-                    />
+          <Text>What's the party about?</Text>
+          <TextInput
+            style={styles.inputField}
+            placeholder="Party description"
+            multiline={true}
+            value={newParty.description}
+            onChangeText={(text) =>
+              setNewParty({ ...newParty, description: text })
+            }
+          />
 
-                    <Text>Where is the party?</Text>
-                    <TextInput
-                        style={styles.inputField}
-                        placeholder="Party location"
-                        value={newParty.location}
-                        onChangeText={(text) => setNewParty({ ...newParty, location: text })}
-                    />
+          <Text>Where is the party?</Text>
+          <TextInput
+            style={styles.inputField}
+            placeholder="Party location"
+            value={newParty.location}
+            onChangeText={(text) => setNewParty({ ...newParty, location: text })}
+          />
 
-                    <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-                        <Text style={styles.inputLabel}>When is the party?</Text>
+          <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+            <Text style={styles.inputLabel}>When is the party?</Text>
 
-                        <Text style={styles.inputField}>{newParty.date ? newParty.date : 'Select a date'}</Text>
-                    </TouchableOpacity>
+            <Text style={styles.inputField}>{newParty.date ? newParty.date : 'Select a date'}</Text>
+          </TouchableOpacity>
 
-                    {showDatePicker && (
-                        <DateTimePicker
-                            mode="date"
-                            value={selectedDate}
-                            display="default"
-                            onChange={handleDateChange}
-                        />
-                    )}
+          {showDatePicker && (
+            <DateTimePicker
+              mode="date"
+              value={selectedDate}
+              display="default"
+              onChange={handleDateChange}
+            />
+          )}
 
-                    <TouchableOpacity onPress={() => setShowTimePicker(true)}>
-                        <Text style={styles.inputLabel}>What time is the party?</Text>
+          <TouchableOpacity onPress={() => setShowTimePicker(true)}>
+            <Text style={styles.inputLabel}>What time is the party?</Text>
 
-                        <Text style={[styles.inputField, styles.noMargin]}>{newParty.time ? newParty.time : 'Select the time'}</Text>
-                    </TouchableOpacity>
+            <Text style={[styles.inputField, styles.noMargin]}>{newParty.time ? newParty.time : 'Select the time'}</Text>
+          </TouchableOpacity>
 
-                    {showTimePicker && (
-                        <DateTimePicker
-                            mode="time"
-                            value={selectedTime}
-                            is24Hour={true}
-                            display="default"
-                            onChange={handleTimeChange}
-                        />
-                    )}
-                </View>
+          {showTimePicker && (
+            <DateTimePicker
+              mode="time"
+              value={selectedTime}
+              is24Hour={true}
+              display="default"
+              onChange={handleTimeChange}
+            />
+          )}
+        </View>
 
-                <View style={styles.buttonContainer}>
-                    <Pressable
-                        style={[styles.button, styles.cancelButton]}
-                        onPress={onCancel}>
-                        <Text style={styles.buttonTextStyle}>Cancel</Text>
-                    </Pressable>
+        <View style={styles.buttonContainer}>
+          <Pressable
+            style={[styles.button, styles.cancelButton]}
+            onPress={onCancel}>
+            <Text style={styles.buttonTextStyle}>Cancel</Text>
+          </Pressable>
 
-                    <Pressable
-                        style={[styles.button, styles.submitButton]}
-                        onPress={onPartyConfirm}>
-                        <Text style={styles.buttonTextStyle}>Submit</Text>
-                    </Pressable>
-                </View>
-            </View>
-        </Modal>
-    );
+          <Pressable
+            style={[styles.button, styles.submitButton]}
+            onPress={onPartyConfirm}>
+            <Text style={styles.buttonTextStyle}>Submit</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+  );
 };
 
 const styles = StyleSheet.create({
-    header: {
-        backgroundColor: 'ghostwhite',
-        padding: 20,
-        borderTopStartRadius: 10,
-        borderTopEndRadius: 10
+  header: {
+    backgroundColor: 'ghostwhite',
+    padding: 20,
+    borderTopStartRadius: 10,
+    borderTopEndRadius: 10
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    headerText: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    modalContainer: {
-        padding: 35,
-    },
-    inputLabel: {
-      color: '#444',
-      fontSize: 12
-    },
-    inputField: {
-        fontSize: 16,
-        marginBottom: 25
-    },
-    buttonContainer: {
-        backgroundColor: 'ghostwhite',
-        padding: 35,
-        paddingVertical: 20,
-        borderBottomStartRadius: 10,
-        borderBottomEndRadius: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    button: {
-        borderRadius: 5,
-        padding: 10,
-        elevation: 2,
-    },
-    cancelButton: {
-        backgroundColor: '#999',
-    },
-    submitButton: {
-        backgroundColor: '#2196F3',
-    },
-    buttonTextStyle: {
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    noMargin: {
-        marginBottom: 0,
-        marginStart: 0,
-        marginEnd: 0,
-        marginTop: 0
-    }
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalContainer: {
+    padding: 35,
+  },
+  inputLabel: {
+    color: '#444',
+    fontSize: 12
+  },
+  inputField: {
+    fontSize: 16,
+    marginBottom: 25
+  },
+  buttonContainer: {
+    backgroundColor: 'ghostwhite',
+    padding: 35,
+    paddingVertical: 20,
+    borderBottomStartRadius: 10,
+    borderBottomEndRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  button: {
+    borderRadius: 5,
+    padding: 10,
+    elevation: 2,
+  },
+  cancelButton: {
+    backgroundColor: '#999',
+  },
+  submitButton: {
+    backgroundColor: '#2196F3',
+  },
+  buttonTextStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  noMargin: {
+    marginBottom: 0,
+    marginStart: 0,
+    marginEnd: 0,
+    marginTop: 0
+  }
 });
 
 export default CreatePartyModal;
