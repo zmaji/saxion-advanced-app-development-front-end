@@ -103,61 +103,69 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
     return (
         <Modal animationType="slide" transparent={true} visible={visible}>
             <View style={styles.modalView}>
-                <Text>Create a party</Text>
+                <View style={styles.header}>
+                    <Text style={styles.headerText}>Create a party</Text>
+                </View>
 
-                <TextInput
-                    placeholder="Name the party"
-                    value={newParty.title}
-                    onChangeText={(text) => setNewParty({ ...newParty, title: text })}
-                />
-
-                <TextInput
-                    placeholder="What's the party about?"
-                    multiline={true}
-                    numberOfLines={4}
-                    value={newParty.description}
-                    onChangeText={(text) =>
-                        setNewParty({ ...newParty, description: text })
-                    }
-                />
-
-                <TextInput
-                    style={styles.marginBottom}
-                    placeholder="Where is the party?"
-                    value={newParty.location}
-                    onChangeText={(text) => setNewParty({ ...newParty, location: text })}
-                />
-
-                <TouchableOpacity style={styles.marginBottom} onPress={() => setShowDatePicker(true)}>
-                    <Text>When is the party?</Text>
-
-                    <Text>{newParty.date}</Text>
-                </TouchableOpacity>
-
-                {showDatePicker && (
-                    <DateTimePicker
-                        mode="date"
-                        value={selectedDate}
-                        display="default"
-                        onChange={handleDateChange}
+                <View style={styles.modalContainer}>
+                    <Text style={styles.inputLabel}>Name the party</Text>
+                    <TextInput
+                        style={styles.inputField}
+                        placeholder="Party name"
+                        value={newParty.title}
+                        onChangeText={(text) => setNewParty({ ...newParty, title: text })}
                     />
-                )}
 
-                <TouchableOpacity onPress={() => setShowTimePicker(true)}>
-                    <Text>What time is the party?</Text>
-
-                    <Text>{newParty.time}</Text>
-                </TouchableOpacity>
-
-                {showTimePicker && (
-                    <DateTimePicker
-                        mode="time"
-                        value={selectedTime}
-                        is24Hour={true}
-                        display="default"
-                        onChange={handleTimeChange}
+                    <Text>What's the party about?</Text>
+                    <TextInput
+                        style={styles.inputField}
+                        placeholder="Party description"
+                        multiline={true}
+                        value={newParty.description}
+                        onChangeText={(text) =>
+                            setNewParty({ ...newParty, description: text })
+                        }
                     />
-                )}
+
+                    <Text>Where is the party?</Text>
+                    <TextInput
+                        style={styles.inputField}
+                        placeholder="Party location"
+                        value={newParty.location}
+                        onChangeText={(text) => setNewParty({ ...newParty, location: text })}
+                    />
+
+                    <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+                        <Text style={styles.inputLabel}>When is the party?</Text>
+
+                        <Text style={styles.inputField}>{newParty.date ? newParty.date : 'Select a date'}</Text>
+                    </TouchableOpacity>
+
+                    {showDatePicker && (
+                        <DateTimePicker
+                            mode="date"
+                            value={selectedDate}
+                            display="default"
+                            onChange={handleDateChange}
+                        />
+                    )}
+
+                    <TouchableOpacity onPress={() => setShowTimePicker(true)}>
+                        <Text style={styles.inputLabel}>What time is the party?</Text>
+
+                        <Text style={[styles.inputField, styles.noMargin]}>{newParty.time ? newParty.time : 'Select the time'}</Text>
+                    </TouchableOpacity>
+
+                    {showTimePicker && (
+                        <DateTimePicker
+                            mode="time"
+                            value={selectedTime}
+                            is24Hour={true}
+                            display="default"
+                            onChange={handleTimeChange}
+                        />
+                    )}
+                </View>
 
                 <View style={styles.buttonContainer}>
                     <Pressable
@@ -178,11 +186,21 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
 };
 
 const styles = StyleSheet.create({
+    header: {
+        backgroundColor: 'ghostwhite',
+        padding: 20,
+        borderTopStartRadius: 10,
+        borderTopEndRadius: 10
+    },
+    headerText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
     modalView: {
         margin: 20,
         backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 35,
+        borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -192,8 +210,23 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
     },
+    modalContainer: {
+        padding: 35,
+    },
+    inputLabel: {
+      color: '#444',
+      fontSize: 12
+    },
+    inputField: {
+        fontSize: 16,
+        marginBottom: 25
+    },
     buttonContainer: {
-        paddingTop: 20,
+        backgroundColor: 'ghostwhite',
+        padding: 35,
+        paddingVertical: 20,
+        borderBottomStartRadius: 10,
+        borderBottomEndRadius: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
@@ -213,13 +246,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
-    marginBottom: {
-      marginBottom: 25
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: 'center',
-    },
+    noMargin: {
+        marginBottom: 0,
+        marginStart: 0,
+        marginEnd: 0,
+        marginTop: 0
+    }
 });
 
 export default CreatePartyModal;

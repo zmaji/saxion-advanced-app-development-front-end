@@ -30,3 +30,13 @@ export const addPartyToLocalstorage = async (party: Party): Promise<void> => {
         console.error('Error adding party to AsyncStorage:', error);
     }
 };
+
+export const isPartyPast = (party: Party): boolean => {
+    const dateParts = party.date.split('-');
+    const timeParts = party.time.split(':');
+    const isoDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}T${timeParts[0]}:${timeParts[1]}:00.000Z`;
+
+    const partyDate = new Date(isoDate);
+    const currentDate = new Date();
+    return partyDate < currentDate;
+}

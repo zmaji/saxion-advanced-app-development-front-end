@@ -2,12 +2,13 @@ import type { Party } from './src/types/Party';
 
 import React, { useState, useEffect } from 'react';
 import {
-    Button,
-    FlatList,
+    StatusBar,
+    Pressable,
     StyleSheet,
     Text,
     TouchableOpacity,
-    View
+    View,
+    ScrollView
 } from 'react-native';
 import { getPartiesFromStorage } from './src/helpers/PartyHelper';
 import CreatePartyModal from './src/components/modal/CreatePartyModal';
@@ -49,38 +50,40 @@ export default function App() {
     };
 
     return (
-        <View style={styles.container}>
-            {/* TODO: FIX HEADER */}
-            <View style={styles.header}>
-                <Text style={styles.headerText}>Party overview</Text>
+        <ScrollView>
+            <View>
+                <View style={styles.header}>
+                    <Text style={styles.headerText}>Party overview</Text>
+                </View>
+
+                <View  style={styles.container}>
+                    <Text style={styles.subheader}>All upcoming parties</Text>
+
+                    <Text style={styles.descriptionText}>
+                        Explore the details, mark your calendars, and prepare for an epic journey through the latest and greatest parties in town!
+                    </Text>
+
+                    <View style={styles.buttonContainer}>
+                        <Pressable
+                            style={styles.createButton}
+                            onPress={showCreatePartyModal}>
+                            <Text style={styles.buttonText}>Create Party</Text>
+                        </Pressable>
+                    </View>
+                </View>
             </View>
 
-            <Text style={styles.subheader}>All upcoming parties</Text>
-
-            <Text style={styles.context}>
-                Explore the details, mark your calendars, and prepare for an epic journey through the latest and greatest parties in town!
-            </Text>
-
-            <Button title="Create Party" onPress={showCreatePartyModal} />
-
-            <FlatList
-                data={parties}
-                renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => openPartyModal(item)}>
-                        <View style={styles.partyContainer}>
-                            <MediaCard party={item} />
-                        </View>
-                    </TouchableOpacity>
-                )}
-                keyExtractor={(party) => party.id.toString()}
-            />
-
-            <Text>List of Parties:</Text>
-            {parties.map((party) => (
-                <View key={party.id}>
-                    <Text>{party.title}</Text>
-                </View>
-            ))}
+            <View style={styles.partyContainer}>
+                {parties.map((party) => (
+                    <View style={styles.partyItem} key={party.id}>
+                        <TouchableOpacity onPress={() => openPartyModal(party)}>
+                            <View>
+                                <MediaCard party={party} />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                ))}
+            </View>
 
             {selectedParty && (
                 <PartyModal party={selectedParty} isVisible={true} closeModal={closePartyModal} />
@@ -92,40 +95,49 @@ export default function App() {
                 onConfirm={handlePartyCreation}
                 onPartySaved={fetchParties}
             />
-        </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center'
-  },
-  //TODO FIX HEADER
-  header: {
-    backgroundColor: 'ghostwhite',
-    padding: 10,
-    textAlign: 'center'
-  },
-  //TODO FIX HEADER
-  headerText: {
-    fontSize: 24,
-    fontWeight: 'bold'
-  },
-  subheader: {
-    fontSize: 25,
-    margin: 10
-  },
-  context: {
-    margin: 25
-  },
-  partyContainer: {
-    padding: 10,
-  },
+    container: {
+        padding: 20,
+    },
+    header: {
+        backgroundColor: 'ghostwhite',
+        padding: 20,
+        marginTop: StatusBar.currentHeight || 0,
+    },
+    headerText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    subheader: {
+        fontSize: 25,
+        marginBottom: 10
+    },
+    descriptionText: {
+        marginBottom: 10
+    },
+    buttonContainer: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    createButton: {
+        borderRadius: 5,
+        padding: 10,
+        backgroundColor: '#2196F3'
+    },
+    buttonText: {
+        color: 'white'
+    },
+    partyContainer: {
+        backgroundColor: 'ghostwhite',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+    },
+    partyItem: {
+        paddingVertical: 10
+    },
 });
