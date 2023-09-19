@@ -3,6 +3,7 @@ import type { Party } from '../../types/Party';
 import * as Contacts from 'expo-contacts';
 import { useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
+import { addPersonToLocalstorage } from '../../helpers/PersonHelper';
 
 import {
   Modal,
