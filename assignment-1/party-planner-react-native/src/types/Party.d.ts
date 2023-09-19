@@ -5,4 +5,5 @@ export interface Party {
   location: string,
   date: string,
   time: string,
+  attendees: Person[]
 }

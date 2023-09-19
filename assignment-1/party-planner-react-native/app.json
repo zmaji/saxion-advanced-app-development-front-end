@@ -1,5 +1,13 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-contacts",
+        {
+          "contactsPermission": "Allow $(party-planner-react-native) to access your contacts."
+        }
+      ]
+    ],
     "name": "party-planner-react-native",
     "slug": "party-planner-react-native",
     "version": "1.0.0",

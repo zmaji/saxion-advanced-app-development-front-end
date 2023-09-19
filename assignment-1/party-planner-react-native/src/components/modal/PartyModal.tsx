@@ -1,11 +1,18 @@
 import type { Party } from '../../types/Party';
+import type { Person } from '../../types/Person';
+
+import * as Contacts from 'expo-contacts';
+import { useState } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 
 import {
   Modal,
   Text,
+  TouchableOpacity,
   View,
   StyleSheet,
-  Pressable
+  Pressable,
+  ScrollView, Linking
 } from 'react-native';
 import React from "react";
 import { isPartyPast } from "../../helpers/PartyHelper";
@@ -13,49 +20,159 @@ import { isPartyPast } from "../../helpers/PartyHelper";
 interface PartyModalProps {
   party: Party;
   isVisible: boolean;
-  closeModal: () => void;
+  closePartyModal: () => void;
 }
 
-const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closeModal }) => {
+const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyModal }) => {
+  const [contacts, setContacts] = useState<any[]>([]);
+  const [selectedContacts, setSelectedContacts] = useState<any[]>([]);
+  const [partyWithAttendees, setPartyWithAttendees] = useState<Party>({
+    ...party,
+    attendees: [],
+  });
+
+  const openContactPicker = async () => {
+    const { status } = await Contacts.requestPermissionsAsync();
+    if (status === 'granted') {
+      const { data } = await Contacts.getContactsAsync({
+        fields: [Contacts.Fields.Name, Contacts.Fields.FirstName, Contacts.Fields.PhoneNumbers, Contacts.Fields.Emails],
+      });
+
+      if (data.length > 0) {
+        const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
+        setContacts(sortedData);
+      }
+    } else {
+      // TODO: Handle denied or restricted permission
+    }
+  };
+
+  const toggleContactSelection = (contact: any) => {
+    if (selectedContacts.includes(contact)) {
+      setSelectedContacts(selectedContacts.filter((c) => c !== contact));
+    } else {
+      setSelectedContacts([...selectedContacts, contact]);
+    }
+    console.log('Selected contacts');
+    console.log(selectedContacts);
+  };
+
+  const addSelectedContactsToParty = () => {
+    const attendees: Person[] = selectedContacts.map((contact) => {
+      return {
+        id: contact.id,
+        name: contact.name,
+        phoneNumber: contact.phoneNumber || '',
+        email: contact.emails && contact.emails.length > 0 ? contact.emails[0] : '',
+      };
+    });
+
+    const updatedParty = { ...partyWithAttendees, attendees: [...partyWithAttendees.attendees, ...attendees] };
+    setPartyWithAttendees(updatedParty);
+    setSelectedContacts([]);
+  };
+
+  function sendEmail(email: any) {
+    const recipientEmail = email.email;
+    const subject = "Party invitation";
+    const message = "You're invited to my party!";
+
+    const mailtoURL = `mailto:${recipientEmail}?subject=${encodeURIComponent(
+        subject
+    )}&body=${encodeURIComponent(message)}`;
+
+    console.log("mailtoURL");
+    console.log(mailtoURL);
+    Linking.openURL(mailtoURL);
+  }
+
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={isVisible}
-      onRequestClose={closeModal}
-    >
-      <View style={styles.modalView}>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Party details</Text>
-        </View>
+      <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isVisible}
+          onRequestClose={closePartyModal}
+      >
+        <ScrollView style={styles.modalView}>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Party details</Text>
+          </View>
 
-        <View style={styles.modalContainer}>
-          <Text style={styles.labelText}>Party name</Text>
-          <Text style={styles.partyInfoText}>{party.title}</Text>
+          <View style={styles.modalContainer}>
+            <Text style={styles.labelText}>Party name</Text>
+            <Text style={styles.partyInfoText}>{party.title}</Text>
 
-          <Text style={styles.labelText}>Party location</Text>
-          <Text style={styles.partyInfoText}>{party.location}</Text>
+            <Text style={styles.labelText}>Party location</Text>
+            <Text style={styles.partyInfoText}>{party.location}</Text>
 
-          <Text style={styles.labelText}>Party description</Text>
-          <Text style={styles.partyInfoText}>{party.description}</Text>
+            <Text style={styles.labelText}>Party description</Text>
+            <Text style={styles.partyInfoText}>{party.description}</Text>
+
+            <Text style={styles.labelText}>Date and time</Text>
+            <Text style={[styles.partyInfoText, isPartyPast(party) ? styles.pastPartyText : styles.futurePartyText]}>
+              {party.date} at {party.time}
+            </Text>
+
+            <View>
+              <Text>Attendees:</Text>
+              
+              {partyWithAttendees.attendees.length > 0 ? (
+                  partyWithAttendees.attendees.map((attendee) => (
+                      <View key={attendee.id} style={styles.partyAttendee}>
+                        <Text>{attendee.name}</Text>
+
+                        {attendee.email && (
+                            <TouchableOpacity onPress={() => sendEmail(attendee.email)} style={styles.emaiIconButton}>
+                              <FontAwesome name="envelope" size={16} color="#2196F3" />
+                            </TouchableOpacity>
+                        )}
+                      </View>
+                  ))
+              ) : (
+                  <Text>No attendees yet.</Text>
+              )}
+            </View>
 
 
+            {selectedContacts.length > 0 ? (
+                <TouchableOpacity
+                    style={[styles.button, styles.green]}
+                    onPress={addSelectedContactsToParty}
+                >
+                  <Text style={styles.buttonTextStyle}>Add Selected Contacts</Text>
+                </TouchableOpacity>
+            ) : (
+                <TouchableOpacity
+                    style={[styles.button, styles.green, styles.marginTop]}
+                    onPress={openContactPicker}
+                >
+                  <Text style={styles.buttonTextStyle}>Add Attendee(s)</Text>
+                </TouchableOpacity>
+            )}
 
-          <Text style={styles.labelText}>Date and time</Text>
-          <Text style={[styles.partyInfoText, styles.noMargin, isPartyPast(party) ? styles.pastPartyText : styles.futurePartyText]}>
-            {party.date} at {party.time}
-          </Text>
-        </View>
+            {contacts.length > 0 && contacts.map((contact) => (
+                <View style={styles.contactItem} key={contact.id}>
+                  <TouchableOpacity onPress={() => toggleContactSelection(contact)} style={styles.checkboxButton}>
+                    {selectedContacts.includes(contact) ? (
+                        <FontAwesome name="check-square-o" size={24} color="green" />
+                    ) : (
+                        <FontAwesome name="square-o" size={24} color="gray" />
+                    )}
+                  </TouchableOpacity>
+                  <Text>{contact.name}</Text>
+                </View>
+            ))}
+          </View>
 
-        <View style={styles.buttonContainer}>
-          <Pressable
-              style={[styles.button, styles.closeButton]}
-              onPress={closeModal}>
-            <Text style={styles.buttonTextStyle}>Close</Text>
-          </Pressable>
-        </View>
-      </View>
-    </Modal>
+          <View style={styles.buttonContainer}>
+            <Pressable
+                style={[styles.button, styles.closeButton]}
+                onPress={closePartyModal}>
+              <Text style={styles.buttonTextStyle}>Close</Text>
+            </Pressable>
+          </View>
+        </ScrollView>
+      </Modal>
   );
 };
 
@@ -123,12 +240,41 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  green: {
+    backgroundColor: 'green',
+  },
+  blue: {
+    backgroundColor: '#2196F3',
+  },
   noMargin: {
     marginBottom: 0,
     marginStart: 0,
     marginEnd: 0,
     marginTop: 0
   },
+  contactPicker: {
+    marginTop: 20,
+    flex: 1,
+  },
+  contactItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  checkboxButton: {
+    marginRight: 16
+  },
+  marginTop: {
+    marginTop: 20
+  },
+  partyAttendee: {
+    flexDirection: 'row'
+  },
+  emaiIconButton: {
+    marginStart: 5
+  }
 });
 
 export default PartyModal;
