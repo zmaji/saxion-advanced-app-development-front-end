@@ -14,7 +14,7 @@
       <p>{{ party.description }}</p>
       <ion-button @click="openContactModal">Add Contacts</ion-button>
 
-      <ContactsModal :is-open="isOpen" @modal-closed="onModalClosed" />
+      <ContactsModal :party="selectedParty" :is-open="isOpen" @modal-closed="onModalClosed" />
 
     </ion-content>
   </ion-modal>
@@ -57,12 +57,14 @@ interface Props {
 
 const isOpen = ref(false);
 const partyModal = ref();
+const selectedParty = ref<Party | null>(null);
 const emit = defineEmits();
 
 defineProps<Props>();
 
-const openContactModal = () => {
+const openContactModal = (party: Party) => {
   isOpen.value = true;
+  selectedParty.value = party;
 };
 
 const onModalClosed = () => {

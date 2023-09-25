@@ -82,7 +82,8 @@ onMounted(() => {
     title: 'Party at Saxion',
     description: 'description',
     location: 'location 1',
-    datetime: new Date().toISOString()
+    datetime: new Date().toISOString(),
+    attendees: []
   };
 
   const partyTwo: Party = {
@@ -90,7 +91,8 @@ onMounted(() => {
     title: 'Domino\'s',
     description: 'description',
     location: 'location 2',
-    datetime: new Date().toISOString()
+    datetime: new Date().toISOString(),
+    attendees: []
   };
 
   const partyThree: Party = {
@@ -98,7 +100,8 @@ onMounted(() => {
     title: 'Max his project X chess party',
     description: 'description',
     location: 'location 3',
-    datetime: new Date().toISOString()
+    datetime: new Date().toISOString(),
+    attendees: []
   };
 
   addPartyToLocalstorage(partyOne);
