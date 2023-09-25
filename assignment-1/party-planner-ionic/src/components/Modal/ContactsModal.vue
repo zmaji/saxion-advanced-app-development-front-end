@@ -27,6 +27,7 @@ import { ref, onBeforeMount } from 'vue';
 import { IonCheckbox } from '@ionic/vue';
 import { Contacts } from '@capacitor-community/contacts';
 import { Party } from '@/types/Party';
+import { Attendee } from '@/types/Attendee';
 
 const contactResults = ref<any[]>([]);
 const contactModal = ref();
@@ -38,6 +39,39 @@ interface Props {
 }
 
 const { party } = defineProps<Props>();
+
+const handleCheckboxClick = (contact: any) => {
+  const isSelected = selectedContacts.value.some((c) => c.id === contact.id);
+
+  if (!isSelected) {
+    const newAttendee: Attendee = {
+      id: contact.id,
+      name: contact.name.display,
+      phoneNumber: contact.phones[0]?.number || '',
+      email: contact.emails[0]?.address || '',
+    };
+
+    selectedContacts.value.push(newAttendee);
+    console.log('Selected contacts length');
+    console.log(selectedContacts.value.length);
+  }
+};
+
+const addToParty = () => {
+  console.log('Selected contacts length');
+  console.log(selectedContacts.value.length);
+
+  selectedContacts.value.forEach((attendee) => {
+    // @ts-ignore
+    party.attendees.push(attendee);
+  });
+
+  console.log('Party array');
+  console.log(party.attendees);
+
+  selectedContacts.value = [];
+  closeContactModal();
+};
 
 async function fetchContacts() {
   try {
@@ -55,38 +89,6 @@ async function fetchContacts() {
     console.error(error);
   }
 }
-
-const handleCheckboxClick = (contact: any) => {
-  const contactIndex = selectedContacts.value.findIndex((c) => c.id === contact.id);
-  if (contactIndex !== -1) {
-    selectedContacts.value.splice(contactIndex, 1);
-  } else {
-    console.log('Added the contact to the selected list')
-    selectedContacts.value.push(contact);
-    console.log('Selected contacts length:')
-    console.log(selectedContacts.value.length)
-  }
-};
-
-const addToParty = () => {
-  console.log('Selected contacts length:')
-  console.log(selectedContacts.value.length);
-  if (selectedContacts.value.length > 0) {
-    console.log('Entered addToParty if-statement')
-    const attendees = selectedContacts.value.map((contact: any) => ({
-      id: contact.id,
-      name: contact.name.display,
-      phone: contact.phones[0]?.number || '',
-      email: contact.emails[0]?.address || '',
-    }));
-
-    party.attendees = party.attendees ? party.attendees.concat(attendees) : attendees;
-    selectedContacts.value = [];
-    closeContactModal();
-    console.log('Attendees: ')
-    console.log(party.attendees[0])
-  }
-};
 
 onBeforeMount(() => {
   fetchContacts();
