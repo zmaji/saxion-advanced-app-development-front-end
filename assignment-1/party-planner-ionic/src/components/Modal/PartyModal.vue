@@ -12,9 +12,16 @@
     <ion-content class="modal-content">
       <h2>{{ party.location }}</h2>
       <p>{{ party.description }}</p>
-      <ion-button @click="openContactModal">Add Contacts</ion-button>
+      <ion-button @click="openContactModal(party)">Add Contacts</ion-button>
 
-      <ContactsModal :party="selectedParty" :is-open="isOpen" @modal-closed="onModalClosed" />
+      <div class="attendees">
+        <h3>Attendees</h3>
+        <ul>
+          <li v-for="attendee in party.attendees" :key="attendee.id">{{ attendee.name }}</li>
+        </ul>
+      </div>
+
+      <ContactsModal :party="party" :is-open="isOpen" @modal-closed="onModalClosed" />
 
     </ion-content>
   </ion-modal>
@@ -63,8 +70,12 @@ const emit = defineEmits();
 defineProps<Props>();
 
 const openContactModal = (party: Party) => {
+  console.log('Party from partymodal');
+  console.log(party);
   isOpen.value = true;
   selectedParty.value = party;
+  console.log('SelectedParty from partymodal');
+  console.log(selectedParty.value);
 };
 
 const onModalClosed = () => {

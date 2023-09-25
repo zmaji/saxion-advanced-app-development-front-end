@@ -1,52 +1,37 @@
 <template>
   <ion-modal ref="createPartyModal" trigger="open-createPartyModal" @willDismiss="onWillDismiss">
     <ion-header class="ion-padding">
-        <ion-title>
-          Create a party
-        </ion-title>
+      <ion-title>
+        Create a party
+      </ion-title>
     </ion-header>
 
     <ion-content class="ion-padding">
       <ion-item>
         <ion-label position="stacked" class="ion-padding-bottom">Name the party</ion-label>
 
-        <ion-input
-            v-model="newParty.title"
-            label-placement="floating"
-            type="text"
-            placeholder="Party name"
-            aria-label="Party name input"
-        />
+        <ion-input v-model="newParty.title" label-placement="floating" type="text" placeholder="Party name"
+          aria-label="Party name input" />
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" class="ion-padding-bottom">What's the party about?</ion-label>
 
-        <ion-textarea
-            v-model="newParty.description"
-            label-placement="floating"
-            placeholder="Party description"
-            aria-label="Party description input"
-            :auto-grow="true"
-        />
+        <ion-textarea v-model="newParty.description" label-placement="floating" placeholder="Party description"
+          aria-label="Party description input" :auto-grow="true" />
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" class="ion-padding-bottom">Where is the party?</ion-label>
 
-        <ion-input
-            v-model="newParty.location"
-            label-placement="floating"
-            type="text"
-            placeholder="Party location"
-            aria-label="Party location input"
-        />
+        <ion-input v-model="newParty.location" label-placement="floating" type="text" placeholder="Party location"
+          aria-label="Party location input" />
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" class="ion-padding-bottom">When is the party?</ion-label>
 
-        <ion-datetime v-model="newParty.datetime"/>
+        <ion-datetime v-model="newParty.datetime" />
       </ion-item>
     </ion-content>
 
@@ -65,61 +50,59 @@
 </template>
 
 <script setup lang="ts">
-  import type { Party } from '@/types/Party';
+import type { Party } from '@/types/Party';
 
-  import { reactive, ref } from 'vue';
-  import {
-    IonButtons,
-    IonButton,
-    IonDatetime,
-    IonFooter,
-    IonModal,
-    IonHeader,
-    IonContent,
-    IonToolbar,
-    IonTitle,
-    IonTextarea,
-    IonItem,
-    IonInput,
-    IonLabel,
-  } from '@ionic/vue';
-  import { OverlayEventDetail } from '@ionic/core/components';
-  import { addPartyToLocalstorage } from "@/helper/PartyHelper";
+import { reactive, ref } from 'vue';
+import {
+  IonButtons,
+  IonButton,
+  IonDatetime,
+  IonFooter,
+  IonModal,
+  IonHeader,
+  IonContent,
+  IonToolbar,
+  IonTitle,
+  IonTextarea,
+  IonItem,
+  IonInput,
+  IonLabel,
+} from '@ionic/vue';
+import { OverlayEventDetail } from '@ionic/core/components';
+import { addPartyToLocalstorage } from "@/helper/PartyHelper";
 
-  const emit = defineEmits<{(event: 'partyCreated', value: Party): void}>();
+const emit = defineEmits<{ (event: 'partyCreated', value: Party): void }>();
 
-  const createPartyModal = ref();
+const createPartyModal = ref();
 
-  const newParty: Party = reactive({
-    id: 1,
-    title: '',
-    description: '',
-    location: '',
-    datetime: new Date().toISOString()
-  });
+const newParty: Party = reactive({
+  id: 1,
+  title: '',
+  description: '',
+  location: '',
+  datetime: new Date().toISOString()
+});
 
-  const cancel = () => createPartyModal.value.$el.dismiss(null, 'cancel');
+const cancel = () => createPartyModal.value.$el.dismiss(null, 'cancel');
 
-  const confirm = () => {
-    createPartyModal.value.$el.dismiss(newParty, 'confirm');
-  };
+const confirm = () => {
+  createPartyModal.value.$el.dismiss(newParty, 'confirm');
+};
 
-  const resetNewParty = (): void => {
-    newParty.title = '';
-    newParty.description = '';
-    newParty.location = '';
-    newParty.datetime = new Date().toISOString();
+const resetNewParty = (): void => {
+  newParty.title = '';
+  newParty.description = '';
+  newParty.location = '';
+  newParty.datetime = new Date().toISOString();
+}
+
+const onWillDismiss = (event: CustomEvent<OverlayEventDetail>) => {
+  if (event.detail.role === 'confirm') {
+    addPartyToLocalstorage(event.detail.data);
+    resetNewParty();
+    emit('partyCreated', event.detail.data);
   }
-
-  const onWillDismiss = (event: CustomEvent<OverlayEventDetail>) => {
-    if (event.detail.role === 'confirm') {
-      addPartyToLocalstorage(event.detail.data);
-      resetNewParty();
-      emit('partyCreated', event.detail.data);
-    }
-  };
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -30,7 +30,6 @@ import { Party } from '@/types/Party';
 
 const contactResults = ref<any[]>([]);
 const contactModal = ref();
-const selectedParty = ref<Party | null>(null);
 const selectedContacts = ref<any[]>([]);
 const emit = defineEmits();
 
@@ -38,7 +37,7 @@ interface Props {
   party: Party,
 }
 
-defineProps<Props>();
+const { party } = defineProps<Props>();
 
 async function fetchContacts() {
   try {
@@ -64,18 +63,16 @@ const handleCheckboxClick = (contact: any) => {
   } else {
     console.log('Added the contact to the selected list')
     selectedContacts.value.push(contact);
-    console.log('Selected contacts:')
-    console.log(selectedContacts.value)
+    console.log('Selected contacts length:')
+    console.log(selectedContacts.value.length)
   }
 };
 
 const addToParty = () => {
-  console.log('SELECTED PARTY VALUE');
-  console.log(selectedParty.value);
-  if (selectedParty.value && selectedContacts.value.length > 0) {
-    console.log('Entered addparty if');
-    const party = selectedParty.value;
-
+  console.log('Selected contacts length:')
+  console.log(selectedContacts.value.length);
+  if (selectedContacts.value.length > 0) {
+    console.log('Entered addToParty if-statement')
     const attendees = selectedContacts.value.map((contact: any) => ({
       id: contact.id,
       name: contact.name.display,
@@ -84,9 +81,10 @@ const addToParty = () => {
     }));
 
     party.attendees = party.attendees ? party.attendees.concat(attendees) : attendees;
-    localStorage.setItem('selectedParty', JSON.stringify(party));
     selectedContacts.value = [];
     closeContactModal();
+    console.log('Attendees: ')
+    console.log(party.attendees[0])
   }
 };
 
