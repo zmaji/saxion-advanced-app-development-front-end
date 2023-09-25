@@ -8,7 +8,7 @@ import CreateParty from '@/views/party/CreateParty.vue';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/parties'
   },
   {
     path: '/home',

@@ -1,5 +1,7 @@
 {
   "name": "party-planner-ionic",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "vue-vite"
 }

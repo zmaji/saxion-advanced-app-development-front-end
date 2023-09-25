@@ -49,7 +49,7 @@ interface Props {
 defineProps<Props>();
 
 const partyModal = ref();
-const emit = defineEmits(); //TODO: Define the specific event that will get emitted i.e. modal-closed
+const emit = defineEmits();
 
 const closeModal = () => {
   partyModal.value.$el.dismiss(null, 'cancel');
