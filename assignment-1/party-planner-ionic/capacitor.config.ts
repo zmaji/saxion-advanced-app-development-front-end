@@ -6,6 +6,11 @@ const config: CapacitorConfig = {
   webDir: 'dist',
   server: {
     androidScheme: 'https'
+  },
+  plugins: {
+    Contacts: {
+      permissions: ['android.permission.READ_CONTACTS', 'android.permission.WRITE_CONTACTS']
+    }
   }
 };
 

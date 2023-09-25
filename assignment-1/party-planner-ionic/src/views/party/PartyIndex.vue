@@ -36,77 +36,77 @@
 </template>
 
 <script setup lang="ts">
-  import { Party } from "@/types/Party";
+import { Party } from "@/types/Party";
 
-  import { onMounted, ref } from 'vue';
-  import { CreatePartyModal, MediaCard, PartyModal } from "@/components";
-  import {
-    IonButton,
-    IonCol,
-    IonContent,
-    IonGrid,
-    IonHeader,
-    IonPage,
-    IonRow,
-    IonToolbar,
-    IonTitle,
-  } from "@ionic/vue";
-  import { addPartyToLocalstorage } from "@/helper/PartyHelper";
+import { onMounted, ref } from 'vue';
+import { CreatePartyModal, MediaCard, PartyModal } from "@/components";
+import {
+  IonButton,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonPage,
+  IonRow,
+  IonToolbar,
+  IonTitle,
+} from "@ionic/vue";
+import { addPartyToLocalstorage } from "@/helper/PartyHelper";
 
-  const parties = ref<Party[]>([]);
-  const selectedParty = ref<Party | null>(null);
-  const isOpen = ref(false);
+const parties = ref<Party[]>([]);
+const selectedParty = ref<Party | null>(null);
+const isOpen = ref(false);
 
-  const openPartyModal = (party: Party) => {
-    isOpen.value = true;
-    selectedParty.value = party;
+const openPartyModal = (party: Party) => {
+  isOpen.value = true;
+  selectedParty.value = party;
+};
+
+const onModalClosed = () => {
+  isOpen.value = false;
+};
+
+function fetchParties(): void {
+  const partiesJSON = localStorage.getItem('parties');
+  parties.value = partiesJSON ? JSON.parse(partiesJSON) : [];
+
+  console.log('Fetching parties from LocalStorage');
+}
+
+onMounted(() => {
+  //Temporary to leave clean entries within localstorage
+  localStorage.clear();
+
+  const partyOne: Party = {
+    id: 1,
+    title: 'Party at Saxion',
+    description: 'description',
+    location: 'location 1',
+    datetime: new Date().toISOString()
   };
 
-  const onModalClosed = () => {
-    isOpen.value = false;
+  const partyTwo: Party = {
+    id: 2,
+    title: 'Domino\'s',
+    description: 'description',
+    location: 'location 2',
+    datetime: new Date().toISOString()
   };
 
-  function fetchParties(): void {
-    const partiesJSON = localStorage.getItem('parties');
-    parties.value = partiesJSON ? JSON.parse(partiesJSON) : [];
+  const partyThree: Party = {
+    id: 3,
+    title: 'Max his project X chess party',
+    description: 'description',
+    location: 'location 3',
+    datetime: new Date().toISOString()
+  };
 
-    console.log('Fetching parties from LocalStorage');
-  }
+  addPartyToLocalstorage(partyOne);
+  addPartyToLocalstorage(partyTwo);
+  addPartyToLocalstorage(partyThree);
 
-  onMounted(() => {
-    //Temporary to leave clean entries within localstorage
-    localStorage.clear();
-
-    const partyOne: Party = {
-      id: 1,
-      title: 'Party at Saxion',
-      description: 'description',
-      location: 'location 1',
-      datetime: new Date().toISOString()
-    };
-
-    const partyTwo: Party = {
-      id: 2,
-      title: 'Domino\'s',
-      description: 'description',
-      location: 'location 2',
-      datetime: new Date().toISOString()
-    };
-
-    const partyThree: Party = {
-      id: 3,
-      title: 'Max his project X chess party',
-      description: 'description',
-      location: 'location 3',
-      datetime: new Date().toISOString()
-    };
-
-    addPartyToLocalstorage(partyOne);
-    addPartyToLocalstorage(partyTwo);
-    addPartyToLocalstorage(partyThree);
-
-    fetchParties();
-  });
+  fetchParties();
+});
 </script>
 
 <style scoped></style>
