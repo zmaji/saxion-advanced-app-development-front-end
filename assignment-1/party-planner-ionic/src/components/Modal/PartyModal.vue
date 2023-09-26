@@ -16,10 +16,16 @@
 
       <div class="attendees">
         <h3>Attendees</h3>
-        <ul>
-          <li v-for="attendee in party.attendees" :key="attendee.id">{{ attendee.name }}</li>
+        <ul v-if="party.attendees.length > 0">
+          <li v-for="attendee in party.attendees" :key="attendee.id">
+            {{ attendee.name }}
+            <ion-icon v-if="attendee.email" name="mail-outline"></ion-icon>
+          </li>
         </ul>
+        <p v-else>Currently no attendees</p>
       </div>
+
+      <ion-button @click="shareParty(party)">Share this party</ion-button>
 
       <ContactsModal :party="party" :is-open="isOpen" @modal-closed="onModalClosed" />
 
@@ -46,6 +52,8 @@
 <script setup lang="ts">
 import type { Party } from '@/types/Party';
 import ContactsModal from './ContactsModal.vue'
+import { IonIcon } from '@ionic/vue';
+import { Share } from '@capacitor/share';
 
 import { ref, defineEmits } from 'vue';
 import {
@@ -68,6 +76,21 @@ const selectedParty = ref<Party | null>(null);
 const emit = defineEmits();
 
 defineProps<Props>();
+
+const shareParty = async (party: Party) => {
+  console.log('Entered shareParty function')
+  try {
+    await Share.share({
+      title: party.title,
+      text:
+        `Hey! You\'re invited to ${party.title} at ${party.location}! \n
+        Hope to see you there!`,
+      dialogTitle: 'Invited!',
+    });
+  } catch (error) {
+    console.error('Failed sharing the party to this contact:', error);
+  }
+};
 
 const openContactModal = (party: Party) => {
   console.log('Party from partymodal');
