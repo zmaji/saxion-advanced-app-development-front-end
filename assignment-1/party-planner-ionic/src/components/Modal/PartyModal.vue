@@ -1,59 +1,71 @@
 <template>
   <ion-modal ref="partyModal">
-    <ion-header>
+    <ion-header class="ion-padding">
+      <ion-title>
+        {{ party.title }}
+      </ion-title>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <ion-item>
+        <ion-label position="stacked" class="ion-padding-bottom">Party location</ion-label>
+
+        <p>{{ party.location }}</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" class="ion-padding-bottom">Party description</ion-label>
+
+        <p>{{ party.description }}</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" class="ion-padding-bottom">Date and time</ion-label>
+
+        <p>{{ party.datetime }}</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" class="ion-padding-bottom">Attendees</ion-label>
+
+        <ion-list v-if="party.attendees.length > 0">
+          <p>Attendees</p>
+
+          <ion-item v-for="attendee in party.attendees" :key="attendee.id">
+            <p>{{ attendee.name }}</p>
+
+            <ion-icon v-if="attendee.email" name="mail-outline"></ion-icon>
+          </ion-item>
+        </ion-list>
+
+        <p v-else>Currently no attendees</p>
+      </ion-item>
+
+      <ion-content class="ion-padding">
+        <ion-button @click="openContactModal(party)">Add Contacts</ion-button>
+        </ion-content>
+
+      <ContactsModal :party="party" :is-open="isOpen" @modal-closed="onModalClosed" />
+    </ion-content>
+
+    <ion-footer class="ion-padding-horizontal">
       <ion-toolbar>
-        <ion-title>{{ party.title }}</ion-title>
+        <ion-buttons slot="start">
+          <ion-button :strong="true" :color="'primary'"  @click="shareParty(party)">Share party</ion-button>
+        </ion-buttons>
+
         <ion-buttons slot="end">
           <ion-button @click="closePartyModal">Close</ion-button>
         </ion-buttons>
       </ion-toolbar>
-    </ion-header>
-
-    <ion-content class="modal-content">
-      <h2>{{ party.location }}</h2>
-      <p>{{ party.description }}</p>
-      <ion-button @click="openContactModal(party)">Add Contacts</ion-button>
-
-      <div class="attendees">
-        <h3>Attendees</h3>
-        <ul v-if="party.attendees.length > 0">
-          <li v-for="attendee in party.attendees" :key="attendee.id">
-            {{ attendee.name }}
-            <ion-icon v-if="attendee.email" name="mail-outline"></ion-icon>
-          </li>
-        </ul>
-        <p v-else>Currently no attendees</p>
-      </div>
-
-      <ion-button @click="shareParty(party)">Share this party</ion-button>
-
-      <ContactsModal :party="party" :is-open="isOpen" @modal-closed="onModalClosed" />
-
-    </ion-content>
+    </ion-footer>
   </ion-modal>
 </template>
 
-//TODO : fix styling, not working
-<style scoped>
-.note-item {
-  display: block;
-  margin-top: 5px;
-}
-
-.margin-bottom {
-  margin-bottom: 10px;
-}
-
-.modal-content {
-  margin-left: 16px;
-}
-</style>
+<style scoped></style>>
 
 <script setup lang="ts">
 import type { Party } from '@/types/Party';
-import ContactsModal from './ContactsModal.vue'
-import { IonIcon } from '@ionic/vue';
-import { Share } from '@capacitor/share';
 
 import { ref, defineEmits } from 'vue';
 import {
@@ -65,6 +77,9 @@ import {
   IonButton,
   IonContent,
 } from '@ionic/vue';
+import { IonIcon, IonLabel } from '@ionic/vue';
+import { Share } from '@capacitor/share';
+import ContactsModal from './ContactsModal.vue'
 
 interface Props {
   party: Party,
