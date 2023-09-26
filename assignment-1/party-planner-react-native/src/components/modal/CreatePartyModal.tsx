@@ -12,7 +12,6 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import CalendarEvents from 'react-native-calendar-events';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Calendar from 'expo-calendar';
 import { addPartyToLocalstorage } from '../../helpers/PartyHelper';
@@ -61,7 +60,16 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
   }
 
-  const addToAndroidCalendar = async (calendarId: number) => {
+  const formatDateToISO8601String = (date: string): string => {
+    const dateComponents = date.split('-');
+    const day = parseInt(dateComponents[0]);
+    const month = parseInt(dateComponents[1]);
+    const year = parseInt(dateComponents[2]);
+
+    return year + '-' + month + '-' + day;
+  }
+
+  const addToAndroidCalendar = async (calendarId: string) => {
     console.log('entered android calendar');
     console.log('calendarId', calendarId);
 
@@ -71,17 +79,23 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
         return;
       }
 
+      const formattedDate = formatDateToISO8601String(newParty.date);
+
       const event = {
         title: newParty.title,
-        startDate: new Date(formatDate(new Date(newParty.date)) + 'T' + newParty.time),
-        endDate: new Date(formatDate(new Date(newParty.date)) + 'T' + newParty.time),
+        startDate: new Date(formattedDate + 'T' + newParty.time),
+        endDate: new Date(formattedDate + 'T' + newParty.time),
         timeZone: 'UTC',
         location: newParty.location,
       };
 
       console.log('event', event);
 
-      const eventId = await CalendarEvents.saveEvent(calendarId, event);
+      const eventId = await Calendar.createEventAsync(
+          calendarId,
+          event
+      );
+
       console.log('Event added to Android calendar with ID:', eventId);
     } catch (error) {
       console.error('Error adding event to Android calendar:', error);
@@ -95,12 +109,7 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
       const defaultCalendar = await Calendar.getDefaultCalendarAsync();
 
       if (defaultCalendar) {
-        const date = newParty.date;
-        const dateComponents = date.split('-');
-        const day = parseInt(dateComponents[0]);
-        const month = parseInt(dateComponents[1]);
-        const year = parseInt(dateComponents[2]);
-        const formattedDate = year + '-' + month + '-' + day;
+        const formattedDate = formatDateToISO8601String(newParty.date);
 
         const eventDetails = {
           title: newParty.title,
@@ -130,11 +139,11 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
 
   const addToCalendar = async () => {
     try {
-      const calendars = await Calendar.getCalendarsAsync();
-
       if (Platform.OS === 'ios') {
         await addToiOSCalendar();
       } else if (Platform.OS === 'android') {
+        const calendars = await Calendar.getCalendarsAsync();
+
         if (calendars.length > 1) {
           console.log('calendars.length > 1')
 
@@ -240,9 +249,14 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
 
   const fetchiOSCalendars = async () => {
     try {
-      const { status } = await Calendar.requestCalendarPermissionsAsync();
+      const calendarPermission = await Calendar.requestCalendarPermissionsAsync();
+      const remindersPermission = await Calendar.requestRemindersPermissionsAsync();
 
-      if (status === 'granted') {
+      if (
+          calendarPermission.status === 'granted' &&
+          remindersPermission.status === 'granted'
+      ) {
+
         const calendarList = await Calendar.getCalendarsAsync();
         setCalendars(calendarList);
       } else {
