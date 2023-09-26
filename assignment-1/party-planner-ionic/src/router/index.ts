@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import PartyIndex from '../views/party/PartyIndex.vue';
-import ShowParty from '../views/party/ShowParty.vue';
-import CreateParty from '@/views/party/CreateParty.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -13,17 +11,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/parties',
     name: 'Parties',
     component: PartyIndex
-  },
-  {
-    path: '/party',
-    name: 'party',
-    component: ShowParty
-  },
-  {
-    path: '/parties/create',
-    name: 'Create Party',
-    component: CreateParty
-  },
+  }
 ]
 
 const router = createRouter({
