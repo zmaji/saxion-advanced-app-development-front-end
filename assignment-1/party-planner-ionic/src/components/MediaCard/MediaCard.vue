@@ -1,5 +1,5 @@
 <template>
-  <ion-card>
+  <ion-card class="party-card">
     <ion-card-header>
       <ion-card-title>{{ party.title }}</ion-card-title>
 
@@ -29,3 +29,10 @@ interface Props {
 
 defineProps<Props>();
 </script>
+
+<style scoped>
+  .party-card {
+    border-left: 5px solid var(--ion-color-primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .20);
+  }
+</style>

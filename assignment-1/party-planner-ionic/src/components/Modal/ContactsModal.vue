@@ -9,12 +9,10 @@
     <ion-content class="ion-padding">
       <ion-button @click="addToParty">Add to party</ion-button>
 
-      <ion-list v-if="contactResults.length">
+      <ion-list class="ion-padding-top" v-if="contactResults.length">
         <ion-item v-for="(contact, index) in contactResults" :key="index">
           <ion-checkbox @click="handleCheckboxClick(contact)"></ion-checkbox>
-          <ion-label>{{ contact.name.display }}</ion-label>
-          <ion-note>{{ contact.phones[0]?.number }}</ion-note>
-          <ion-note>{{ contact.emails[0]?.address }}</ion-note>
+          <ion-label class="ion-margin-start">{{ contact.name.display }}</ion-label>
         </ion-item>
       </ion-list>
     </ion-content>
