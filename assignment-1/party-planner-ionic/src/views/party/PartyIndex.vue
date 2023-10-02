@@ -6,31 +6,32 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="ion-padding">
-      <h1>
-        All upcoming parties
-      </h1>
+    <ion-content>
+      <div class="introduction ion-padding">
+        <h1>
+          All upcoming parties
+        </h1>
 
-      <ion-button id="open-createPartyModal">
-        Add a party
-      </ion-button>
+        <ion-button id="open-createPartyModal">
+          Add a party
+        </ion-button>
 
-      <p>
-        Explore the details, mark your calendars, and prepare for an epic journey through the latest and greatest parties
-        in town!
-      </p>
+        <p>
+          Explore the details, mark your calendars, and prepare for an epic journey through the latest and greatest parties
+          in town!
+        </p>
+      </div>
 
       <ion-grid>
         <ion-row>
-          <ion-col v-for="party in parties" :key="party.id" size="auto">
+          <ion-col v-for="party in parties" :key="party.id" size="12" size-md="6" size-lg="3">
             <MediaCard :party="party" @click="openPartyModal(party)" />
           </ion-col>
         </ion-row>
       </ion-grid>
 
-      <PartyModal :party="selectedParty" :is-open="isOpen" @modal-closed="onModalClosed" />
       <CreatePartyModal @partyCreated="fetchParties" />
-
+      <PartyModal :party="selectedParty" :is-open="isOpen" @modal-closed="onModalClosed" />
     </ion-content>
   </ion-page>
 </template>
@@ -39,7 +40,6 @@
 import { Party } from "@/types/Party";
 
 import { onMounted, ref } from 'vue';
-import { CreatePartyModal, MediaCard, PartyModal } from "@/components";
 import {
   IonButton,
   IonCol,
@@ -52,6 +52,7 @@ import {
   IonTitle,
 } from "@ionic/vue";
 import { addPartyToLocalstorage } from "@/helper/PartyHelper";
+import { CreatePartyModal, MediaCard, PartyModal } from "@/components";
 
 const parties = ref<Party[]>([]);
 const selectedParty = ref<Party | null>(null);
@@ -112,4 +113,8 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+  .introduction {
+    background-color: var(--ion-color-light);
+  }
+</style>

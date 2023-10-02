@@ -1,32 +1,45 @@
 <template>
   <ion-modal ref="contactModal">
-    <ion-header>
+    <ion-header class="ion-padding">
+      <ion-title>
+        Contacts
+      </ion-title>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <ion-button @click="addToParty">Add to party</ion-button>
+
+      <ion-list class="ion-padding-top" v-if="contactResults.length">
+        <ion-item v-for="(contact, index) in contactResults" :key="index">
+          <ion-checkbox @click="handleCheckboxClick(contact)"></ion-checkbox>
+          <ion-label class="ion-margin-start">{{ contact.name.display }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+
+    <ion-footer class="ion-padding-horizontal">
       <ion-toolbar>
-        <ion-title>Contacts</ion-title>
         <ion-buttons slot="end">
           <ion-button @click="closeContactModal">Close</ion-button>
         </ion-buttons>
       </ion-toolbar>
-    </ion-header>
-    <ion-content class="contacts-content">
-      <ion-button @click="addToParty">Add to party</ion-button>
-      <ion-list v-if="contactResults.length">
-        <ion-item v-for="(contact, index) in contactResults" :key="index">
-          <ion-checkbox @click="handleCheckboxClick(contact)"></ion-checkbox>
-          <ion-label>{{ contact.name.display }}</ion-label>
-          <ion-note>{{ contact.phones[0]?.number }}</ion-note>
-          <ion-note>{{ contact.emails[0]?.address }}</ion-note>
-        </ion-item>
-      </ion-list>
-    </ion-content>
+    </ion-footer>
   </ion-modal>
 </template>
 
 <script setup lang="ts">
+import type { Party } from '@/types/Party';
+
 import { ref, onBeforeMount } from 'vue';
-import { IonCheckbox } from '@ionic/vue';
+import { IonButton,
+  IonButtons,
+  IonCheckbox,
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar
+} from '@ionic/vue';
 import { Contacts } from '@capacitor-community/contacts';
-import { Party } from '@/types/Party';
 import { Attendee } from '@/types/Attendee';
 
 const contactResults = ref<any[]>([]);
