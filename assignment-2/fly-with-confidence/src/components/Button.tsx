@@ -8,7 +8,7 @@ interface ButtonProps {
   buttonColor?: string,
   textColor?: string,
   customStyles?: Object,
-  onPress: () => void
+  onPress?: () => void
 }
 
 const Button: React.FC<ButtonProps> = ({ text, buttonColor, textColor, customStyles, onPress }) => {

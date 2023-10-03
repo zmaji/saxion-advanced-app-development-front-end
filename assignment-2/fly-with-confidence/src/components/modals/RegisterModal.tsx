@@ -10,32 +10,35 @@ import {
   Text
 } from 'react-native';
 
-interface LoginModalProps {
+interface RegisterModalProps {
   isVisible: boolean;
-  closeLoginModal: () => void;
+  closeRegisterModal: () => void;
 }
 
-{/*   onLogin: (username: string, password: string) => void; */ }
+{/* onRegister: (username: string, password: string, email: string) => void; */ }
 
-const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) => {
+const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterModal }) => {
   const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
 
-  {/* 
-  const handleLogin = () => {
-    onLogin(username, password);
+  const handleRegister = () => {
+    if (password === passwordConfirmation) {
+    } else {
+      console.error('Passwords do not match');
+    }
   };
-  */}
 
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={isVisible}
-      onRequestClose={closeLoginModal}
+      onRequestClose={closeRegisterModal}
     >
       <View style={styles.modalView}>
-        <TextTitle content="Login" />
+        <TextTitle content="Register" />
 
         {/* TODO: import subTitle when finished */}
         <Text style={styles.marginBottom}>Please enter your credentials</Text>
@@ -49,18 +52,36 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
             onChangeText={setUsername}
           />
 
+          <Text style={styles.marginBottom}>Email</Text>
+          <TextInput
+            style={[styles.input, styles.marginBottom]}
+            placeholder="Email"
+            secureTextEntry={true}
+            value={email}
+            onChangeText={setEmail}
+          />
+
           <Text style={styles.marginBottom}>Password</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, styles.marginBottom]}
             placeholder="Password"
             secureTextEntry={true}
             value={password}
             onChangeText={setPassword}
           />
+
+          <Text style={styles.marginBottom}>Repeat password</Text>
+          <TextInput
+            style={[styles.input, styles.marginBottom]}
+            placeholder="Confirm Password"
+            secureTextEntry={true}
+            value={passwordConfirmation}
+            onChangeText={setPasswordConfirmation}
+          />
         </View>
 
         {/* TODO: onPress handleLogin */}
-        <Button text="Login" customStyles={styles.loginButton} />
+        <Button text="Login" customStyles={styles.registerButton} onPress={handleRegister} />
       </View>
     </Modal>
   );
@@ -75,9 +96,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'white',
     padding: 40,
-  },
-  subTitle: {
-    marginBottom: 20,
   },
   inputContainer: {
     width: '100%',
@@ -94,10 +112,10 @@ const styles = StyleSheet.create({
   marginBottom: {
     marginBottom: 10
   },
-  loginButton: {
+  registerButton: {
     alignItems: 'center',
     justifyContent: 'center',
   },
 });
 
-export default LoginModal;
+export default RegisterModal;

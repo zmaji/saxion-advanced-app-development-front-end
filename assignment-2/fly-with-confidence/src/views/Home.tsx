@@ -11,6 +11,7 @@ import { SvgXml } from "react-native-svg";
 import { globalStyles } from "../styles/global";
 import Button from "../components/Button";
 import LoginModal from "../components/modals/LoginModal";
+import RegisterModal from "../components/modals/RegisterModal";
 
 const homeRectangleXml = `
     <svg width="100%" height="100%" viewBox="0 0 320 298" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,6 +22,7 @@ const homeRectangleXml = `
 // @ts-ignore
 export default function Home({ navigation }) {
   const [isLoginModalVisible, setLoginModalVisible] = React.useState(false);
+  const [isRegisterModalVisible, setRegisterModalVisible] = React.useState(false);
 
   const openLoginModal = () => {
     setLoginModalVisible(true);
@@ -28,6 +30,14 @@ export default function Home({ navigation }) {
 
   const closeLoginModal = () => {
     setLoginModalVisible(false);
+  };
+
+  const openRegisterModal = () => {
+    setRegisterModalVisible(true);
+  };
+
+  const closeRegisterModal = () => {
+    setRegisterModalVisible(false);
   };
 
   return (
@@ -41,7 +51,7 @@ export default function Home({ navigation }) {
         <Text style={[styles.header, globalStyles.marginBottomCustom(10)]}>Fly with Confidence</Text>
         <Text style={[styles.subHeader, globalStyles.marginBottomCustom(50)]}>Reduce your fear of flight</Text>
 
-        <Button text="Sign up" customStyles={globalStyles.marginBottom} onPress={() => navigation.navigate('SelectionScreen')} />
+        <Button text="Sign up" customStyles={globalStyles.marginBottom} onPress={openRegisterModal} />
 
         <Button text="Enter as guest" buttonColor="secondary" customStyles={{ marginBottom: 35 }} onPress={() => navigation.navigate('SelectionScreen')} />
 
@@ -58,6 +68,12 @@ export default function Home({ navigation }) {
           isVisible={isLoginModalVisible}
           closeLoginModal={closeLoginModal}
         />
+
+        <RegisterModal
+          isVisible={isRegisterModalVisible}
+          closeRegisterModal={closeRegisterModal}
+        />
+
         <StatusBar style="auto" />
       </View>
     </ImageBackground>
