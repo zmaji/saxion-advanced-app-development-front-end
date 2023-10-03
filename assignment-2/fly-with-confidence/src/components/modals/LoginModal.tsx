@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import TextTitle from "../typography/TextTitle";
-import Button from "../../components/Button";
-
 import {
   Modal,
   View,
   StyleSheet,
   TextInput,
-  Text
+  ScrollView,
 } from 'react-native';
+import { inputStyles } from "../../styles/inputs";
+import { themeColors } from "../../styles/themeColors";
+import { globalStyles } from "../../styles/global";
+import TextTitle from "../typography/TextTitle";
+import Button from "../../components/Button";
+import TextSubTitle from "../typography/TextSubTitle";
+import FormLabel from "../typography/FormLabel";
 
 interface LoginModalProps {
   isVisible: boolean;
@@ -35,32 +39,33 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
       onRequestClose={closeLoginModal}
     >
       <View style={styles.modalView}>
-        <TextTitle content="Login" />
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+          <TextTitle content="Login" />
 
-        {/* TODO: import subTitle when finished */}
-        <Text style={styles.marginBottom}>Please enter your credentials</Text>
+          <TextSubTitle content={'Please enter your credentials'}/>
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.marginBottom}>Username</Text>
-          <TextInput
-            style={[styles.input, styles.marginBottom]}
-            placeholder="Username"
-            value={username}
-            onChangeText={setUsername}
-          />
+          <View style={inputStyles.formContainer}>
+            <FormLabel content={"Username"}/>
+            <TextInput
+              style={inputStyles.formInput}
+              placeholder="Username"
+              value={username}
+              onChangeText={setUsername}
+            />
 
-          <Text style={styles.marginBottom}>Password</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry={true}
-            value={password}
-            onChangeText={setPassword}
-          />
-        </View>
+            <FormLabel content={"Password"}/>
+            <TextInput
+              style={inputStyles.formInput}
+              placeholder="Password"
+              secureTextEntry={true}
+              value={password}
+              onChangeText={setPassword}
+            />
+          </View>
 
-        {/* TODO: onPress handleLogin */}
-        <Button text="Login" customStyles={styles.loginButton} />
+          {/* TODO: onPress handleLogin */}
+          <Button text="Login" customStyles={styles.loginButton} />
+        </ScrollView>
       </View>
     </Modal>
   );
@@ -69,34 +74,19 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
 const styles = StyleSheet.create({
   modalView: {
     flex: 1,
+    margin: 30,
+    borderRadius: 5,
+    backgroundColor: themeColors.white,
+    ...globalStyles.defaultShadow,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    margin: 30,
-    borderRadius: 10,
-    backgroundColor: 'white',
     padding: 40,
   },
-  subTitle: {
-    marginBottom: 20,
-  },
-  inputContainer: {
-    width: '100%',
-    marginBottom: 20,
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: '#ccc',
-  },
-  marginBottom: {
-    marginBottom: 10
-  },
   loginButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignSelf: 'center',
   },
 });
 

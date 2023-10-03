@@ -1,7 +1,7 @@
 import { Text } from "react-native";
 import React from "react";
-import { getTextColorStyle } from "../../helpers/getColorStylesHelper";
 import { typographyStyles } from "../../styles/typography";
+import { getTextColorStyle } from "../../helpers/getColorStylesHelper";
 
 interface TextSubTitleProps {
   content: string,
@@ -9,8 +9,8 @@ interface TextSubTitleProps {
   customStyles?: object
 }
 
-const TextSubTitle: React.FC<TextSubTitleProps> = ({ content, color = '', customStyles }) => {
-  const colorStyle = getTextColorStyle(color);
+const TextSubTitle: React.FC<TextSubTitleProps> = ({ content, color, customStyles }) => {
+  const colorStyle = color ? getTextColorStyle(color) : null;
 
   return (
     <Text style={[typographyStyles.pageSubTitle, colorStyle, customStyles]}>{content}</Text>

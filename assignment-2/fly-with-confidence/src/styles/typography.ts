@@ -35,6 +35,12 @@ export const typographyStyles = StyleSheet.create({
         marginBottom: 20,
         ...fontFamilyStyles.loraItalic
     },
+    regularText: {
+        fontSize: 12,
+        color: themeColors.darkGrey,
+        marginBottom: 20,
+        ...fontFamilyStyles.montserratRegular
+    },
     formLabel: {
         fontSize: 12,
         color: themeColors.lightGrey,

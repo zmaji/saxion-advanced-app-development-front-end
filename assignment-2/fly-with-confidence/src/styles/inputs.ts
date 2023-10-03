@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { themeColors } from "./themeColors";
+import {fontFamilyStyles} from "./typography";
 
 export const inputStyles = StyleSheet.create({
     formContainer: {
@@ -12,5 +13,6 @@ export const inputStyles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         borderColor: themeColors.lightGrey,
+        ...fontFamilyStyles.montserratRegular
     },
 });

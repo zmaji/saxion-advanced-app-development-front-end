@@ -14,6 +14,7 @@ import { fontFamilyStyles } from "../styles/typography";
 import Button from "../components/Button";
 import LoginModal from "../components/modals/LoginModal";
 import RegisterModal from "../components/modals/RegisterModal";
+import {getStatusBarHeight} from "react-native-status-bar-height";
 
 const homeRectangleXml = `
     <svg width="100%" height="100%" viewBox="0 0 320 298" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,10 +89,12 @@ export default function Home({ navigation }) {
 }
 
 const windowHeight = Dimensions.get('window').height;
+const statusBarHeight = getStatusBarHeight();
 
 const styles = StyleSheet.create({
   backgroundImage: {
-    flex: 1,
+    height: windowHeight + statusBarHeight,
+    width: "100%",
     resizeMode: 'cover',
     justifyContent: 'center',
     position: 'relative'
