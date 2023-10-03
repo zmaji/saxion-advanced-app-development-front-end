@@ -10,6 +10,7 @@ import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { SvgXml } from "react-native-svg";
 import { globalStyles } from "../styles/global";
+import Button from "../components/Button";
 
 const homeRectangleXml = `
     <svg width="100%" height="100%" viewBox="0 0 320 298" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,18 +31,9 @@ export default function Home({ navigation }) {
                 <Text style={[styles.header, globalStyles.marginBottomCustom(10)]}>Fly with Confidence</Text>
                 <Text style={[styles.subHeader, globalStyles.marginBottomCustom(50)]}>Reduce your fear of flight</Text>
 
-                <TouchableOpacity
-                    style={[globalStyles.button, globalStyles.buttonPrimary, globalStyles.marginBottom]}
-                >
-                    <Text style={globalStyles.buttonText}>Sign up</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={[globalStyles.button, globalStyles.buttonSecondary, globalStyles.marginBottomCustom(35)]}
-                    onPress={() => navigation.navigate('SelectionScreen')}
-                >
-                    <Text style={globalStyles.buttonText}>Enter as guest</Text>
-                </TouchableOpacity>
+                <Button text="Sign up" customStyles={globalStyles.marginBottom} onPress={() => navigation.navigate('SelectionScreen')}/>
+                
+                <Button text="Enter as guest" buttonColor="secondary" customStyles={{marginBottom: 35}} onPress={() => navigation.navigate('SelectionScreen')}/>
 
                 <Text style={globalStyles.textColorWhite}>
                     Already have an account?{' '}

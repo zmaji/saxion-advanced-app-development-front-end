@@ -1,6 +1,6 @@
 import { Text } from "react-native";
 import React from "react";
-import { getColorStyle } from "../helpers/GetColorStyle";
+import { getTextColorStyle } from "../helpers/GetColorStyle";
 import { typographyStyles } from "../styles/typography";
 
 interface TextTitleProps {
@@ -9,7 +9,7 @@ interface TextTitleProps {
 }
 
 const TextTitle: React.FC<TextTitleProps> = ({ content, color = '' }) => {
-    const colorStyle = getColorStyle(color);
+    const colorStyle = getTextColorStyle(color);
 
     return (
         <Text style={[typographyStyles.pageTitle, colorStyle]}>{content}</Text>

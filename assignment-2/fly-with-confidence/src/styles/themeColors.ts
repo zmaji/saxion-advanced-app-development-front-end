@@ -1,6 +1,6 @@
 const themeColors = {
     primary: '#87CEEB',
-    secondary: '#BAA7FF',
+    secondary: '#D3D3D3',
     white: '#FFFFFF',
     grey: '#D3D3D3',
     lightGrey: '#F3EFEF',
