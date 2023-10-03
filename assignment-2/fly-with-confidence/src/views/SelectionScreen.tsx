@@ -1,10 +1,11 @@
 import {StyleSheet, Text, View} from "react-native";
 import * as React from "react";
+import TextTitle from "../components/TextTitle";
 
-export default function SelectionScreen() {
+export default function SelectionScreen({ navigation }) {
     return (
         <View style={styles.container}>
-            <Text>Selection screen</Text>
+            <TextTitle content={'SelectionScreen'}/>
         </View>
     );
 }
