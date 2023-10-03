@@ -4,17 +4,17 @@ import { getTextColorStyle } from "../helpers/GetColorStyle";
 import { typographyStyles } from "../styles/typography";
 
 interface TextTitleProps {
-    content: string,
-    color?: string,
-    customStyles?: object
+  content: string,
+  color?: string,
+  customStyles?: object
 }
 
 const TextTitle: React.FC<TextTitleProps> = ({ content, color = '', customStyles }) => {
-    const colorStyle = getTextColorStyle(color);
+  const colorStyle = getTextColorStyle(color);
 
-    return (
-        <Text style={[typographyStyles.pageTitle, colorStyle, customStyles]}>{content}</Text>
-    );
+  return (
+    <Text style={[typographyStyles.pageTitle, colorStyle, customStyles]}>{content}</Text>
+  );
 };
 
 export default TextTitle;
