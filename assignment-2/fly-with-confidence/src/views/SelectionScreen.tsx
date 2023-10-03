@@ -1,20 +1,12 @@
-import {StyleSheet, Text, View} from "react-native";
+import { View } from "react-native";
 import * as React from "react";
 import TextTitle from "../components/TextTitle";
+import { globalStyles } from "../styles/global";
 
-export default function SelectionScreen({ navigation }) {
+export default function SelectionScreen() {
     return (
-        <View style={styles.container}>
+        <View style={globalStyles.pageContainer}>
             <TextTitle content={'SelectionScreen'}/>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

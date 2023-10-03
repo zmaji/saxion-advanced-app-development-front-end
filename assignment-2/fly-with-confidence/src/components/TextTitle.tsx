@@ -5,14 +5,15 @@ import { typographyStyles } from "../styles/typography";
 
 interface TextTitleProps {
     content: string,
-    color?: string
+    color?: string,
+    customStyles?: object
 }
 
-const TextTitle: React.FC<TextTitleProps> = ({ content, color = '' }) => {
+const TextTitle: React.FC<TextTitleProps> = ({ content, color = '', customStyles }) => {
     const colorStyle = getTextColorStyle(color);
 
     return (
-        <Text style={[typographyStyles.pageTitle, colorStyle]}>{content}</Text>
+        <Text style={[typographyStyles.pageTitle, colorStyle, customStyles]}>{content}</Text>
     );
 };
 
