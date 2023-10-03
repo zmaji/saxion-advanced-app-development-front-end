@@ -25,7 +25,20 @@ export const fontFamilyStyles = {
 export const typographyStyles = StyleSheet.create({
     pageTitle: {
         fontSize: 20,
-        fontFamily: 'Montserrat-Bold',
-        color: themeColors.darkGrey
+        color: themeColors.darkGrey,
+        marginBottom: 5,
+        ...fontFamilyStyles.montserratBold
+    },
+    pageSubTitle: {
+        fontSize: 12,
+        color: themeColors.darkGrey,
+        marginBottom: 20,
+        ...fontFamilyStyles.loraItalic
+    },
+    formLabel: {
+        fontSize: 12,
+        color: themeColors.lightGrey,
+        marginBottom: 5,
+        ...fontFamilyStyles.montserratRegular
     }
 });

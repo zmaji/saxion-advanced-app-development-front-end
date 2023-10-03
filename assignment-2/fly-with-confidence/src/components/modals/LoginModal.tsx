@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TextTitle from "../../components/TextTitle";
+import TextTitle from "../typography/TextTitle";
 import Button from "../../components/Button";
 
 import {
