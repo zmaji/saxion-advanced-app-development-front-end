@@ -19,7 +19,6 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    // Handle the case where fonts are not yet loaded
     return null;
   }
 

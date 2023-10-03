@@ -1,7 +1,8 @@
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
-import { globalStyles } from "../styles/global";
-import { getBackgroundColorStyle, getTextColorStyle } from "../helpers/GetColorStyle";
+import { buttonStyles } from "../styles/buttons";
+import { themeColorUtils } from "../styles/themeColors";
+import { getBackgroundColorStyle, getTextColorStyle } from "../helpers/getColorStylesHelper";
 
 interface ButtonProps {
   text: string,
@@ -12,15 +13,15 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({ text, buttonColor, textColor, customStyles, onPress }) => {
-  const buttonColorStyle = buttonColor ? getBackgroundColorStyle(buttonColor) : globalStyles.buttonPrimary;
+  const buttonColorStyle = buttonColor ? getBackgroundColorStyle(buttonColor) : null;
   const textColorStyle = textColor ? getTextColorStyle(textColor) : null;
 
   return (
     <TouchableOpacity
-      style={[globalStyles.button, buttonColorStyle, customStyles]}
+      style={[buttonStyles.button, buttonColorStyle, customStyles]}
       onPress={onPress}
     >
-      <Text style={[globalStyles.buttonText, textColorStyle]}>{text}</Text>
+      <Text style={[buttonStyles.buttonText, textColorStyle]}>{text}</Text>
     </TouchableOpacity>
   );
 };

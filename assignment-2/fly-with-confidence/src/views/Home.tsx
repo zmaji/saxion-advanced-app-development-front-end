@@ -5,10 +5,12 @@ import {
   Text,
   View
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { SvgXml } from "react-native-svg";
+import { StatusBar } from "expo-status-bar";
 import { globalStyles } from "../styles/global";
+import { themeColorUtils } from "../styles/themeColors";
+import { fontFamilyStyles } from "../styles/typography";
 import Button from "../components/Button";
 import LoginModal from "../components/modals/LoginModal";
 import RegisterModal from "../components/modals/RegisterModal";
@@ -48,18 +50,23 @@ export default function Home({ navigation }) {
       <SvgXml xml={homeRectangleXml} style={styles.backgroundSvg} />
       <View style={styles.container}>
 
-        <Text style={[styles.header, globalStyles.marginBottomCustom(10)]}>Fly with Confidence</Text>
-        <Text style={[styles.subHeader, globalStyles.marginBottomCustom(50)]}>Reduce your fear of flight</Text>
+        <Text style={styles.header}>Fly with Confidence</Text>
+        <Text style={styles.subHeader}>Reduce your fear of flight</Text>
 
         <Button text="Sign up" customStyles={globalStyles.marginBottom} onPress={openRegisterModal} />
 
-        <Button text="Enter as guest" buttonColor="secondary" customStyles={{ marginBottom: 35 }} onPress={() => navigation.navigate('SelectionScreen')} />
+        <Button
+            text="Enter as guest"
+            buttonColor="secondary"
+            customStyles={{ marginBottom: 35 }}
+            onPress={() => navigation.navigate('SelectionScreen')}
+        />
 
-        <Text style={globalStyles.textColorWhite}>
+        <Text style={themeColorUtils.textColorWhite}>
           Already have an account?{' '}
 
           <Text
-            style={[globalStyles.textColorWhite, globalStyles.montserratBold, styles.loginLink]}
+            style={[themeColorUtils.textColorWhite, fontFamilyStyles.montserratBold, styles.loginLink]}
             onPress={openLoginModal}
           >Login</Text>
         </Text>
@@ -105,12 +112,14 @@ const styles = StyleSheet.create({
   header: {
     fontFamily: 'Montserrat-Bold',
     fontSize: 24,
-    color: 'white'
+    color: 'white',
+    marginBottom: 10
   },
   subHeader: {
     fontFamily: 'Lora-Medium-Italic',
     fontSize: 16,
-    color: 'white'
+    color: 'white',
+    marginBottom: 50
   },
   loginLink: {
     textDecorationLine: 'underline'
