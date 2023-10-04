@@ -8,6 +8,7 @@ export const globalStyles = StyleSheet.create({
     pageContainer: {
         backgroundColor: themeColors.white,
         padding: 25,
+        paddingTop: 15,
         minHeight: "100%"
     },
     defaultShadow: {
