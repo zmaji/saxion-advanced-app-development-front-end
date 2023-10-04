@@ -52,7 +52,6 @@ export default function CategoryOverview({ navigation }) {
                 />
             </SafeAreaView>
 
-
             <TextSubTitle content={'All categories'} color={'primary'}/>
             <SafeAreaView>
                 <FlatList

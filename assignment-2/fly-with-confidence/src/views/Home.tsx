@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import * as React from "react";
 import { SvgXml } from "react-native-svg";
+import { getStatusBarHeight } from "react-native-status-bar-height";
 import { StatusBar } from "expo-status-bar";
 import { globalStyles } from "../styles/global";
 import { themeColorUtils } from "../styles/themeColors";
@@ -14,7 +15,6 @@ import { fontFamilyStyles } from "../styles/typography";
 import Button from "../components/Button";
 import LoginModal from "../components/modals/LoginModal";
 import RegisterModal from "../components/modals/RegisterModal";
-import {getStatusBarHeight} from "react-native-status-bar-height";
 
 const homeRectangleXml = `
     <svg width="100%" height="100%" viewBox="0 0 320 298" fill="none" xmlns="http://www.w3.org/2000/svg">

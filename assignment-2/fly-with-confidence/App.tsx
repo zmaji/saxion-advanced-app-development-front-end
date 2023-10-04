@@ -9,7 +9,6 @@ import CategoryOverview from "./src/views/Articles/CategoryOverview";
 import ArticleOverview from "./src/views/Articles/ArticleOverview";
 import AppHeader from "./src/components/AppHeader";
 
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {

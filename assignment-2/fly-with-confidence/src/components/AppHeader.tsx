@@ -1,11 +1,11 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
-import {themeColors} from "../styles/themeColors";
-import {getStatusBarHeight} from "react-native-status-bar-height";
-import {fontFamilyStyles} from "../styles/typography";
+import { getStatusBarHeight } from "react-native-status-bar-height";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { themeColors } from "../styles/themeColors";
+import { fontFamilyStyles } from "../styles/typography";
 
 const statusBarHeight = getStatusBarHeight();
 
