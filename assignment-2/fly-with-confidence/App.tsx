@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { Platform } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from "./src/views/Home";
 import SelectionScreen from "./src/views/SelectionScreen";
+import CategoryOverview from "./src/views/Articles/CategoryOverview";
 
 
 const Stack = createNativeStackNavigator();
@@ -25,17 +27,23 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{
-          headerShown: false
-        }}
+          screenOptions={{
+            headerShown: Platform.OS !== 'android',
+          }}
       >
         <Stack.Screen
           name="Home"
           component={Home}
         />
+
         <Stack.Screen
           name="SelectionScreen"
           component={SelectionScreen}
+        />
+
+        <Stack.Screen
+            name="CategoryOverview"
+            component={CategoryOverview}
         />
       </Stack.Navigator>
     </NavigationContainer>
