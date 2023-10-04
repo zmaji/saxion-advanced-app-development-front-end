@@ -32,7 +32,7 @@ export const typographyStyles = StyleSheet.create({
     pageSubTitle: {
         fontSize: 12,
         color: themeColors.darkGrey,
-        marginBottom: 20,
+        marginBottom: 5,
         ...fontFamilyStyles.loraItalic
     },
     regularText: {

@@ -11,7 +11,6 @@ export const globalStyles = StyleSheet.create({
     pageContainer: {
         backgroundColor: themeColors.white,
         padding: 25,
-        paddingTop: 25 + statusBarHeight,
         minHeight: "100%"
     },
     defaultShadow: {
@@ -23,5 +22,8 @@ export const globalStyles = StyleSheet.create({
         shadowOpacity: 0.10,
         shadowRadius: 4,
         elevation: 5,
+    },
+    subTitleContainer: {
+        flexDirection: "row",
     }
 });

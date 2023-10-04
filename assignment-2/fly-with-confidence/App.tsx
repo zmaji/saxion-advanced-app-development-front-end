@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from "./src/views/Home";
 import SelectionScreen from "./src/views/SelectionScreen";
 import CategoryOverview from "./src/views/Articles/CategoryOverview";
+import ArticleOverview from "./src/views/Articles/ArticleOverview";
+import AppHeader from "./src/components/AppHeader";
 
 
 const Stack = createNativeStackNavigator();
@@ -28,12 +30,16 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
           screenOptions={{
-            headerShown: Platform.OS !== 'android',
+            // headerShown: Platform.OS !== 'android',
+            animation: 'slide_from_right',
+            animationDuration: 100,
+            header: () => <AppHeader/>,
           }}
       >
         <Stack.Screen
           name="Home"
           component={Home}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen
@@ -44,6 +50,11 @@ export default function App() {
         <Stack.Screen
             name="CategoryOverview"
             component={CategoryOverview}
+        />
+
+        <Stack.Screen
+            name="ArticleOverview"
+            component={ArticleOverview}
         />
       </Stack.Navigator>
     </NavigationContainer>
