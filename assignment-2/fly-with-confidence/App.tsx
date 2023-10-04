@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Platform } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -26,9 +27,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{
-          headerShown: false
-        }}
+          screenOptions={{
+            headerShown: Platform.OS !== 'android',
+          }}
       >
         <Stack.Screen
           name="Home"
