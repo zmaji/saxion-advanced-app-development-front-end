@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from "./src/views/Home";
 import SelectionScreen from "./src/views/SelectionScreen";
+import CategoryOverview from "./src/views/Articles/CategoryOverview";
 
 
 const Stack = createNativeStackNavigator();
@@ -33,9 +34,15 @@ export default function App() {
           name="Home"
           component={Home}
         />
+
         <Stack.Screen
           name="SelectionScreen"
           component={SelectionScreen}
+        />
+
+        <Stack.Screen
+            name="CategoryOverview"
+            component={CategoryOverview}
         />
       </Stack.Navigator>
     </NavigationContainer>
