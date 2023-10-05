@@ -11,7 +11,7 @@ import { getStatusBarHeight } from "react-native-status-bar-height";
 import { StatusBar } from "expo-status-bar";
 import { globalStyles } from "../styles/global";
 import { themeColorUtils } from "../styles/themeColors";
-import { fontFamilyStyles } from "../styles/typography";
+import { fontFamilyStyles, typographyStyles } from "../styles/typography";
 import Button from "../components/buttons/Button";
 import LoginModal from "../components/modals/LoginModal";
 import RegisterModal from "../components/modals/RegisterModal";
@@ -63,7 +63,7 @@ export default function Home({ navigation }) {
             onPress={() => navigation.navigate('SelectionScreen')}
         />
 
-        <Text style={themeColorUtils.textColorWhite}>
+        <Text style={[themeColorUtils.textColorWhite, {fontSize: 16}]}>
           Already have an account?{' '}
 
           <Text
@@ -114,17 +114,18 @@ const styles = StyleSheet.create({
   },
   header: {
     fontFamily: 'Montserrat-Bold',
-    fontSize: 24,
+    fontSize: 28,
     color: 'white',
     marginBottom: 10
   },
   subHeader: {
     fontFamily: 'Lora-Medium-Italic',
-    fontSize: 16,
+    fontSize: 20,
     color: 'white',
     marginBottom: 50
   },
   loginLink: {
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    ...typographyStyles.baseFontSize
   }
 });

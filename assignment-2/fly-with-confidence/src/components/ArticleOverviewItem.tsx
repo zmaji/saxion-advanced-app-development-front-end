@@ -41,6 +41,7 @@ const ArticleOverviewItem: React.FC<ArticleOverviewItemProps> = ({ title, onPres
 
             <View style={styles.readLinkContainer}>
                 <Text style={styles.readLinkText}>Read</Text>
+
                 <FontAwesomeIcon icon={faChevronRight} color={themeColors.primary} />
             </View>
         </TouchableOpacity>
@@ -74,6 +75,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     readLinkText: {
+        fontSize: 14,
         marginRight: 5,
         color: themeColors.primary,
         textDecorationLine: 'underline',

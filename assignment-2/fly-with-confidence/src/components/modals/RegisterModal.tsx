@@ -43,9 +43,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
       >
         <View style={styles.modalView}>
           <ScrollView contentContainerStyle={styles.scrollViewContent}>
-            <TextTitle content="Register" />
+            <TextTitle content="Register"/>
 
-            <TextSubTitle content={'Please enter your credentials'}/>
+            <TextSubTitle content={'Please enter your credentials'} customStyles={{marginBottom: 20}}/>
 
             <View style={inputStyles.formContainer}>
               <FormLabel content={"Username"}/>
@@ -97,7 +97,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
 const styles = StyleSheet.create({
   modalView: {
     flex: 1,
-    margin: 30,
+    margin: 25,
     borderRadius: 5,
     backgroundColor: themeColors.white,
     ...globalStyles.defaultShadow,
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    padding: 40,
+    padding: 25,
   },
   registerButton: {
     alignSelf: 'center',

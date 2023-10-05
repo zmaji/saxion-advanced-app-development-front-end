@@ -41,9 +41,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
     >
       <View style={styles.modalView}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
-          <TextTitle content="Login" />
+          <TextTitle content="Login"/>
 
-          <TextSubTitle content={'Please enter your credentials'}/>
+          <TextSubTitle content={'Please enter your credentials'} customStyles={{marginBottom: 20}}/>
 
           <View style={inputStyles.formContainer}>
             <FormLabel content={"Username"}/>
@@ -77,7 +77,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
 const styles = StyleSheet.create({
   modalView: {
     flex: 1,
-    margin: 30,
+    margin: 25,
     borderRadius: 5,
     backgroundColor: themeColors.white,
     ...globalStyles.defaultShadow,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    padding: 40,
+    padding: 25,
   },
   loginButton: {
     alignSelf: 'center',

@@ -5,7 +5,7 @@ import { getStatusBarHeight } from "react-native-status-bar-height";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { themeColors } from "../styles/themeColors";
-import { fontFamilyStyles } from "../styles/typography";
+import {fontFamilyStyles, typographyStyles} from "../styles/typography";
 
 const statusBarHeight = getStatusBarHeight();
 
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     backText: {
         marginLeft: 5,
         color: themeColors.primary,
-        fontSize: 16,
+        ...typographyStyles.baseFontSize,
         ...fontFamilyStyles.loraBoldItalic
     },
 });

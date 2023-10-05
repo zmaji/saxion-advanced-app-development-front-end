@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { themeColors, themeColorUtils } from "../styles/themeColors";
-import { fontFamilyStyles } from "../styles/typography";
+import {fontFamilyStyles, typographyStyles} from "../styles/typography";
 
 type SelectionItemProps = {
     title: string,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         borderColor: themeColors.primary,
     },
     selectionItemTitle: {
-        fontSize: 14,
+        ...typographyStyles.baseFontSize,
         ...fontFamilyStyles.montserratRegular
     },
 });

@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textDecorationLine: 'underline',
         backgroundColor: themeColors.white,
-        color: themeColors.secondary,
+        color: themeColors.grey,
         ...fontFamilyStyles.montserratMedium
     }
 });
