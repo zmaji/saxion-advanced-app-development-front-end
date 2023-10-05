@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
-import { buttonStyles } from "../styles/buttons";
-import { getBackgroundColorStyle, getTextColorStyle } from "../helpers/getColorStylesHelper";
+import { buttonStyles } from "../../styles/buttons";
+import { getBackgroundColorStyle, getTextColorStyle } from "../../helpers/getColorStylesHelper";
 
 interface ButtonProps {
   text: string,

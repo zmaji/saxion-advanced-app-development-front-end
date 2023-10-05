@@ -1,8 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
 import {themeColors} from "./themeColors";
-
-const statusBarHeight = getStatusBarHeight();
 
 export const globalStyles = StyleSheet.create({
     marginBottom: {
@@ -11,7 +8,7 @@ export const globalStyles = StyleSheet.create({
     pageContainer: {
         backgroundColor: themeColors.white,
         padding: 25,
-        paddingTop: 25 + statusBarHeight,
+        paddingTop: 15,
         minHeight: "100%"
     },
     defaultShadow: {
@@ -23,5 +20,8 @@ export const globalStyles = StyleSheet.create({
         shadowOpacity: 0.10,
         shadowRadius: 4,
         elevation: 5,
+    },
+    subTitleContainer: {
+        flexDirection: "row",
     }
 });

@@ -23,20 +23,23 @@ export const fontFamilyStyles = {
 }
 
 export const typographyStyles = StyleSheet.create({
+    baseFontSize: {
+      fontSize: 16,
+    },
     pageTitle: {
-        fontSize: 20,
+        fontSize: 24,
         color: themeColors.darkGrey,
         marginBottom: 5,
         ...fontFamilyStyles.montserratBold
     },
     pageSubTitle: {
-        fontSize: 12,
+        fontSize: 16,
         color: themeColors.darkGrey,
-        marginBottom: 20,
+        marginBottom: 10,
         ...fontFamilyStyles.loraItalic
     },
     regularText: {
-        fontSize: 12,
+        fontSize: 16,
         color: themeColors.darkGrey,
         marginBottom: 20,
         ...fontFamilyStyles.montserratRegular

@@ -48,6 +48,7 @@ export default function SelectionScreen({ navigation }) {
         <View style={globalStyles.pageContainer}>
             <TextTitle content={'How can we help you?'}/>
             <TextSubTitle content={'Select one option'}/>
+
             <SafeAreaView>
                 <FlatList
                     data={navigationOptions}

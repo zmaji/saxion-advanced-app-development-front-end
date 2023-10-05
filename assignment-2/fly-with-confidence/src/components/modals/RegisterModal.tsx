@@ -10,7 +10,8 @@ import { inputStyles } from "../../styles/inputs";
 import { themeColors } from "../../styles/themeColors";
 import { globalStyles } from "../../styles/global";
 import TextTitle from "../typography/TextTitle";
-import Button from "../../components/Button";
+import Button from "../buttons/Button";
+import TextButton from "../buttons/TextButton";
 import TextSubTitle from "../typography/TextSubTitle";
 import FormLabel from "../typography/FormLabel";
 
@@ -42,9 +43,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
       >
         <View style={styles.modalView}>
           <ScrollView contentContainerStyle={styles.scrollViewContent}>
-            <TextTitle content="Register" />
+            <TextTitle content="Register"/>
 
-            <TextSubTitle content={'Please enter your credentials'}/>
+            <TextSubTitle content={'Please enter your credentials'} customStyles={{marginBottom: 20}}/>
 
             <View style={inputStyles.formContainer}>
               <FormLabel content={"Username"}/>
@@ -84,7 +85,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
             </View>
 
             {/* TODO: onPress handleRegister */}
-            <Button text="Register" customStyles={styles.registerButton} onPress={handleRegister} />
+            <Button text="Register" customStyles={styles.registerButton} onPress={handleRegister}/>
+
+            <TextButton text={'Cancel'} onPress={closeRegisterModal}/>
           </ScrollView>
         </View>
       </Modal>
@@ -94,7 +97,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
 const styles = StyleSheet.create({
   modalView: {
     flex: 1,
-    margin: 30,
+    margin: 25,
     borderRadius: 5,
     backgroundColor: themeColors.white,
     ...globalStyles.defaultShadow,
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    padding: 40,
+    padding: 25,
   },
   registerButton: {
     alignSelf: 'center',

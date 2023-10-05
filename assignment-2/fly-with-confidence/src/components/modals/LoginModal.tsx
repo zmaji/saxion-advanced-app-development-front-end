@@ -4,13 +4,14 @@ import {
   View,
   StyleSheet,
   TextInput,
-  ScrollView,
+  ScrollView
 } from 'react-native';
 import { inputStyles } from "../../styles/inputs";
 import { themeColors } from "../../styles/themeColors";
 import { globalStyles } from "../../styles/global";
 import TextTitle from "../typography/TextTitle";
-import Button from "../../components/Button";
+import Button from "../buttons/Button";
+import TextButton from "../buttons/TextButton";
 import TextSubTitle from "../typography/TextSubTitle";
 import FormLabel from "../typography/FormLabel";
 
@@ -40,9 +41,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
     >
       <View style={styles.modalView}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
-          <TextTitle content="Login" />
+          <TextTitle content="Login"/>
 
-          <TextSubTitle content={'Please enter your credentials'}/>
+          <TextSubTitle content={'Please enter your credentials'} customStyles={{marginBottom: 20}}/>
 
           <View style={inputStyles.formContainer}>
             <FormLabel content={"Username"}/>
@@ -65,6 +66,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
 
           {/* TODO: onPress handleLogin */}
           <Button text="Login" customStyles={styles.loginButton} />
+
+          <TextButton text={'Cancel'} onPress={closeLoginModal}/>
         </ScrollView>
       </View>
     </Modal>
@@ -74,7 +77,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
 const styles = StyleSheet.create({
   modalView: {
     flex: 1,
-    margin: 30,
+    margin: 25,
     borderRadius: 5,
     backgroundColor: themeColors.white,
     ...globalStyles.defaultShadow,
@@ -83,7 +86,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    padding: 40,
+    padding: 25,
   },
   loginButton: {
     alignSelf: 'center',
