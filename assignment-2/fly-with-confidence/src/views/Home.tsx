@@ -6,7 +6,6 @@ import {
   View
 } from "react-native";
 import * as React from "react";
-import { SvgXml } from "react-native-svg";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { StatusBar } from "expo-status-bar";
 import { globalStyles } from "../styles/global";
@@ -15,12 +14,7 @@ import { fontFamilyStyles, typographyStyles } from "../styles/typography";
 import Button from "../components/buttons/Button";
 import LoginModal from "../components/modals/LoginModal";
 import RegisterModal from "../components/modals/RegisterModal";
-
-const homeRectangleXml = `
-    <svg width="100%" height="100%" viewBox="0 0 320 298" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 110.283L320 0V298H0L0 110.283Z" fill="#87CEEB"/>
-    </svg>
-`;
+import {LinearGradient} from "expo-linear-gradient";
 
 // @ts-ignore
 export default function Home({ navigation }) {
@@ -48,7 +42,7 @@ export default function Home({ navigation }) {
       source={require('../../assets/images/home-bg.jpg')}
       style={styles.backgroundImage}
     >
-      <SvgXml xml={homeRectangleXml} style={styles.backgroundSvg} />
+      <LinearGradient colors={['transparent', 'rgba(0,0,50,.35)']} style={styles.linearGradient}/>
       <View style={styles.container}>
 
         <Text style={styles.header}>Fly with Confidence</Text>
@@ -99,9 +93,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative'
   },
-  backgroundSvg: {
+  linearGradient: {
     position: 'absolute',
-    top: '30%',
+    top: 0,
     bottom: 0,
     left: 0,
     right: 0,
