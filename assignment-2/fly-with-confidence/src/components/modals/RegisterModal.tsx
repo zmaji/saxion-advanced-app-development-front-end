@@ -10,7 +10,8 @@ import { inputStyles } from "../../styles/inputs";
 import { themeColors } from "../../styles/themeColors";
 import { globalStyles } from "../../styles/global";
 import TextTitle from "../typography/TextTitle";
-import Button from "../../components/Button";
+import Button from "../buttons/Button";
+import TextButton from "../buttons/TextButton";
 import TextSubTitle from "../typography/TextSubTitle";
 import FormLabel from "../typography/FormLabel";
 
@@ -84,7 +85,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
             </View>
 
             {/* TODO: onPress handleRegister */}
-            <Button text="Register" customStyles={styles.registerButton} onPress={handleRegister} />
+            <Button text="Register" customStyles={styles.registerButton} onPress={handleRegister}/>
+
+            <TextButton text={'Cancel'} onPress={closeRegisterModal}/>
           </ScrollView>
         </View>
       </Modal>

@@ -12,7 +12,7 @@ import { StatusBar } from "expo-status-bar";
 import { globalStyles } from "../styles/global";
 import { themeColorUtils } from "../styles/themeColors";
 import { fontFamilyStyles } from "../styles/typography";
-import Button from "../components/Button";
+import Button from "../components/buttons/Button";
 import LoginModal from "../components/modals/LoginModal";
 import RegisterModal from "../components/modals/RegisterModal";
 

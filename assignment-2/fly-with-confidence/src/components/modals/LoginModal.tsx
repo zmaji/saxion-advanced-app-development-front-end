@@ -4,13 +4,14 @@ import {
   View,
   StyleSheet,
   TextInput,
-  ScrollView,
+  ScrollView
 } from 'react-native';
 import { inputStyles } from "../../styles/inputs";
 import { themeColors } from "../../styles/themeColors";
 import { globalStyles } from "../../styles/global";
 import TextTitle from "../typography/TextTitle";
-import Button from "../../components/Button";
+import Button from "../buttons/Button";
+import TextButton from "../buttons/TextButton";
 import TextSubTitle from "../typography/TextSubTitle";
 import FormLabel from "../typography/FormLabel";
 
@@ -65,6 +66,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
 
           {/* TODO: onPress handleLogin */}
           <Button text="Login" customStyles={styles.loginButton} />
+
+          <TextButton text={'Cancel'} onPress={closeLoginModal}/>
         </ScrollView>
       </View>
     </Modal>
