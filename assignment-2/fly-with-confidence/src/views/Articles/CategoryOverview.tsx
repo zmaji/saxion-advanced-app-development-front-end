@@ -5,9 +5,8 @@ import {
     View,
 } from 'react-native';
 import { globalStyles } from "../../styles/global";
-import TextTitle from "../../components/typography/TextTitle";
-import TextSubTitle from "../../components/typography/TextSubTitle";
-import SelectionItem from "../../components/SelectionItem";
+import { TextTitle, TextSubTitle, SelectionItem } from '../../components';
+
 
 // @ts-ignore
 export default function CategoryOverview({ navigation }) {

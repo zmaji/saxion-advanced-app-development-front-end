@@ -1,13 +1,15 @@
+import 'react-native-gesture-handler';
 import * as React from 'react';
-import { Platform } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from "./src/views/Home";
-import SelectionScreen from "./src/views/SelectionScreen";
-import CategoryOverview from "./src/views/Articles/CategoryOverview";
-import ArticleOverview from "./src/views/Articles/ArticleOverview";
-import AppHeader from "./src/components/AppHeader";
+import {
+    Home,
+    SelectionScreen,
+    CategoryOverview,
+    ArticleOverview,
+} from "./src/views";
+import { AppHeader } from './src/components';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,7 +31,6 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
           screenOptions={{
-            // headerShown: Platform.OS !== 'android',
             animation: 'slide_from_right',
             animationDuration: 100,
             header: () => <AppHeader/>,

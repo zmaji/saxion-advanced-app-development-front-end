@@ -4,8 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { themeColors } from "../styles/themeColors";
-import {fontFamilyStyles, typographyStyles} from "../styles/typography";
+import { themeColors } from "../../styles/themeColors";
+import {fontFamilyStyles, typographyStyles} from "../../styles/typography";
 
 const statusBarHeight = getStatusBarHeight();
 

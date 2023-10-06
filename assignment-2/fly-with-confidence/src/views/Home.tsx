@@ -12,9 +12,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { globalStyles } from "../styles/global";
 import { themeColorUtils } from "../styles/themeColors";
 import { fontFamilyStyles, typographyStyles } from "../styles/typography";
-import Button from "../components/buttons/Button";
-import LoginModal from "../components/modals/LoginModal";
-import RegisterModal from "../components/modals/RegisterModal";
+import { Button, LoginModal, RegisterModal } from '../components';
 
 // @ts-ignore
 export default function Home({ navigation }) {

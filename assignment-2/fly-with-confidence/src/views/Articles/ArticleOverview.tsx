@@ -6,10 +6,9 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { globalStyles } from "../../styles/global";
-import TextTitle from "../../components/typography/TextTitle";
-import TextSubTitle from "../../components/typography/TextSubTitle";
-import ArticleOverviewItem from "../../components/ArticleOverviewItem";
 import { fontFamilyStyles } from "../../styles/typography";
+import { TextTitle, TextSubTitle, ArticleOverviewItem } from '../../components';
+
 
 // @ts-ignore
 export default function ArticleOverview({ navigation }) {
