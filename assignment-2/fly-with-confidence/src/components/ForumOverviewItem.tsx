@@ -7,7 +7,7 @@ import {
   View
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faEye, faComment, faFaceSmile, faFaceFrown } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faComment, faFaceSmile, faFaceFrown } from "@fortawesome/free-regular-svg-icons";
 import { themeColors, themeColorUtils } from "../styles/themeColors";
 import { fontFamilyStyles } from "../styles/typography";
 import { globalStyles } from "../styles/global";
