@@ -14,23 +14,47 @@ import Button from "../buttons/Button";
 import TextButton from "../buttons/TextButton";
 import TextSubTitle from "../typography/TextSubTitle";
 import FormLabel from "../typography/FormLabel";
+import ErrorMessage from "../typography/ErrorMessage";
 
 interface LoginModalProps {
   isVisible: boolean;
   closeLoginModal: () => void;
+  onLogin: (username: string, password: string) => void;
 }
 
-{/*   onLogin: (username: string, password: string) => void; */ }
-
-const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) => {
+const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onLogin }) => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [usernameError, setUsernameError] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string>('');
 
-  {/* 
   const handleLogin = () => {
-    onLogin(username, password);
+    setUsernameError('');
+    setPasswordError('');
+
+    let isValid = true;
+
+    if (!username) {
+      setUsernameError('Username is required');
+      isValid = false;
+    }
+
+    if (!password) {
+      setPasswordError('Password is required');
+      isValid = false;
+    }
+
+    if (isValid)
+      onLogin(username, password);
   };
-  */}
+
+  const handleCloseModal = () => {
+    setUsername('');
+    setPassword('');
+    setUsernameError('');
+    setPasswordError('');
+    closeLoginModal();
+  };
 
   return (
     <Modal
@@ -41,20 +65,21 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
     >
       <View style={styles.modalView}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
-          <TextTitle content="Login"/>
+          <TextTitle content="Login" />
 
-          <TextSubTitle content={'Please enter your credentials'} customStyles={{marginBottom: 20}}/>
+          <TextSubTitle content={'Please enter your credentials'} customStyles={{ marginBottom: 20 }} />
 
           <View style={inputStyles.formContainer}>
-            <FormLabel content={"Username"}/>
+            <FormLabel content={"Username"} />
             <TextInput
               style={inputStyles.formInput}
               placeholder="Username"
               value={username}
               onChangeText={setUsername}
             />
+            {usernameError ? (<ErrorMessage content={usernameError} color='error'></ErrorMessage>) : null}
 
-            <FormLabel content={"Password"}/>
+            <FormLabel content={"Password"} />
             <TextInput
               style={inputStyles.formInput}
               placeholder="Password"
@@ -62,12 +87,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
               value={password}
               onChangeText={setPassword}
             />
+            {passwordError ? (<ErrorMessage content={passwordError} color='error'></ErrorMessage>) : null}
           </View>
 
-          {/* TODO: onPress handleLogin */}
-          <Button text="Login" customStyles={styles.loginButton} />
+          <Button text="Login" customStyles={styles.loginButton} onPress={handleLogin} />
 
-          <TextButton text={'Cancel'} onPress={closeLoginModal}/>
+          <TextButton text={'Cancel'} onPress={handleCloseModal} />
         </ScrollView>
       </View>
     </Modal>
