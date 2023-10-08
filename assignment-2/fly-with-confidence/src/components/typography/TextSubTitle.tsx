@@ -1,7 +1,7 @@
-import { Text } from "react-native";
-import React from "react";
-import { typographyStyles } from "../../styles/typography";
-import { getTextColorStyle } from "../../helpers/getColorStylesHelper";
+import { Text } from 'react-native';
+import React from 'react';
+import { getTextColorStyle } from '../../helpers/getColorStylesHelper';
+import { typographyStyles } from '../../styles/typography';
 
 interface TextSubTitleProps {
   content: string,
