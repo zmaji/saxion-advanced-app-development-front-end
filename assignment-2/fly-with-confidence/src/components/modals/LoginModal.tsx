@@ -41,12 +41,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
     >
       <View style={styles.modalView}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
-          <TextTitle content="Login"/>
+          <TextTitle content="Login" />
 
-          <TextSubTitle content={'Please enter your credentials'} customStyles={{marginBottom: 20}}/>
+          <TextSubTitle content={'Please enter your credentials'} customStyles={{ marginBottom: 20 }} />
 
           <View style={inputStyles.formContainer}>
-            <FormLabel content={"Username"}/>
+            <FormLabel content={"Username"} />
             <TextInput
               style={inputStyles.formInput}
               placeholder="Username"
@@ -54,7 +54,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
               onChangeText={setUsername}
             />
 
-            <FormLabel content={"Password"}/>
+            <FormLabel content={"Password"} />
             <TextInput
               style={inputStyles.formInput}
               placeholder="Password"
@@ -67,7 +67,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal }) =
           {/* TODO: onPress handleLogin */}
           <Button text="Login" customStyles={styles.loginButton} />
 
-          <TextButton text={'Cancel'} onPress={closeLoginModal}/>
+          <TextButton text={'Cancel'} onPress={closeLoginModal} />
         </ScrollView>
       </View>
     </Modal>

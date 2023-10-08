@@ -7,17 +7,17 @@ import {
   View
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { themeColors, themeColorUtils } from "../styles/themeColors";
 import { fontFamilyStyles } from "../styles/typography";
 import { globalStyles } from "../styles/global";
 
-type ArticleOverviewItemProps = {
+type ForumOverviewItemProps = {
   title: string,
   onPress: () => void;
 };
 
-const ArticleOverviewItem: React.FC<ArticleOverviewItemProps> = ({ title, onPress }) => {
+const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, onPress }) => {
   const [isPressed, setIsPressed] = useState(false);
 
   const handlePressIn = () => {
@@ -33,39 +33,39 @@ const ArticleOverviewItem: React.FC<ArticleOverviewItemProps> = ({ title, onPres
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       activeOpacity={1}
-      style={[styles.articleOverviewItem, globalStyles.marginBottom, isPressed && styles.articleOverviewItemPressed]}
+      style={[styles.forumOverviewItem, globalStyles.marginBottom, isPressed && styles.forumOverviewItemPressed]}
       onPress={onPress}
     >
-      <Image source={require('../../assets/images/article-banner.jpg')} style={styles.articleOverviewItemImage} />
-      <Text style={[styles.articleOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
+      <Image source={require('../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />
+      <Text style={[styles.forumOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
 
       <View style={styles.readLinkContainer}>
-        <Text style={styles.readLinkText}>Read</Text>
+        <Text style={styles.readLinkText}>View post</Text>
 
-        <FontAwesomeIcon icon={faChevronRight} color={themeColors.primary} />
+        <FontAwesomeIcon icon={faEye} color={themeColors.primary} />
       </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  articleOverviewItem: {
+  forumOverviewItem: {
     backgroundColor: themeColors.white,
     flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: 5,
   },
-  articleOverviewItemImage: {
+  forumOverviewItemImage: {
     height: 80,
     width: '100%',
     resizeMode: 'cover',
     borderRadius: 5,
     marginBottom: 5,
   },
-  articleOverviewItemPressed: {
+  forumOverviewItemPressed: {
     backgroundColor: themeColors.primary + 25
   },
-  articleOverviewItemTitle: {
+  forumOverviewItemTitle: {
     fontSize: 14,
     marginBottom: 5,
     ...fontFamilyStyles.montserratMedium,
@@ -83,4 +83,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ArticleOverviewItem;
+export default ForumOverviewItem;

@@ -7,6 +7,7 @@ import Home from "./src/views/Home";
 import SelectionScreen from "./src/views/SelectionScreen";
 import CategoryOverview from "./src/views/Articles/CategoryOverview";
 import ArticleOverview from "./src/views/Articles/ArticleOverview";
+import ForumOverview from "./src/views/Posts/ForumOverview";
 import AppHeader from "./src/components/AppHeader";
 
 const Stack = createNativeStackNavigator();
@@ -28,12 +29,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-          screenOptions={{
-            // headerShown: Platform.OS !== 'android',
-            animation: 'slide_from_right',
-            animationDuration: 100,
-            header: () => <AppHeader/>,
-          }}
+        screenOptions={{
+          // headerShown: Platform.OS !== 'android',
+          animation: 'slide_from_right',
+          animationDuration: 100,
+          header: () => <AppHeader />,
+        }}
       >
         <Stack.Screen
           name="Home"
@@ -47,13 +48,18 @@ export default function App() {
         />
 
         <Stack.Screen
-            name="CategoryOverview"
-            component={CategoryOverview}
+          name="CategoryOverview"
+          component={CategoryOverview}
         />
 
         <Stack.Screen
-            name="ArticleOverview"
-            component={ArticleOverview}
+          name="ArticleOverview"
+          component={ArticleOverview}
+        />
+
+        <Stack.Screen
+          name="ForumOverview"
+          component={ForumOverview}
         />
       </Stack.Navigator>
     </NavigationContainer>
