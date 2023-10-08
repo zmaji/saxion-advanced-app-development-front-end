@@ -7,17 +7,23 @@ import {
   View
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faComment, faFaceSmile, faFaceFrown } from "@fortawesome/free-solid-svg-icons";
 import { themeColors, themeColorUtils } from "../styles/themeColors";
 import { fontFamilyStyles } from "../styles/typography";
 import { globalStyles } from "../styles/global";
 
 type ForumOverviewItemProps = {
   title: string,
+  comments: number,
+  likes: number,
+  dislikes: number,
+  image: string,
+  content: string,
+  category: string,
   onPress: () => void;
 };
 
-const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, onPress }) => {
+const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, comments, likes, dislikes, image, category, onPress }) => {
   const [isPressed, setIsPressed] = useState(false);
 
   const handlePressIn = () => {
@@ -36,14 +42,30 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, onPress })
       style={[styles.forumOverviewItem, globalStyles.marginBottom, isPressed && styles.forumOverviewItemPressed]}
       onPress={onPress}
     >
-      <Image source={require('../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />
       <Text style={[styles.forumOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
 
-      <View style={styles.readLinkContainer}>
-        <Text style={styles.readLinkText}>View post</Text>
+      {image !== '' ? (<Image source={require('../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />) : (null)}
 
-        <FontAwesomeIcon icon={faEye} color={themeColors.primary} />
+      <Text style={[styles.forumOverviewItemContent]}>{content}</Text>
+
+      <View style={styles.readLinkContainer}>
+        <View style={styles.readLinkContent}>
+          <Text style={styles.readLinkText}>View post</Text>
+          <FontAwesomeIcon style={styles.viewIcon} icon={faEye} color={themeColors.primary} />
+        </View>
+
+        <View style={styles.extraInfoContainer}>
+          <FontAwesomeIcon style={styles.extraInfoIcon} icon={faComment} color={themeColors.grey} />
+          <Text style={styles.extraInfoText}>{comments}</Text>
+
+          <FontAwesomeIcon style={styles.extraInfoIcon} icon={faFaceSmile} color={themeColors.grey} />
+          <Text style={styles.extraInfoText}>{likes}</Text>
+
+          <FontAwesomeIcon style={styles.extraInfoIcon} icon={faFaceFrown} color={themeColors.grey} />
+          <Text style={styles.extraInfoText}>{dislikes}</Text>
+        </View>
       </View>
+
     </TouchableOpacity>
   );
 };
@@ -66,13 +88,24 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.primary + 25
   },
   forumOverviewItemTitle: {
-    fontSize: 14,
+    fontSize: 16,
     marginBottom: 5,
+    ...fontFamilyStyles.montserratMedium,
+    ...fontFamilyStyles.montserratBold
+  },
+  forumOverviewItemContent: {
+    fontSize: 14,
+    marginBottom: 10,
     ...fontFamilyStyles.montserratMedium,
   },
   readLinkContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  readLinkContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 10
   },
   readLinkText: {
     fontSize: 14,
@@ -80,6 +113,20 @@ const styles = StyleSheet.create({
     color: themeColors.primary,
     textDecorationLine: 'underline',
     ...fontFamilyStyles.loraItalic
+  },
+  extraInfoContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  extraInfoText: {
+    marginRight: 10
+  },
+  extraInfoIcon: {
+    marginRight: 5
+  },
+  viewIcon: {
+    marginTop: 2.5
   }
 });
 

@@ -19,27 +19,52 @@ export default function ArticleOverview({ navigation }) {
   const categories = [
     {
       id: '1',
-      title: 'Conquering Flight Anxiety with Mindfulness: An Inner Journey',
+      title: 'I did it!',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
+      comments: 1,
+      likes: 10,
+      dislikes: 0,
+      image: '../../assets/images/article-banner.jpg',
       onPress: () => navigation.navigate('ForumDetail', { articleID: 1 })
     },
     {
       id: '2',
-      title: 'How Flying Today Is Safer Than At Any Time In The Past',
+      title: 'Atlantis tropical storm',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
+      comments: 1,
+      likes: 10,
+      dislikes: 0,
+      image: '',
       onPress: () => navigation.navigate('ForumDetail', { articleID: 2 })
     },
     {
       id: '3',
-      title: 'Coping with Flight Delays and Anxiety',
+      title: 'Fear of feeling trapped',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
+      comments: 1,
+      likes: 10,
+      dislikes: 0,
+      image: '../../assets/images/article-banner.jpg',
       onPress: () => navigation.navigate('ForumDetail', { articleID: 3 })
     },
     {
       id: '4',
-      title: 'The Role of Flight Crew in Ensuring Passenger Comfort',
+      title: 'Fear of feeling trapped',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
+      comments: 1,
+      likes: 10,
+      dislikes: 0,
+      image: '',
       onPress: () => navigation.navigate('ForumDetail', { articleID: 4 })
     },
     {
       id: '5',
-      title: 'Aviophobia and Its Impact on Travel Choices',
+      title: 'Fear of feeling trapped',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
+      comments: 1,
+      likes: 10,
+      dislikes: 0,
+      image: '../../assets/images/article-banner.jpg',
       onPress: () => navigation.navigate('ForumDetail', { articleID: 5 })
     },
   ];
@@ -49,7 +74,7 @@ export default function ArticleOverview({ navigation }) {
       <TextTitle content={'Forum posts'} />
 
       <View style={globalStyles.subTitleContainer}>
-        <TextSubTitle content={'Popular articles in: '} color={'primary'} />
+        <TextSubTitle content={'Sorting posts on: '} color={'primary'} />
 
         <TextSubTitle content={`"${selectedCategory}"`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic} />
       </View>
@@ -57,7 +82,15 @@ export default function ArticleOverview({ navigation }) {
       <SafeAreaView style={globalStyles.marginBottom}>
         <FlatList
           data={categories}
-          renderItem={({ item }) => <ForumOverviewItem title={item.title} onPress={item.onPress} />}
+          renderItem={({ item }) => <ForumOverviewItem
+            title={item.title}
+            content={item.content}
+            comments={item.comments}
+            likes={item.likes}
+            dislikes={item.dislikes}
+            image={item.image}
+            onPress={item.onPress}
+          />}
           keyExtractor={item => item.id}
         />
       </SafeAreaView>
