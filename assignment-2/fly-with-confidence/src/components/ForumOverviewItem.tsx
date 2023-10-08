@@ -19,11 +19,11 @@ type ForumOverviewItemProps = {
   dislikes: number,
   image: string,
   content: string,
-  category: string,
+  categories: string[],
   onPress: () => void;
 };
 
-const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, comments, likes, dislikes, image, category, onPress }) => {
+const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, comments, likes, dislikes, image, categories, onPress }) => {
   const [isPressed, setIsPressed] = useState(false);
 
   const handlePressIn = () => {
@@ -42,7 +42,21 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, c
       style={[styles.forumOverviewItem, globalStyles.marginBottom, isPressed && styles.forumOverviewItemPressed]}
       onPress={onPress}
     >
-      <Text style={[styles.forumOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
+
+      <View style={styles.titleContainer}>
+        <Text style={[styles.forumOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
+
+        <View style={styles.buttonsContainer}>
+          {categories.map((category, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[styles.categoryButton]}
+            >
+              <Text style={styles.categoryButtonText}>{category}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </View>
 
       {image !== '' ? (<Image source={require('../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />) : (null)}
 
@@ -65,7 +79,6 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, c
           <Text style={styles.extraInfoText}>{dislikes}</Text>
         </View>
       </View>
-
     </TouchableOpacity>
   );
 };
@@ -127,6 +140,21 @@ const styles = StyleSheet.create({
   },
   viewIcon: {
     marginTop: 2.5
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  categoryButton: {
+    backgroundColor: themeColors.lightGrey,
+    borderRadius: 10,
+    padding: 10,
+    fontSize: 1,
+    marginLeft: 10
   }
 });
 

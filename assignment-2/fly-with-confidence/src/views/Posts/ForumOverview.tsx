@@ -24,6 +24,7 @@ export default function ArticleOverview({ navigation }) {
       comments: 1,
       likes: 10,
       dislikes: 0,
+      categories: ['Success', 'Advice'],
       image: '../../assets/images/article-banner.jpg',
       onPress: () => navigation.navigate('ForumDetail', { articleID: 1 })
     },
@@ -34,6 +35,7 @@ export default function ArticleOverview({ navigation }) {
       comments: 1,
       likes: 10,
       dislikes: 0,
+      categories: ['Support'],
       image: '',
       onPress: () => navigation.navigate('ForumDetail', { articleID: 2 })
     },
@@ -44,6 +46,7 @@ export default function ArticleOverview({ navigation }) {
       comments: 1,
       likes: 10,
       dislikes: 0,
+      categories: ['Support'],
       image: '../../assets/images/article-banner.jpg',
       onPress: () => navigation.navigate('ForumDetail', { articleID: 3 })
     },
@@ -54,6 +57,7 @@ export default function ArticleOverview({ navigation }) {
       comments: 1,
       likes: 10,
       dislikes: 0,
+      categories: ['Support'],
       image: '',
       onPress: () => navigation.navigate('ForumDetail', { articleID: 4 })
     },
@@ -64,6 +68,7 @@ export default function ArticleOverview({ navigation }) {
       comments: 1,
       likes: 10,
       dislikes: 0,
+      categories: ['Support'],
       image: '../../assets/images/article-banner.jpg',
       onPress: () => navigation.navigate('ForumDetail', { articleID: 5 })
     },
@@ -89,6 +94,7 @@ export default function ArticleOverview({ navigation }) {
             likes={item.likes}
             dislikes={item.dislikes}
             image={item.image}
+            categories={item.categories}
             onPress={item.onPress}
           />}
           keyExtractor={item => item.id}
