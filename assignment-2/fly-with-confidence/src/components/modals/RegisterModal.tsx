@@ -6,14 +6,14 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import { inputStyles } from "../../styles/inputs";
-import { themeColors } from "../../styles/themeColors";
-import { globalStyles } from "../../styles/global";
-import TextTitle from "../typography/TextTitle";
-import Button from "../buttons/Button";
-import TextButton from "../buttons/TextButton";
-import TextSubTitle from "../typography/TextSubTitle";
-import FormLabel from "../typography/FormLabel";
+import { inputStyles } from '../../styles/inputs';
+import { themeColors } from '../../styles/themeColors';
+import { globalStyles } from '../../styles/global';
+import TextTitle from '../typography/TextTitle';
+import TextSubTitle from '../typography/TextSubTitle';
+import FormLabel from '../typography/FormLabel';
+import Button from '../buttons/Button';
+import TextButton from '../buttons/TextButton';
 
 interface RegisterModalProps {
   isVisible: boolean;
@@ -36,48 +36,48 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
 
   return (
       <Modal
-          animationType="slide"
+          animationType='slide'
           transparent={true}
           visible={isVisible}
           onRequestClose={closeRegisterModal}
       >
         <View style={styles.modalView}>
           <ScrollView contentContainerStyle={styles.scrollViewContent}>
-            <TextTitle content="Register"/>
+            <TextTitle content='Register'/>
 
             <TextSubTitle content={'Please enter your credentials'} customStyles={{marginBottom: 20}}/>
 
             <View style={inputStyles.formContainer}>
-              <FormLabel content={"Username"}/>
+              <FormLabel content={'Username'}/>
               <TextInput
                   style={inputStyles.formInput}
-                  placeholder="Username"
+                  placeholder='Username'
                   value={username}
                   onChangeText={setUsername}
               />
 
-              <FormLabel content={"Email"}/>
+              <FormLabel content={'Email'}/>
               <TextInput
                   style={inputStyles.formInput}
-                  placeholder="Email"
+                  placeholder='Email'
                   secureTextEntry={true}
                   value={email}
                   onChangeText={setEmail}
               />
 
-              <FormLabel content={"Password"}/>
+              <FormLabel content={'Password'}/>
               <TextInput
                   style={inputStyles.formInput}
-                  placeholder="Password"
+                  placeholder='Password'
                   secureTextEntry={true}
                   value={password}
                   onChangeText={setPassword}
               />
 
-              <FormLabel content={"Repeat password"}/>
+              <FormLabel content={'Repeat password'}/>
               <TextInput
                   style={inputStyles.formInput}
-                  placeholder="Confirm Password"
+                  placeholder='Confirm Password'
                   secureTextEntry={true}
                   value={passwordConfirmation}
                   onChangeText={setPasswordConfirmation}
@@ -85,7 +85,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
             </View>
 
             {/* TODO: onPress handleRegister */}
-            <Button text="Register" customStyles={styles.registerButton} onPress={handleRegister}/>
+            <Button text='Register' customStyles={styles.registerButton} onPress={handleRegister}/>
 
             <TextButton text={'Cancel'} onPress={closeRegisterModal}/>
           </ScrollView>

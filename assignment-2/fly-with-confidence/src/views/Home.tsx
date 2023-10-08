@@ -4,14 +4,14 @@ import {
   StyleSheet,
   Text,
   View
-} from "react-native";
-import * as React from "react";
-import { getStatusBarHeight } from "react-native-status-bar-height";
-import { StatusBar } from "expo-status-bar";
-import { LinearGradient } from "expo-linear-gradient";
-import { globalStyles } from "../styles/global";
-import { themeColorUtils } from "../styles/themeColors";
-import { fontFamilyStyles, typographyStyles } from "../styles/typography";
+} from 'react-native';
+import * as React from 'react';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { StatusBar } from 'expo-status-bar';
+import { LinearGradient } from 'expo-linear-gradient';
+import { globalStyles } from '../styles/global';
+import { themeColorUtils } from '../styles/themeColors';
+import { fontFamilyStyles, typographyStyles } from '../styles/typography';
 import { Button, LoginModal, RegisterModal } from '../components';
 
 // @ts-ignore
@@ -46,11 +46,11 @@ export default function Home({ navigation }) {
         <Text style={styles.header}>Fly with Confidence</Text>
         <Text style={styles.subHeader}>Reduce your fear of flight</Text>
 
-        <Button text="Sign up" customStyles={globalStyles.marginBottom} onPress={openRegisterModal} />
+        <Button text='Sign up' customStyles={globalStyles.marginBottom} onPress={openRegisterModal} />
 
         <Button
-            text="Enter as guest"
-            buttonColor="secondary"
+            text='Enter as guest'
+            buttonColor='secondary'
             customStyles={{ marginBottom: 35 }}
             onPress={() => navigation.navigate('SelectionScreen')}
         />
@@ -74,7 +74,7 @@ export default function Home({ navigation }) {
           closeRegisterModal={closeRegisterModal}
         />
 
-        <StatusBar style="auto" />
+        <StatusBar style='auto' />
       </View>
     </ImageBackground>
   );
@@ -86,7 +86,7 @@ const statusBarHeight = getStatusBarHeight();
 const styles = StyleSheet.create({
   backgroundImage: {
     height: windowHeight + statusBarHeight,
-    width: "100%",
+    width: '100%',
     resizeMode: 'cover',
     justifyContent: 'center',
     position: 'relative'

@@ -5,8 +5,8 @@ import {
     View,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { globalStyles } from "../../styles/global";
-import { fontFamilyStyles } from "../../styles/typography";
+import { globalStyles } from '../../styles/global';
+import { fontFamilyStyles } from '../../styles/typography';
 import { TextTitle, TextSubTitle, ArticleOverviewItem } from '../../components';
 
 
@@ -50,7 +50,7 @@ export default function ArticleOverview({ navigation }) {
             <View style={globalStyles.subTitleContainer}>
                 <TextSubTitle content={'Popular articles in: '} color={'primary'}/>
 
-                <TextSubTitle content={`"${selectedCategory}"`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic}/>
+                <TextSubTitle content={`'${selectedCategory}'`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic}/>
             </View>
 
             <SafeAreaView style={globalStyles.marginBottom}>

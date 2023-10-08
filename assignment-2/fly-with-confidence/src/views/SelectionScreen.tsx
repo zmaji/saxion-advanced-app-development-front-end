@@ -4,7 +4,7 @@ import {
     View,
     FlatList,
 } from 'react-native';
-import { globalStyles } from "../styles/global";
+import { globalStyles } from '../styles/global';
 import { TextTitle, TextSubTitle, SelectionItem } from '../components';
 
 // @ts-ignore
