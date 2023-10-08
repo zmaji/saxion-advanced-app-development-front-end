@@ -41,37 +41,36 @@ const SidePanelItems = ({ navigation, activeItem }) => {
             <SidePanelItem
                 title={'Education and information'}
                 onPress={() => navigation.navigate('SelectionScreen')}
-                active={activeItem === 'SelectionScreen'}
+                active={activeItem === ''}
             />
             <SidePanelItem
                 title={'Mindfulness'}
                 onPress={() => navigation.navigate('SelectionScreen')}
-                active={activeItem === 'SelectionScreen'}
+                active={activeItem === ''}
             />
             <SidePanelItem
                 title={'Flight information'}
                 onPress={() => navigation.navigate('SelectionScreen')}
-                active={activeItem === 'SelectionScreen'}
+                active={activeItem === ''}
             />
             <SidePanelItem
                 title={'Forum and discussion'}
                 onPress={() => navigation.navigate('SelectionScreen')}
-                active={activeItem === 'SelectionScreen'}
+                active={activeItem === ''}
             />
             <SidePanelItem
                 title={'Professional help'}
                 onPress={() => navigation.navigate('SelectionScreen')}
-                active={activeItem === 'SelectionScreen'}
+                active={activeItem === ''}
             />
             <SidePanelItem
                 title={'My profile'}
                 onPress={() => navigation.navigate('SelectionScreen')}
-                active={activeItem === 'SelectionScreen'}
+                active={activeItem === ''}
             />
             <SidePanelItem
                 title={'Logout'}
                 onPress={() => navigation.navigate('SelectionScreen')}
-                active={activeItem === 'Logout'}
             />
         </View>
     );
