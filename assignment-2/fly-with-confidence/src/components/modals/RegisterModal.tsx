@@ -111,10 +111,10 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
             <View style={inputStyles.formField}>
               <FormLabel content={'Username'} />
               <TextInput
-                  style={inputStyles.formInput}
-                  placeholder='Username'
-                  value={username}
-                  onChangeText={setUsername}
+                style={inputStyles.formInput}
+                placeholder='Username'
+                value={username}
+                onChangeText={setUsername}
               />
 
               {usernameError ? (<InputError content={usernameError} color='error'></InputError>) : null}
@@ -123,10 +123,10 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
             <View style={inputStyles.formField}>
               <FormLabel content={'Email'} />
               <TextInput
-                  style={inputStyles.formInput}
-                  placeholder='Email'
-                  value={email}
-                  onChangeText={setEmail}
+                style={inputStyles.formInput}
+                placeholder='Email'
+                value={email}
+                onChangeText={setEmail}
               />
 
               {usernameError ? (<InputError content={emailError} color='error'></InputError>) : null}
@@ -135,11 +135,11 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
             <View style={inputStyles.formField}>
               <FormLabel content={'Password'} />
               <TextInput
-                  style={inputStyles.formInput}
-                  placeholder='Password'
-                  secureTextEntry={true}
-                  value={password}
-                  onChangeText={setPassword}
+                style={inputStyles.formInput}
+                placeholder='Password'
+                secureTextEntry={true}
+                value={password}
+                onChangeText={setPassword}
               />
 
               {usernameError ? (<InputError content={passwordError} color='error'></InputError>) : null}
@@ -148,18 +148,17 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
             <View style={inputStyles.formField}>
               <FormLabel content={'Repeat password'} />
               <TextInput
-                  style={inputStyles.formInput}
-                  placeholder='Confirm Password'
-                  secureTextEntry={true}
-                  value={passwordConfirmation}
-                  onChangeText={setPasswordConfirmation}
+                style={inputStyles.formInput}
+                placeholder='Confirm Password'
+                secureTextEntry={true}
+                value={passwordConfirmation}
+                onChangeText={setPasswordConfirmation}
               />
 
               {usernameError ? (<InputError content={passwordConfirmationError} color='error'></InputError>) : null}
             </View>
           </View>
 
-          {/* TODO: onPress handleRegister */}
           <Button text='Register' customStyles={styles.registerButton} onPress={handleRegister} />
 
           <TextButton text={'Cancel'} onPress={handleCloseModal} />

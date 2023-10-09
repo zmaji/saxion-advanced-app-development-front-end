@@ -73,10 +73,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
             <View style={inputStyles.formField}>
               <FormLabel content={'Username'} />
               <TextInput
-                  style={inputStyles.formInput}
-                  placeholder='Username'
-                  value={username}
-                  onChangeText={setUsername}
+                style={inputStyles.formInput}
+                placeholder='Username'
+                value={username}
+                onChangeText={setUsername}
               />
 
               {usernameError ? (<InputError content={usernameError} color='error'></InputError>) : null}
@@ -85,18 +85,17 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
             <View style={inputStyles.formField}>
               <FormLabel content={'Password'} />
               <TextInput
-                  style={inputStyles.formInput}
-                  placeholder='Password'
-                  secureTextEntry={true}
-                  value={password}
-                  onChangeText={setPassword}
+                style={inputStyles.formInput}
+                placeholder='Password'
+                secureTextEntry={true}
+                value={password}
+                onChangeText={setPassword}
               />
 
               {passwordError ? (<InputError content={passwordError} color='error'></InputError>) : null}
             </View>
           </View>
 
-          {/* TODO: onPress handleLogin */}
           <Button text='Login' customStyles={styles.loginButton} onPress={handleLogin} />
 
           <TextButton text={'Cancel'} onPress={handleCloseModal} />
