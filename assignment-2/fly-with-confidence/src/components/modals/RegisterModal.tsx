@@ -129,7 +129,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
                 onChangeText={setEmail}
               />
 
-              {usernameError ? (<InputError content={emailError} color='error'></InputError>) : null}
+              {emailError ? (<InputError content={emailError} color='error'></InputError>) : null}
             </View>
 
             <View style={inputStyles.formField}>
@@ -142,7 +142,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
                 onChangeText={setPassword}
               />
 
-              {usernameError ? (<InputError content={passwordError} color='error'></InputError>) : null}
+              {passwordError ? (<InputError content={passwordError} color='error'></InputError>) : null}
             </View>
 
             <View style={inputStyles.formField}>
@@ -155,7 +155,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
                 onChangeText={setPasswordConfirmation}
               />
 
-              {usernameError ? (<InputError content={passwordConfirmationError} color='error'></InputError>) : null}
+              {passwordConfirmationError ? (<InputError content={passwordConfirmationError} color='error'></InputError>) : null}
             </View>
           </View>
 
