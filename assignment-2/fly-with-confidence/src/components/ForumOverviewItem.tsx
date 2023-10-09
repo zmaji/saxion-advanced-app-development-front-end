@@ -48,7 +48,7 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, c
 
         <View style={styles.categoriesContainer}>
           {categories.map((category) => (
-            <CategoryLabel text={category} labelColor='lightGrey' textColor='darkGrey' customStyles={styles.categoryLabel}></CategoryLabel>
+            <CategoryLabel text={category} labelColor='darkWhite' textColor='grey' customStyles={styles.categoryLabel}></CategoryLabel>
           ))}
         </View>
       </View>
@@ -99,11 +99,26 @@ const styles = StyleSheet.create({
   forumOverviewItemPressed: {
     backgroundColor: themeColors.primary + 25
   },
+  titleContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+  },
   forumOverviewItemTitle: {
     fontSize: 16,
     marginBottom: 5,
     marginRight: 10,
     ...fontFamilyStyles.montserratSemiBold,
+  },
+  categoriesContainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  categoryLabel: {
+    marginRight: 10,
+    marginBottom: 5,
+    marginTop: 4,
+    fontSize: 12
   },
   forumOverviewItemContent: {
     fontSize: 16,
@@ -140,21 +155,6 @@ const styles = StyleSheet.create({
   viewIcon: {
     marginTop: 2.5
   },
-  titleContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-  },
-  categoriesContainer: {
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-  categoryLabel: {
-    marginRight: 10,
-    marginBottom: 5,
-    marginTop: 4,
-    fontSize: 12
-  }
 });
 
 export default ForumOverviewItem;

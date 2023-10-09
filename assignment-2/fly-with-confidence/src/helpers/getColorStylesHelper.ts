@@ -8,6 +8,8 @@ export const getTextColorStyle = (color: string) => {
       return themeColorUtils.textColorSecondary;
     case 'white':
       return themeColorUtils.textColorWhite;
+    case 'darkWhite':
+      return themeColorUtils.textColorDarkWhite;
     case 'grey':
       return themeColorUtils.textColorGrey;
     case 'lightGrey':
@@ -33,6 +35,8 @@ export const getBackgroundColorStyle = (color: string) => {
       return themeColorUtils.backgroundColorSecondary;
     case 'white':
       return themeColorUtils.backgroundColorWhite;
+    case 'darkWhite':
+      return themeColorUtils.backgroundColorDarkWhite;
     case 'grey':
       return themeColorUtils.backgroundColorGrey;
     case 'lightGrey':

@@ -30,7 +30,7 @@ export default function ArticleOverview({ navigation }) {
     },
     {
       id: '2',
-      title: 'Atlantis tropical storm',
+      title: 'Atlantis tropical storm Atlantis tropical storm',
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
       comments: 1,
       likes: 10,
