@@ -49,5 +49,11 @@ export const typographyStyles = StyleSheet.create({
         color: themeColors.lightGrey,
         marginBottom: 5,
         ...fontFamilyStyles.montserratRegular
+    },
+    formInputError: {
+        fontSize: 12,
+        color: themeColors.error,
+        marginTop: 5,
+        ...fontFamilyStyles.montserratRegular
     }
 });

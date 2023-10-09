@@ -9,13 +9,13 @@ interface ErrorMessageProps {
   customStyles?: object
 }
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({ content, color = '', customStyles }) => {
+const InputError: React.FC<ErrorMessageProps> = ({ content, color = '', customStyles }) => {
   const colorStyle = getTextColorStyle(color);
 
   return (
-    <Text style={[typographyStyles.regularText, colorStyle, customStyles]}>{content}</Text>
+    <Text style={[typographyStyles.formInputError, colorStyle, customStyles]}>{content}</Text>
   );
 };
 
-export default ErrorMessage;
+export default InputError;
 

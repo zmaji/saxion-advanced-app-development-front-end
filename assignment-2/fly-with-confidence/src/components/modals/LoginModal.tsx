@@ -14,7 +14,7 @@ import Button from '../buttons/Button';
 import TextButton from '../buttons/TextButton';
 import TextSubTitle from '../typography/TextSubTitle';
 import FormLabel from '../typography/FormLabel';
-import ErrorMessage from "../typography/ErrorMessage";
+import InputError from "../error/InputError";
 
 interface LoginModalProps {
   isVisible: boolean;
@@ -70,24 +70,30 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
           <TextSubTitle content={'Please enter your credentials'} customStyles={{ marginBottom: 20 }} />
 
           <View style={inputStyles.formContainer}>
-            <FormLabel content={'Username'} />
-            <TextInput
-              style={inputStyles.formInput}
-              placeholder='Username'
-              value={username}
-              onChangeText={setUsername}
-            />
-            {usernameError ? (<ErrorMessage content={usernameError} color='error'></ErrorMessage>) : null}
+            <View style={inputStyles.formField}>
+              <FormLabel content={'Username'} />
+              <TextInput
+                  style={inputStyles.formInput}
+                  placeholder='Username'
+                  value={username}
+                  onChangeText={setUsername}
+              />
 
-            <FormLabel content={'Password'} />
-            <TextInput
-              style={inputStyles.formInput}
-              placeholder='Password'
-              secureTextEntry={true}
-              value={password}
-              onChangeText={setPassword}
-            />
-            {passwordError ? (<ErrorMessage content={passwordError} color='error'></ErrorMessage>) : null}
+              {usernameError ? (<InputError content={usernameError} color='error'></InputError>) : null}
+            </View>
+
+            <View style={inputStyles.formField}>
+              <FormLabel content={'Password'} />
+              <TextInput
+                  style={inputStyles.formInput}
+                  placeholder='Password'
+                  secureTextEntry={true}
+                  value={password}
+                  onChangeText={setPassword}
+              />
+
+              {passwordError ? (<InputError content={passwordError} color='error'></InputError>) : null}
+            </View>
           </View>
 
           {/* TODO: onPress handleLogin */}
