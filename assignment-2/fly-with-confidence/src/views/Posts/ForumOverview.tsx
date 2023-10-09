@@ -26,7 +26,7 @@ export default function ArticleOverview({ navigation }) {
       dislikes: 0,
       categories: ['Success', 'Advice'],
       image: '../../assets/images/article-banner.jpg',
-      onPress: () => navigation.navigate('ForumDetail', { articleID: 1 })
+      onPress: () => navigation.navigate('ForumDetail', { postID: 1 })
     },
     {
       id: '2',
@@ -37,7 +37,7 @@ export default function ArticleOverview({ navigation }) {
       dislikes: 0,
       categories: ['Support'],
       image: '',
-      onPress: () => navigation.navigate('ForumDetail', { articleID: 2 })
+      onPress: () => navigation.navigate('ForumDetail', { postID: 2 })
     },
     {
       id: '3',
@@ -48,7 +48,7 @@ export default function ArticleOverview({ navigation }) {
       dislikes: 0,
       categories: ['Support'],
       image: '../../assets/images/article-banner.jpg',
-      onPress: () => navigation.navigate('ForumDetail', { articleID: 3 })
+      onPress: () => navigation.navigate('ForumDetail', { postID: 3 })
     },
     {
       id: '4',
@@ -59,7 +59,7 @@ export default function ArticleOverview({ navigation }) {
       dislikes: 0,
       categories: ['Support'],
       image: '',
-      onPress: () => navigation.navigate('ForumDetail', { articleID: 4 })
+      onPress: () => navigation.navigate('ForumDetail', { postID: 4 })
     },
     {
       id: '5',
@@ -70,37 +70,39 @@ export default function ArticleOverview({ navigation }) {
       dislikes: 0,
       categories: ['Support'],
       image: '../../assets/images/article-banner.jpg',
-      onPress: () => navigation.navigate('ForumDetail', { articleID: 5 })
+      onPress: () => navigation.navigate('ForumDetail', { postID: 5 })
     },
   ];
 
   return (
-    <View style={globalStyles.pageContainer}>
-      <TextTitle content={'Forum posts'} />
+    <View>
+      <View style={globalStyles.pageContainer}>
+        <TextTitle content={'Forum posts'} />
 
-      <View style={globalStyles.subTitleContainer}>
-        <TextSubTitle content={'Sorting posts on: '} color={'primary'} />
+        <View style={globalStyles.subTitleContainer}>
+          <TextSubTitle content={'Sorting posts on: '} color={'primary'} />
 
-        <TextSubTitle content={`"${selectedCategory}"`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic} />
+          <TextSubTitle content={`"${selectedCategory}"`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic} />
+        </View>
+
+        <SafeAreaView style={[globalStyles.marginBottom, { height: '85%' }]}>
+          <FlatList
+            data={forumPosts}
+            renderItem={({ item }) => <ForumOverviewItem
+              key={item.id}
+              title={item.title}
+              content={item.content}
+              comments={item.comments}
+              likes={item.likes}
+              dislikes={item.dislikes}
+              image={item.image}
+              categories={item.categories}
+              onPress={item.onPress}
+            />}
+            keyExtractor={item => item.id}
+          />
+        </SafeAreaView>
       </View>
-
-      <SafeAreaView style={[globalStyles.marginBottom, { height: '85%' }]}>
-        <FlatList
-          data={forumPosts}
-          renderItem={({ item }) => <ForumOverviewItem
-            key={item.id}
-            title={item.title}
-            content={item.content}
-            comments={item.comments}
-            likes={item.likes}
-            dislikes={item.dislikes}
-            image={item.image}
-            categories={item.categories}
-            onPress={item.onPress}
-          />}
-          keyExtractor={item => item.id}
-        />
-      </SafeAreaView>
     </View>
   );
 };
