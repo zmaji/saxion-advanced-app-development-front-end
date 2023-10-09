@@ -12,6 +12,7 @@ import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
 import CategoryLabel from '../../components/labels/CategoryLabel';
+import Comment from '../../components/layout/Comment';
 
 const forumPosts = [
   {
@@ -66,10 +67,61 @@ const forumPosts = [
   },
 ];
 
+const comments = [
+  {
+    id: 1,
+    user: 1,
+    postID: 1,
+    content: 'So how did you feel during the trip? How did you relieve your stress?',
+    date: '10-09-2023'
+  },
+  {
+    id: 2,
+    user: 2,
+    postID: 1,
+    content: 'Very nerve wrecking at first, but after reading some of the mindfulness articles i started to calm down!',
+    date: '10-09-2023'
+  },
+  {
+    id: 3,
+    user: 1,
+    postID: 2,
+    content: 'Wow good job!!',
+    date: '10-09-2023'
+  },
+  {
+    id: 4,
+    user: 1,
+    postID: 2,
+    content: 'Wow good job!!',
+    date: '10-09-2023'
+  },
+  {
+    id: 5,
+    user: 1,
+    postID: 2,
+    content: 'Wow good job!!',
+    date: '10-09-2023'
+  },
+];
+
+const users = [
+  {
+    id: 1,
+    username: 'RealPilot'
+  },
+  {
+    id: 2,
+    username: 'zmaji'
+  },
+
+];
+
 export default function ForumDetail() {
   const route = useRoute();
   const selectedPostID = route.params && route.params.postID;
   const selectedPost = forumPosts.find(post => post.id === selectedPostID);
+  const selectedComments = comments.filter(comment => comment.postID === selectedPostID);
 
   if (!selectedPost) {
     return (
@@ -109,6 +161,24 @@ export default function ForumDetail() {
         <FontAwesomeIcon style={styles.extraInfoIcon} icon={faFaceFrown} color={themeColors.grey} />
         <Text style={styles.extraInfoText}>{dislikes}</Text>
       </View>
+
+      <View style={styles.commentContainer}>
+        {selectedComments.map((comment) => {
+          const matchingUser = users.find((user) => user.id === comment.user);
+          const username = matchingUser ? matchingUser.username : '';
+
+          return (
+            <Comment
+              key={comment.id}
+              content={comment.content}
+              date={comment.date}
+              commentColor={'darkWhite'}
+              customStyles={styles.commentItem}
+              username={username}
+            />
+          );
+        })}
+      </View>
     </View>
   );
 }
@@ -144,8 +214,8 @@ const styles = StyleSheet.create({
     ...fontFamilyStyles.montserratRegular,
   },
   extraInfoContainer: {
-    flex: 1,
     flexDirection: 'row',
+    marginBottom: 30
   },
   extraInfoText: {
     marginRight: 10,
@@ -172,5 +242,12 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     position: 'relative',
+  },
+  commentContainer: {
+  },
+  commentItem: {
+    marginBottom: 20,
+    padding: 20,
+    borderRadius: 5,
   }
 });
