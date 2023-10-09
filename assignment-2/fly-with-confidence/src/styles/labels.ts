@@ -1,5 +1,4 @@
 import { themeColors } from "./themeColors";
-import { typographyStyles } from "./typography";
 
 export const labelStyles = {
   label: {
@@ -11,7 +10,6 @@ export const labelStyles = {
   labelText: {
     fontFamily: 'Montserrat-Medium',
     color: 'white',
-    textAlign: 'center',
-    ...typographyStyles.labelFontSize
+    textAlign: 'center'
   }
 }

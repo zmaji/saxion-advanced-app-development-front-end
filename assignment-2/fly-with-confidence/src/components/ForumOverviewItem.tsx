@@ -152,7 +152,8 @@ const styles = StyleSheet.create({
   },
   categoryLabel: {
     marginLeft: 10,
-    marginTop: 5
+    marginTop: 5,
+    fontSize: 12
   }
 });
 

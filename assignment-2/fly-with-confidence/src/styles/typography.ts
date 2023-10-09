@@ -29,9 +29,6 @@ export const typographyStyles = StyleSheet.create({
   baseFontSize: {
     fontSize: 16,
   },
-  labelFontSize: {
-    fontSize: 12,
-  },
   pageTitle: {
     fontSize: 24,
     color: themeColors.darkGrey,
@@ -54,6 +51,12 @@ export const typographyStyles = StyleSheet.create({
     fontSize: 12,
     color: themeColors.lightGrey,
     marginBottom: 5,
+    ...fontFamilyStyles.montserratRegular
+  },
+  formInputError: {
+    fontSize: 12,
+    color: themeColors.error,
+    marginTop: 5,
     ...fontFamilyStyles.montserratRegular
   }
 });
