@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { themeColors, themeColorUtils } from "../styles/themeColors";
-import {fontFamilyStyles, typographyStyles} from "../styles/typography";
+import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { themeColors, themeColorUtils } from '../styles/themeColors';
+import { fontFamilyStyles, typographyStyles } from '../styles/typography';
 
 type SelectionItemProps = {
     title: string,
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
         paddingLeft: 0,
         borderBottomWidth: 1,
         borderBottomColor: themeColors.lightGrey,
-        flexDirection: "row",
-        justifyContent: "space-between",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     selectionItemPressed: {
         borderColor: themeColors.primary,

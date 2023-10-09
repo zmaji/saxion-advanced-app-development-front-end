@@ -4,10 +4,9 @@ import {
     SafeAreaView,
     View,
 } from 'react-native';
-import { globalStyles } from "../../styles/global";
-import TextTitle from "../../components/typography/TextTitle";
-import TextSubTitle from "../../components/typography/TextSubTitle";
-import SelectionItem from "../../components/SelectionItem";
+import { globalStyles } from '../../styles/global';
+import { TextTitle, TextSubTitle, SelectionItem } from '../../components';
+
 
 // @ts-ignore
 export default function CategoryOverview({ navigation }) {
