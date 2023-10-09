@@ -52,7 +52,7 @@ export default function ArticleOverview({ navigation }) {
     },
     {
       id: '4',
-      title: 'Fear of feeling trapped',
+      title: 'Fear of feeling trapped super large title, and even more text of a title',
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
       comments: 1,
       likes: 10,
@@ -84,7 +84,7 @@ export default function ArticleOverview({ navigation }) {
         <TextSubTitle content={`"${selectedCategory}"`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic} />
       </View>
 
-      <SafeAreaView style={[globalStyles.marginBottom, {height: '85%'}]}>
+      <SafeAreaView style={[globalStyles.marginBottom, { height: '85%' }]}>
         <FlatList
           data={forumPosts}
           renderItem={({ item }) => <ForumOverviewItem

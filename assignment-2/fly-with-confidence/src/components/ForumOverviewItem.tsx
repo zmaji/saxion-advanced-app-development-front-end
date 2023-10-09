@@ -46,7 +46,7 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, c
       <View style={styles.titleContainer}>
         <Text style={[styles.forumOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
 
-        <View style={styles.buttonsContainer}>
+        <View style={styles.categoriesContainer}>
           {categories.map((category) => (
             <CategoryLabel text={category} labelColor='lightGrey' textColor='darkGrey' customStyles={styles.categoryLabel}></CategoryLabel>
           ))}
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
   forumOverviewItemTitle: {
     fontSize: 16,
     marginBottom: 5,
+    marginRight: 10,
     ...fontFamilyStyles.montserratSemiBold,
   },
   forumOverviewItemContent: {
@@ -141,15 +142,17 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
   },
-  buttonsContainer: {
+  categoriesContainer: {
     flexDirection: 'row',
     marginBottom: 10,
   },
   categoryLabel: {
-    marginLeft: 10,
-    marginTop: 5,
+    marginRight: 10,
+    marginBottom: 5,
+    marginTop: 4,
     fontSize: 12
   }
 });
