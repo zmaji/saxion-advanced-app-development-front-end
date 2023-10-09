@@ -91,7 +91,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
           </View>
 
           {/* TODO: onPress handleLogin */}
-          <Button text='Login' customStyles={styles.loginButton} />
+          <Button text='Login' customStyles={styles.loginButton} onPress={handleLogin} />
 
           <TextButton text={'Cancel'} onPress={handleCloseModal} />
         </ScrollView>
