@@ -11,6 +11,7 @@ import { faEye, faComment, faFaceSmile, faFaceFrown } from "@fortawesome/free-re
 import { themeColors, themeColorUtils } from "../styles/themeColors";
 import { fontFamilyStyles } from "../styles/typography";
 import { globalStyles } from "../styles/global";
+import CategoryLabel from "./labels/CategoryLabel";
 
 type ForumOverviewItemProps = {
   title: string,
@@ -47,20 +48,21 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, c
         <Text style={[styles.forumOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
 
         <View style={styles.buttonsContainer}>
-          {categories.map((category, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[styles.categoryButton]}
-            >
-              <Text style={styles.categoryButtonText}>{category}</Text>
-            </TouchableOpacity>
+          {categories.map((category) => (
+            <CategoryLabel text={category} labelColor='lightGrey' textColor='darkGrey' customStyles={styles.categoryLabel}></CategoryLabel>
           ))}
         </View>
       </View>
 
       {image !== '' ? (<Image source={require('../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />) : (null)}
 
-      <Text style={[styles.forumOverviewItemContent]}>{content}</Text>
+      <Text
+        style={styles.forumOverviewItemContent}
+        numberOfLines={3}
+        ellipsizeMode="tail"
+      >
+        {content}
+      </Text>
 
       <View style={styles.readLinkContainer}>
         <View style={styles.readLinkContent}>
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   forumOverviewItemImage: {
-    height: 80,
+    height: 100,
     width: '100%',
     resizeMode: 'cover',
     borderRadius: 5,
@@ -101,13 +103,13 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.primary + 25
   },
   forumOverviewItemTitle: {
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 5,
     ...fontFamilyStyles.montserratMedium,
     ...fontFamilyStyles.montserratBold
   },
   forumOverviewItemContent: {
-    fontSize: 14,
+    fontSize: 16,
     marginBottom: 10,
     ...fontFamilyStyles.montserratMedium,
   },
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   readLinkText: {
-    fontSize: 14,
+    fontSize: 18,
     marginRight: 5,
     color: themeColors.primary,
     textDecorationLine: 'underline',
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   extraInfoIcon: {
-    marginRight: 5
+    marginRight: 5,
   },
   viewIcon: {
     marginTop: 2.5
@@ -149,12 +151,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 10,
   },
-  categoryButton: {
-    backgroundColor: themeColors.lightGrey,
-    borderRadius: 10,
-    padding: 10,
-    fontSize: 1,
-    marginLeft: 10
+  categoryLabel: {
+    marginLeft: 10,
+    marginTop: 5
   }
 });
 
