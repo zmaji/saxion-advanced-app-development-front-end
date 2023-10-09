@@ -1,18 +1,29 @@
+import 'react-native-gesture-handler';
 import * as React from 'react';
-import { Platform } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
+import { useRef } from 'react';
+import { DrawerActions, NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from "./src/views/Home";
-import SelectionScreen from "./src/views/SelectionScreen";
-import CategoryOverview from "./src/views/Articles/CategoryOverview";
-import ArticleOverview from "./src/views/Articles/ArticleOverview";
+import { useFonts } from 'expo-font';
+import { themeColors } from './src/styles/themeColors';
+import { AppHeader, SidePanelItems } from './src/components';
+import Home from './src/views/Home';
+import SelectionScreen from './src/views/SelectionScreen';
+import CategoryOverview from './src/views/Articles/CategoryOverview';
+import ArticleOverview from './src/views/Articles/ArticleOverview';
 import ForumOverview from "./src/views/Posts/ForumOverview";
-import AppHeader from "./src/components/AppHeader";
 
 const Stack = createNativeStackNavigator();
+const SidePanelDrawer = createDrawerNavigator();
 
 export default function App() {
+  const navigationRef = useRef(null);
+
+  const openSidePanel = () => {
+    // @ts-ignore
+    navigationRef.current?.dispatch(DrawerActions.openDrawer());
+  };
+
   let [fontsLoaded] = useFonts({
     'Lora-Bold-Italic': require('./assets/fonts/lora-v32-latin-700italic.ttf'),
     'Lora-Medium-Italic': require('./assets/fonts/lora-v32-latin-500italic.ttf'),
@@ -28,41 +39,45 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
+    <NavigationContainer ref={navigationRef}>
+      <SidePanelDrawer.Navigator
+        drawerContent={
+          (props) =>
+            <SidePanelItems activeItem={navigationRef.current?.getCurrentRoute().name} {...props} />
+        }
+        initialRouteName="Home"
         screenOptions={{
-          // headerShown: Platform.OS !== 'android',
-          animation: 'slide_from_right',
-          animationDuration: 100,
-          header: () => <AppHeader />,
+          header: () => <AppHeader onSidePanelPress={openSidePanel} />,
+          drawerPosition: 'right',
+          drawerItemStyle: {
+            backgroundColor: themeColors.white
+          }
         }}
       >
-        <Stack.Screen
+        <SidePanelDrawer.Screen
           name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
-
-        <Stack.Screen
-          name="SelectionScreen"
-          component={SelectionScreen}
-        />
-
-        <Stack.Screen
-          name="CategoryOverview"
-          component={CategoryOverview}
-        />
-
-        <Stack.Screen
-          name="ArticleOverview"
-          component={ArticleOverview}
-        />
-
-        <Stack.Screen
-          name="ForumOverview"
-          component={ForumOverview}
-        />
-      </Stack.Navigator>
+          options={{
+            title: "Home",
+            headerShown: false
+          }}
+        >
+          {() => (
+            <Stack.Navigator
+              screenOptions={{
+                animation: 'slide_from_right',
+                animationDuration: 100,
+                header: () => <AppHeader onSidePanelPress={openSidePanel} />,
+              }}
+            >
+              <Stack.Screen name="HomeScreen" component={Home} options={{ headerShown: false }} />
+              <Stack.Screen name="SelectionScreen" component={SelectionScreen} />
+              <Stack.Screen name="CategoryOverview" component={CategoryOverview} />
+              <Stack.Screen name="ArticleOverview" component={ArticleOverview} />
+              <Stack.Screen name="ForumOverview" component={ForumOverview} />
+            </Stack.Navigator>
+          )}
+        </SidePanelDrawer.Screen>
+      </SidePanelDrawer.Navigator>
     </NavigationContainer>
   );
 }

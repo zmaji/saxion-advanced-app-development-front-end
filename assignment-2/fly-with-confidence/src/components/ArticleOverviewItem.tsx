@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View
-} from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { themeColors, themeColorUtils } from "../styles/themeColors";
-import { fontFamilyStyles } from "../styles/typography";
-import { globalStyles } from "../styles/global";
+} from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { themeColors, themeColorUtils } from '../styles/themeColors';
+import { fontFamilyStyles } from '../styles/typography';
+import { globalStyles } from '../styles/global';
 
 type ArticleOverviewItemProps = {
   title: string,

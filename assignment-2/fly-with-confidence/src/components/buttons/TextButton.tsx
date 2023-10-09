@@ -1,8 +1,8 @@
-import React from "react";
-import {StyleSheet, Text, TouchableOpacity} from "react-native";
-import { buttonStyles } from "../../styles/buttons";
-import { themeColors } from "../../styles/themeColors";
-import { fontFamilyStyles } from "../../styles/typography";
+import React from 'react';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { buttonStyles } from '../../styles/buttons';
+import { themeColors } from '../../styles/themeColors';
+import { fontFamilyStyles } from '../../styles/typography';
 
 interface CancelButtonProps {
     text: string,
