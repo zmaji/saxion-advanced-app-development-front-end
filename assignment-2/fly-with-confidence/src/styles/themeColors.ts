@@ -2,6 +2,7 @@ export const themeColors = {
   primary: '#87CEEB',
   secondary: '#D3D3D3',
   white: '#FFFFFF',
+  darkWhite: '#F3F3F3',
   grey: '#666666',
   lightGrey: '#E7E7E7',
   darkGrey: '#333333',
@@ -19,6 +20,9 @@ export const themeColorUtils = {
   },
   textColorWhite: {
     color: themeColors.white,
+  },
+  textColorDarkWhite: {
+    color: themeColors.darkWhite,
   },
   textColorGrey: {
     color: themeColors.grey,
@@ -46,6 +50,9 @@ export const themeColorUtils = {
   },
   backgroundColorWhite: {
     backgroundColor: themeColors.white,
+  },
+  backgroundColorDarkWhite: {
+    backgroundColor: themeColors.darkWhite,
   },
   backgroundColorGrey: {
     backgroundColor: themeColors.grey,

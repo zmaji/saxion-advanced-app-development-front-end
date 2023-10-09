@@ -53,7 +53,7 @@ export default function ArticleOverview({ navigation }) {
                 <TextSubTitle content={`'${selectedCategory}'`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic}/>
             </View>
 
-            <SafeAreaView style={globalStyles.marginBottom}>
+            <SafeAreaView style={[globalStyles.marginBottom, {height: '85%'}]}>
                 <FlatList
                     data={categories}
                     renderItem={({item}) => <ArticleOverviewItem title={item.title} onPress={item.onPress} />}

@@ -11,70 +11,73 @@ import Home from './src/views/Home';
 import SelectionScreen from './src/views/SelectionScreen';
 import CategoryOverview from './src/views/Articles/CategoryOverview';
 import ArticleOverview from './src/views/Articles/ArticleOverview';
+import ForumOverview from "./src/views/Posts/ForumOverview";
 
 const Stack = createNativeStackNavigator();
 const SidePanelDrawer = createDrawerNavigator();
 
 export default function App() {
-    const navigationRef = useRef(null);
+  const navigationRef = useRef(null);
 
-    const openSidePanel = () => {
-        // @ts-ignore
-        navigationRef.current?.dispatch(DrawerActions.openDrawer());
-    };
+  const openSidePanel = () => {
+    // @ts-ignore
+    navigationRef.current?.dispatch(DrawerActions.openDrawer());
+  };
 
-    let [fontsLoaded] = useFonts({
-        'Lora-Bold-Italic': require('./assets/fonts/lora-v32-latin-700italic.ttf'),
-        'Lora-Medium-Italic': require('./assets/fonts/lora-v32-latin-500italic.ttf'),
-        'Lora-Italic': require('./assets/fonts/lora-v32-latin-italic.ttf'),
-        'Montserrat-Medium': require('./assets/fonts/montserrat-v26-latin-500.ttf'),
-        'Montserrat-Bold': require('./assets/fonts/montserrat-v26-latin-700.ttf'),
-        'Montserrat-Regular': require('./assets/fonts/montserrat-v26-latin-regular.ttf'),
-    });
+  let [fontsLoaded] = useFonts({
+    'Lora-Bold-Italic': require('./assets/fonts/lora-v32-latin-700italic.ttf'),
+    'Lora-Medium-Italic': require('./assets/fonts/lora-v32-latin-500italic.ttf'),
+    'Lora-Italic': require('./assets/fonts/lora-v32-latin-italic.ttf'),
+    'Montserrat-Medium': require('./assets/fonts/montserrat-v26-latin-500.ttf'),
+    'Montserrat-SemiBold': require('./assets/fonts/montserrat-v26-latin-600.ttf'),
+    'Montserrat-Bold': require('./assets/fonts/montserrat-v26-latin-700.ttf'),
+    'Montserrat-Regular': require('./assets/fonts/montserrat-v26-latin-regular.ttf'),
+  });
 
-    if (!fontsLoaded) {
-        return null;
-    }
+  if (!fontsLoaded) {
+    return null;
+  }
 
-    return (
-        <NavigationContainer ref={navigationRef}>
-            <SidePanelDrawer.Navigator
-                drawerContent={
-                    (props) =>
-                        <SidePanelItems activeItem={navigationRef.current?.getCurrentRoute().name} {...props} />
-                }
-                initialRouteName="Home"
-                screenOptions={{
-                    header: () => <AppHeader onSidePanelPress={openSidePanel} />,
-                    drawerPosition: 'right',
-                    drawerItemStyle: {
-                        backgroundColor: themeColors.white
-                    }
-                }}
+  return (
+    <NavigationContainer ref={navigationRef}>
+      <SidePanelDrawer.Navigator
+        drawerContent={
+          (props) =>
+            <SidePanelItems activeItem={navigationRef.current?.getCurrentRoute().name} {...props} />
+        }
+        initialRouteName="Home"
+        screenOptions={{
+          header: () => <AppHeader onSidePanelPress={openSidePanel} />,
+          drawerPosition: 'right',
+          drawerItemStyle: {
+            backgroundColor: themeColors.white
+          }
+        }}
+      >
+        <SidePanelDrawer.Screen
+          name="Home"
+          options={{
+            title: "Home",
+            headerShown: false
+          }}
+        >
+          {() => (
+            <Stack.Navigator
+              screenOptions={{
+                animation: 'slide_from_right',
+                animationDuration: 100,
+                header: () => <AppHeader onSidePanelPress={openSidePanel} />,
+              }}
             >
-                <SidePanelDrawer.Screen
-                    name="Home"
-                    options={{
-                        title: "Home",
-                        headerShown: false
-                    }}
-                >
-                    {() => (
-                        <Stack.Navigator
-                            screenOptions={{
-                                animation: 'slide_from_right',
-                                animationDuration: 100,
-                                header: () => <AppHeader onSidePanelPress={openSidePanel} />,
-                            }}
-                        >
-                            <Stack.Screen name="HomeScreen" component={Home} options={{ headerShown: false }} />
-                            <Stack.Screen name="SelectionScreen" component={SelectionScreen} />
-                            <Stack.Screen name="CategoryOverview" component={CategoryOverview} />
-                            <Stack.Screen name="ArticleOverview" component={ArticleOverview} />
-                        </Stack.Navigator>
-                    )}
-                </SidePanelDrawer.Screen>
-            </SidePanelDrawer.Navigator>
-        </NavigationContainer>
-    );
+              <Stack.Screen name="HomeScreen" component={Home} options={{ headerShown: false }} />
+              <Stack.Screen name="SelectionScreen" component={SelectionScreen} />
+              <Stack.Screen name="CategoryOverview" component={CategoryOverview} />
+              <Stack.Screen name="ArticleOverview" component={ArticleOverview} />
+              <Stack.Screen name="ForumOverview" component={ForumOverview} />
+            </Stack.Navigator>
+          )}
+        </SidePanelDrawer.Screen>
+      </SidePanelDrawer.Navigator>
+    </NavigationContainer>
+  );
 }
