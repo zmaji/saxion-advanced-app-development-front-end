@@ -6,10 +6,12 @@ export const inputStyles = StyleSheet.create({
     formContainer: {
         width: '100%',
     },
+    formField: {
+        paddingBottom: 20,
+    },
     formInput: {
         height: 50,
         padding: 10,
-        marginBottom: 20,
         borderWidth: 1,
         borderRadius: 10,
         borderColor: themeColors.lightGrey,
