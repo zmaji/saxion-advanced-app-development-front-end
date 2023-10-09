@@ -51,8 +51,6 @@ const ArticleOverviewItem: React.FC<ArticleOverviewItemProps> = ({ title, onPres
 const styles = StyleSheet.create({
   articleOverviewItem: {
     backgroundColor: themeColors.white,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
     borderRadius: 5,
   },
   articleOverviewItemImage: {

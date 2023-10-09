@@ -43,7 +43,6 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, c
       style={[styles.forumOverviewItem, globalStyles.marginBottom, isPressed && styles.forumOverviewItemPressed]}
       onPress={onPress}
     >
-
       <View style={styles.titleContainer}>
         <Text style={[styles.forumOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
 
@@ -54,7 +53,7 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, c
         </View>
       </View>
 
-      {image !== '' ? (<Image source={require('../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />) : (null)}
+      {image !== '' ? (<Image source={require('../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />) : null}
 
       <Text
         style={styles.forumOverviewItemContent}
@@ -88,8 +87,6 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, c
 const styles = StyleSheet.create({
   forumOverviewItem: {
     backgroundColor: themeColors.white,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
     borderRadius: 5,
   },
   forumOverviewItemImage: {
@@ -103,7 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.primary + 25
   },
   forumOverviewItemTitle: {
-    fontSize: 20,
+    fontSize: 16,
     marginBottom: 5,
     ...fontFamilyStyles.montserratSemiBold,
   },
