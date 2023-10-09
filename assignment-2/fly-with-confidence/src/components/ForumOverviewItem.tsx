@@ -105,13 +105,12 @@ const styles = StyleSheet.create({
   forumOverviewItemTitle: {
     fontSize: 20,
     marginBottom: 5,
-    ...fontFamilyStyles.montserratMedium,
-    ...fontFamilyStyles.montserratBold
+    ...fontFamilyStyles.montserratSemiBold,
   },
   forumOverviewItemContent: {
     fontSize: 16,
     marginBottom: 10,
-    ...fontFamilyStyles.montserratMedium,
+    ...fontFamilyStyles.montserratRegular,
   },
   readLinkContainer: {
     flexDirection: 'row',

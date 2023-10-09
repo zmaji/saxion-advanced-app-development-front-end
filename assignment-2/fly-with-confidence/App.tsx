@@ -18,6 +18,7 @@ export default function App() {
     'Lora-Medium-Italic': require('./assets/fonts/lora-v32-latin-500italic.ttf'),
     'Lora-Italic': require('./assets/fonts/lora-v32-latin-italic.ttf'),
     'Montserrat-Medium': require('./assets/fonts/montserrat-v26-latin-500.ttf'),
+    'Montserrat-SemiBold': require('./assets/fonts/montserrat-v26-latin-600.ttf'),
     'Montserrat-Bold': require('./assets/fonts/montserrat-v26-latin-700.ttf'),
     'Montserrat-Regular': require('./assets/fonts/montserrat-v26-latin-regular.ttf'),
   });

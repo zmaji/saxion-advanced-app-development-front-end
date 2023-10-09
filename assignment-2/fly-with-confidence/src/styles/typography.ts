@@ -14,6 +14,9 @@ export const fontFamilyStyles = {
   montserratMedium: {
     fontFamily: 'Montserrat-Medium',
   },
+  montserratSemiBold: {
+    fontFamily: 'Montserrat-SemiBold',
+  },
   montserratBold: {
     fontFamily: 'Montserrat-Bold',
   },

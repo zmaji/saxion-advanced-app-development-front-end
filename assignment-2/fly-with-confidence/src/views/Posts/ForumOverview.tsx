@@ -6,17 +6,17 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { globalStyles } from "../../styles/global";
+import { fontFamilyStyles } from "../../styles/typography";
 import TextTitle from "../../components/typography/TextTitle";
 import TextSubTitle from "../../components/typography/TextSubTitle";
 import ForumOverviewItem from "../../components/ForumOverviewItem";
-import { fontFamilyStyles } from "../../styles/typography";
 
 // @ts-ignore
 export default function ArticleOverview({ navigation }) {
   const route = useRoute();
   const selectedCategory = route.params && route.params.selectedCategory;
 
-  const categories = [
+  const forumPosts = [
     {
       id: '1',
       title: 'I did it!',
@@ -84,10 +84,11 @@ export default function ArticleOverview({ navigation }) {
         <TextSubTitle content={`"${selectedCategory}"`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic} />
       </View>
 
-      <SafeAreaView style={globalStyles.marginBottom}>
+      <SafeAreaView style={[globalStyles.marginBottom, {height: '85%'}]}>
         <FlatList
-          data={categories}
+          data={forumPosts}
           renderItem={({ item }) => <ForumOverviewItem
+            key={item.id}
             title={item.title}
             content={item.content}
             comments={item.comments}
