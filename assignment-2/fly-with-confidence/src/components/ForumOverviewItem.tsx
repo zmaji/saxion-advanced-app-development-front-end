@@ -47,13 +47,13 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, c
         <Text style={[styles.forumOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
 
         <View style={styles.categoriesContainer}>
-          {categories.map((category) => (
-            <CategoryLabel text={category} labelColor='darkWhite' textColor='grey' customStyles={styles.categoryLabel}></CategoryLabel>
+          {categories.map((category, index) => (
+            <CategoryLabel key={index} text={category} labelColor='darkWhite' textColor='grey' customStyles={styles.categoryLabel}></CategoryLabel>
           ))}
         </View>
       </View>
-
-      {image !== '' ? (<Image source={require('../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />) : null}
+      
+      {image !== '' ? (<Image source={require(`../../assets/images/article-banner.jpg`)} style={styles.forumOverviewItemImage} />) : null}
 
       <Text
         style={styles.forumOverviewItemContent}
