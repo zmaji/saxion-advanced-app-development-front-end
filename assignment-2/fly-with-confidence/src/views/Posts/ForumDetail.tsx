@@ -15,9 +15,7 @@ import { faFaceSmile, faFaceFrown, faBookmark } from '@fortawesome/free-regular-
 import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
-import CategoryLabel from '../../components/labels/CategoryLabel';
-import CommentComponent from '../../components/layout/Comment';
-import { TextTitle } from '../../components';
+import { TextTitle, CategoryLabel, CommentPost } from '../../components';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
 const forumPosts: Post[] = [
@@ -163,7 +161,7 @@ export default function ForumDetail() {
         const username = matchingUser ? matchingUser.userName : '';
 
         return (
-          <CommentComponent
+          <CommentPost
             key={comment.commentID}
             content={comment.content}
             date={comment.date}
@@ -171,6 +169,7 @@ export default function ForumDetail() {
           />
         );
       })}
+
     </ScrollView>
   );
 }

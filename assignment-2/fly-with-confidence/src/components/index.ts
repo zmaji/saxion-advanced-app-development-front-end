@@ -10,3 +10,6 @@ export { default as TextSubTitle } from "./typography/TextSubTitle";
 export { default as FormLabel } from "./typography/FormLabel";
 export { default as ArticleOverviewItem } from "./ArticleOverviewItem";
 export { default as ForumOverviewItem } from "./ForumOverviewItem";
+export { default as CategoryLabel } from "./labels/CategoryLabel";
+export { default as CommentPost } from "./layout/Comment";
+
