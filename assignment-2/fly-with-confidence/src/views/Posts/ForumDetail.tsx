@@ -1,3 +1,7 @@
+import type { Post } from '../../typings/Post';
+import type { Comment } from '../../typings/Comment';
+import type { User } from '../../typings/User';
+
 import React from 'react';
 import {
   View,
@@ -12,118 +16,105 @@ import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
 import CategoryLabel from '../../components/labels/CategoryLabel';
-import Comment from '../../components/layout/Comment';
+import CommentComponent from '../../components/layout/Comment';
 import { TextTitle } from '../../components';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
-const forumPosts = [
+const forumPosts: Post[] = [
   {
-    id: 1,
+    postID: '1',
+    user: '1',
     title: 'I did it!',
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
-    comments: 1,
-    likes: 10,
-    dislikes: 0,
     categories: ['Success', 'Advice'],
-    image: require('../../../assets/images/article-banner.jpg'),
-  },
-  {
-    id: 2,
-    title: 'Atlantis tropical storm Atlantis tropical storm',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
-    comments: 1,
     likes: 10,
     dislikes: 0,
-    categories: ['Support'],
-    image: '',
+    image: '../../../assets/images/article-banner.jpg',
   },
   {
-    id: 3,
-    title: 'Fear of feeling trapped',
+    postID: '2',
+    user: '2',
+    title: 'I did it!',
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
-    comments: 1,
+    categories: ['Success'],
     likes: 10,
     dislikes: 0,
-    categories: ['Support'],
-    image: require('../../../assets/images/article-banner.jpg'),
+    image: '../../../assets/images/article-banner.jpg',
   },
   {
-    id: 4,
-    title: 'Fear of feeling trapped super large title, and even more text of a title',
+    postID: '3',
+    user: '3',
+    title: 'I did it!',
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
-    comments: 1,
+    categories: ['Success', 'Advice'],
     likes: 10,
     dislikes: 0,
-    categories: ['Support'],
-    image: '',
+    image: '../../../assets/images/article-banner.jpg',
   },
   {
-    id: 5,
-    title: 'Fear of feeling trapped',
+    postID: '4',
+    user: '4',
+    title: 'I did it!',
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
-    comments: 1,
+    categories: ['Success'],
     likes: 10,
     dislikes: 0,
-    categories: ['Support'],
-    image: require('../../../assets/images/article-banner.jpg'),
+    image: '../../../assets/images/article-banner.jpg',
+  },
+  {
+    postID: '4',
+    user: '4',
+    title: 'I did it!',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque varius sem ut venenatis. Class aptent taciti sociosqu ad litora.',
+    categories: ['Advice'],
+    likes: 10,
+    dislikes: 0,
+    image: '../../../assets/images/article-banner.jpg',
   },
 ];
 
-const comments = [
+const comments: Comment[] = [
   {
-    id: 1,
-    user: 1,
-    postID: 1,
+    commentID: '1',
+    user: '1',
+    post: '1',
     content: 'So how did you feel during the trip? How did you relieve your stress?',
     date: '10-09-2023'
   },
   {
-    id: 2,
-    user: 2,
-    postID: 1,
+    commentID: '2',
+    user: '2',
+    post: '1',
     content: 'Very nerve wrecking at first, but after reading some of the mindfulness articles i started to calm down!',
-    date: '10-09-2023'
-  },
-  {
-    id: 3,
-    user: 1,
-    postID: 2,
-    content: 'Wow good job!!',
-    date: '10-09-2023'
-  },
-  {
-    id: 4,
-    user: 1,
-    postID: 2,
-    content: 'Wow good job!!',
-    date: '10-09-2023'
-  },
-  {
-    id: 5,
-    user: 1,
-    postID: 2,
-    content: 'Wow good job!!',
     date: '10-09-2023'
   },
 ];
 
-const users = [
+const users: User[] = [
   {
-    id: 1,
-    username: 'RealPilot'
+    userID: '1',
+    userName: 'RealPilot',
+    email: 'test@test.com',
+    password: 'Password1',
+    secret: 'Supersecret',
+    roles: ['User, Admin']
   },
   {
-    id: 2,
-    username: 'zmaji'
-  },
-
+    userID: '2',
+    userName: 'zmaji',
+    email: 'test1@test.com',
+    password: 'Password2',
+    secret: 'Supersecret2',
+    roles: ['User, Admin']
+  }
 ];
 
 export default function ForumDetail() {
   const route = useRoute();
   // @ts-ignore
   const selectedPostID = route.params && route.params.postID;
-  const selectedPost = forumPosts.find(post => post.id === selectedPostID);
-  const selectedComments = comments.filter(comment => comment.postID === selectedPostID);
+  const selectedPost: Post | undefined = forumPosts.find(post => post.postID === selectedPostID);
+  const selectedComments = comments.filter(comment => comment.post === selectedPostID);
 
   if (!selectedPost) {
     return (
@@ -136,7 +127,7 @@ export default function ForumDetail() {
   const { title, content, likes, dislikes, categories, image } = selectedPost;
 
   return (
-    <View style={globalStyles.pageContainer}>
+    <ScrollView style={globalStyles.pageContainer}>
       <TextTitle content={title}></TextTitle>
 
       <Text style={styles.userDetails}>Posted by zmaji at 09-10-2023</Text>
@@ -149,10 +140,11 @@ export default function ForumDetail() {
 
       {image !== '' ? (
         <View style={styles.imageContainer}>
-          <Image source={image} style={styles.forumOverviewItemImage} />
-          <View style={styles.bookmarkButton}>
+          <TouchableOpacity style={styles.bookmarkButton}>
             <FontAwesomeIcon icon={faBookmark} color={themeColors.white} size={15} />
-          </View>
+          </TouchableOpacity>
+
+          <Image source={require(`../../../assets/images/article-banner.jpg`)} style={styles.forumOverviewItemImage} />
         </View>
       ) : null}
 
@@ -167,19 +159,19 @@ export default function ForumDetail() {
       </View>
 
       {selectedComments.map((comment) => {
-        const matchingUser = users.find((user) => user.id === comment.user);
-        const username = matchingUser ? matchingUser.username : '';
+        const matchingUser = users.find((user) => user.userID === comment.user);
+        const username = matchingUser ? matchingUser.userName : '';
 
         return (
-          <Comment
-            key={comment.id}
+          <CommentComponent
+            key={comment.commentID}
             content={comment.content}
             date={comment.date}
             username={username}
           />
         );
       })}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -203,6 +195,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   forumOverviewItemImage: {
+    zIndex: -1,
     borderRadius: 5,
     height: 200,
     marginBottom: 10,
@@ -210,15 +203,15 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   bookmarkButton: {
-    alignItems: 'center',
-    backgroundColor: themeColors.lightGrey,
-    borderRadius: 20,
-    height: 40,
-    justifyContent: 'center',
     position: 'absolute',
     right: 15,
     top: 15,
+    height: 40,
     width: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: themeColors.lightGrey,
     zIndex: 2,
   },
   forumDetailItemContent: {
