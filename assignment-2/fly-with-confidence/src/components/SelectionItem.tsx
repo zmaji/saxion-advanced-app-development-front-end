@@ -1,16 +1,38 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faComments, faNewspaper, IconDefinition } from "@fortawesome/free-regular-svg-icons";
+import {
+    faChevronRight,
+    faGraduationCap,
+    faHandHoldingMedical,
+    faPlaneDeparture,
+    faSpa
+} from '@fortawesome/free-solid-svg-icons';
 import { themeColors, themeColorUtils } from '../styles/themeColors';
 import { fontFamilyStyles, typographyStyles } from '../styles/typography';
 
 type SelectionItemProps = {
     title: string,
+    icon?: string,
     onPress: () => void;
 };
 
-const SelectionItem: React.FC<SelectionItemProps> = ({ title, onPress }) => {
+const textIcons: Record<string, IconDefinition> = {
+    'newspaper': faNewspaper,
+    'graduation-cap': faGraduationCap,
+    'spa': faSpa,
+    'plane-departure': faPlaneDeparture,
+    'comments': faComments,
+    'hand-holding-medical': faHandHoldingMedical,
+};
+
+const SelectionItem: React.FC<SelectionItemProps> = ({ title, icon, onPress }) => {
     const [isPressed, setIsPressed] = useState(false);
 
     const handlePressIn = () => {
@@ -29,7 +51,14 @@ const SelectionItem: React.FC<SelectionItemProps> = ({ title, onPress }) => {
             style={[styles.selectionItem, isPressed && styles.selectionItemPressed]}
             onPress={onPress}
         >
-            <Text style={[styles.selectionItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
+            <Text style={[styles.selectionItemTitle, isPressed && themeColorUtils.textColorPrimary]}>
+                {icon && (
+                    <View style={styles.textIconContainer}>
+                        <FontAwesomeIcon icon={textIcons[icon]} style={styles.textIcon}/>
+                    </View>
+                )}
+                {title}
+            </Text>
 
             <FontAwesomeIcon icon={faChevronRight} color={isPressed && themeColors.primary || themeColors.darkGrey}/>
         </TouchableOpacity>
@@ -44,6 +73,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: themeColors.lightGrey,
         flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'space-between',
     },
     selectionItemPressed: {
@@ -53,6 +83,12 @@ const styles = StyleSheet.create({
         ...typographyStyles.baseFontSize,
         ...fontFamilyStyles.montserratRegular
     },
+    textIconContainer: {
+        paddingRight: 15,
+    },
+    textIcon: {
+        color: themeColors.primary
+    }
 });
 
 export default SelectionItem;
