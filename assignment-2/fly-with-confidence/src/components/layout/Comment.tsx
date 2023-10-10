@@ -1,9 +1,8 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 import React from 'react';
 import { fontFamilyStyles, typographyStyles } from '../../styles/typography';
 import { globalStyles } from '../../styles/global';
 import { getBackgroundColorStyle, getTextColorStyle } from '../../helpers/getColorStylesHelper';
-import { themeColors } from '../../styles/themeColors';
 
 interface CommentProps {
   username?: string,
