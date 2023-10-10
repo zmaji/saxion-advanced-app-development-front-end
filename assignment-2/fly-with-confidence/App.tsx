@@ -54,6 +54,10 @@ export default function App() {
         screenOptions={{
           header: () => <AppHeader onSidePanelPress={openSidePanel} />,
           drawerPosition: 'right',
+          drawerStyle: {
+            width: "90%",
+            maxWidth: 325,
+          },
           drawerItemStyle: {
             backgroundColor: themeColors.white
           }

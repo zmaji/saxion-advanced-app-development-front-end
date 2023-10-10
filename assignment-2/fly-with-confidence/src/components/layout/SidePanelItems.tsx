@@ -36,41 +36,49 @@ const SidePanelItems = ({ navigation, activeItem, selectedCategory }) => {
 
       <SidePanelItem
         title={'Articles'}
+        icon={'newspaper'}
         onPress={() => navigation.navigate('CategoryOverview')}
         active={activeItem === 'CategoryOverview'}
       />
       <SidePanelItem
         title={'Education and information'}
+        icon={'graduation-cap'}
         onPress={() => navigation.navigate('ArticleOverview', { selectedCategory: 'Education and information' })}
         active={activeItem === 'ArticleOverview' && selectedCategory === 'Education and information'}
       />
       <SidePanelItem
         title={'Mindfulness'}
+        icon={'spa'}
         onPress={() => navigation.navigate('ArticleOverview', { selectedCategory: 'Mindfulness' })}
         active={activeItem === 'ArticleOverview' && selectedCategory === 'Mindfulness'}
       />
       <SidePanelItem
         title={'Flight information'}
+        icon={'plane-departure'}
         onPress={() => navigation.navigate('ArticleOverview', { selectedCategory: 'Flight information' })}
         active={activeItem === 'ArticleOverview' && selectedCategory === 'Flight information'}
       />
       <SidePanelItem
         title={'Forum and discussion'}
+        icon={'comments'}
         onPress={() => navigation.navigate('ForumOverview')}
         active={activeItem === 'ForumOverview'}
       />
       <SidePanelItem
         title={'Professional help'}
+        icon={'hand-holding-medical'}
         onPress={() => navigation.navigate('SelectionScreen')}
         active={activeItem === ''}
       />
       <SidePanelItem
         title={'My profile'}
+        icon={'circle-user'}
         onPress={() => navigation.navigate('SelectionScreen')}
         active={activeItem === ''}
       />
       <SidePanelItem
         title={'Logout'}
+        icon={'arrow-right-from-bracket'}
         onPress={() => navigation.navigate('SelectionScreen')}
       />
     </View>
