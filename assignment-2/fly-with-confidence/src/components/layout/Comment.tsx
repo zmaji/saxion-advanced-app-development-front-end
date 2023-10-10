@@ -1,5 +1,5 @@
-import { Text, View } from 'react-native';
 import React from 'react';
+import { Text, View } from 'react-native';
 import { fontFamilyStyles, typographyStyles } from '../../styles/typography';
 import { globalStyles } from '../../styles/global';
 import { getBackgroundColorStyle, getTextColorStyle } from '../../helpers/getColorStylesHelper';
