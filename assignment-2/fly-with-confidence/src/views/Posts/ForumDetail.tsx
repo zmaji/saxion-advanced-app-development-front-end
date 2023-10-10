@@ -13,6 +13,7 @@ import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
 import CategoryLabel from '../../components/labels/CategoryLabel';
 import Comment from '../../components/layout/Comment';
+import { TextTitle } from '../../components';
 
 const forumPosts = [
   {
@@ -127,7 +128,7 @@ export default function ForumDetail() {
   if (!selectedPost) {
     return (
       <View style={globalStyles.pageContainer}>
-        <Text style={styles.forumDetailItemTitle}>No post found</Text>
+        <TextTitle content='No post found'></TextTitle>
       </View>
     );
   }
@@ -136,7 +137,7 @@ export default function ForumDetail() {
 
   return (
     <View style={globalStyles.pageContainer}>
-      <Text style={styles.forumDetailItemTitle}>{title}</Text>
+      <TextTitle content={title}></TextTitle>
 
       <Text style={styles.userDetails}>Posted by zmaji at 09-10-2023</Text>
 
@@ -149,7 +150,7 @@ export default function ForumDetail() {
       {image !== '' ? (
         <View style={styles.imageContainer}>
           <Image source={image} style={styles.forumOverviewItemImage} />
-          <View style={styles.circleContainer}>
+          <View style={styles.bookmarkButton}>
             <FontAwesomeIcon icon={faBookmark} color={themeColors.white} size={15} />
           </View>
         </View>
@@ -158,41 +159,31 @@ export default function ForumDetail() {
       <Text style={styles.forumDetailItemContent}>{content}</Text>
 
       <View style={styles.extraInfoContainer}>
-        <FontAwesomeIcon style={styles.extraInfoIcon} icon={faFaceSmile} color={themeColors.grey} />
+        <FontAwesomeIcon style={styles.likesContainer} icon={faFaceSmile} color={themeColors.grey} />
         <Text style={styles.extraInfoText}>{likes}</Text>
 
-        <FontAwesomeIcon style={styles.extraInfoIcon} icon={faFaceFrown} color={themeColors.grey} />
+        <FontAwesomeIcon style={styles.likesContainer} icon={faFaceFrown} color={themeColors.grey} />
         <Text style={styles.extraInfoText}>{dislikes}</Text>
       </View>
 
-      <View style={styles.commentContainer}>
-        {selectedComments.map((comment) => {
-          const matchingUser = users.find((user) => user.id === comment.user);
-          const username = matchingUser ? matchingUser.username : '';
+      {selectedComments.map((comment) => {
+        const matchingUser = users.find((user) => user.id === comment.user);
+        const username = matchingUser ? matchingUser.username : '';
 
-          return (
-            <Comment
-              key={comment.id}
-              content={comment.content}
-              date={comment.date}
-              commentColor={'darkWhite'}
-              customStyles={styles.commentItem}
-              username={username}
-            />
-          );
-        })}
-      </View>
+        return (
+          <Comment
+            key={comment.id}
+            content={comment.content}
+            date={comment.date}
+            username={username}
+          />
+        );
+      })}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  forumDetailItemTitle: {
-    color: themeColors.darkGrey,
-    fontSize: 25,
-    ...fontFamilyStyles.montserratSemiBold,
-    marginBottom: 7,
-  },
   userDetails: {
     color: themeColors.darkGrey,
     fontSize: 14,
@@ -218,7 +209,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     width: '100%',
   },
-  circleContainer: {
+  bookmarkButton: {
     alignItems: 'center',
     backgroundColor: themeColors.lightGrey,
     borderRadius: 20,
@@ -240,16 +231,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 30,
   },
-  extraInfoIcon: {
+  likesContainer: {
     marginRight: 5,
   },
   extraInfoText: {
     marginRight: 10,
-  },
-  commentContainer: {},
-  commentItem: {
-    borderRadius: 5,
-    marginBottom: 20,
-    padding: 20,
-  },
+  }
 });
