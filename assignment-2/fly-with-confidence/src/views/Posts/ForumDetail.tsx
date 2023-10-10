@@ -119,13 +119,16 @@ const users = [
 
 export default function ForumDetail() {
   const route = useRoute();
+  // @ts-ignore
   const selectedPostID = route.params && route.params.postID;
   const selectedPost = forumPosts.find(post => post.id === selectedPostID);
   const selectedComments = comments.filter(comment => comment.postID === selectedPostID);
 
   if (!selectedPost) {
     return (
-      <Text>No post found</Text>
+      <View style={globalStyles.pageContainer}>
+        <Text style={styles.forumDetailItemTitle}>No post found</Text>
+      </View>
     );
   }
 
@@ -184,70 +187,69 @@ export default function ForumDetail() {
 }
 
 const styles = StyleSheet.create({
-  forumOverviewItemImage: {
-    height: 200,
-    width: '100%',
-    resizeMode: 'cover',
-    borderRadius: 5,
-    marginBottom: 10,
-  },
   forumDetailItemTitle: {
+    color: themeColors.darkGrey,
     fontSize: 25,
-    color: themeColors.darkGrey,
-    marginBottom: 7,
     ...fontFamilyStyles.montserratSemiBold,
-  },
-  categoriesContainer: {
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-  categoryLabel: {
-    marginRight: 10,
-    marginBottom: 5,
-    marginTop: 4,
-    fontSize: 12,
-  },
-  forumDetailItemContent: {
-    fontSize: 16,
-    color: themeColors.darkGrey,
-    marginBottom: 13,
-    ...fontFamilyStyles.montserratRegular,
-  },
-  extraInfoContainer: {
-    flexDirection: 'row',
-    marginBottom: 30
-  },
-  extraInfoText: {
-    marginRight: 10,
-  },
-  extraInfoIcon: {
-    marginRight: 5,
+    marginBottom: 7,
   },
   userDetails: {
     color: themeColors.darkGrey,
     fontSize: 14,
     marginBottom: 7,
   },
-  circleContainer: {
-    position: 'absolute',
-    top: 15,
-    right: 15,
-    width: 40,
-    height: 40,
-    backgroundColor: themeColors.lightGrey,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 2,
+  categoriesContainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  categoryLabel: {
+    fontSize: 12,
+    marginBottom: 5,
+    marginRight: 10,
+    marginTop: 4,
   },
   imageContainer: {
     position: 'relative',
   },
-  commentContainer: {
+  forumOverviewItemImage: {
+    borderRadius: 5,
+    height: 200,
+    marginBottom: 10,
+    resizeMode: 'cover',
+    width: '100%',
   },
+  circleContainer: {
+    alignItems: 'center',
+    backgroundColor: themeColors.lightGrey,
+    borderRadius: 20,
+    height: 40,
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 15,
+    top: 15,
+    width: 40,
+    zIndex: 2,
+  },
+  forumDetailItemContent: {
+    color: themeColors.darkGrey,
+    fontSize: 16,
+    marginBottom: 13,
+    ...fontFamilyStyles.montserratRegular,
+  },
+  extraInfoContainer: {
+    flexDirection: 'row',
+    marginBottom: 30,
+  },
+  extraInfoIcon: {
+    marginRight: 5,
+  },
+  extraInfoText: {
+    marginRight: 10,
+  },
+  commentContainer: {},
   commentItem: {
+    borderRadius: 5,
     marginBottom: 20,
     padding: 20,
-    borderRadius: 5,
-  }
+  },
 });

@@ -58,5 +58,23 @@ export const typographyStyles = StyleSheet.create({
     color: themeColors.error,
     marginTop: 5,
     ...fontFamilyStyles.montserratRegular
-  }
+  },
+  commentText: {
+    fontSize: 16,
+    color: themeColors.darkGrey,
+    marginBottom: 5,
+    ...fontFamilyStyles.montserratRegular
+  },
+  commentDate: {
+    fontSize: 16,
+    color: themeColors.grey,
+    marginBottom: 10,
+    ...fontFamilyStyles.montserratRegular
+  },
+  userDisplay: {
+    fontSize: 16,
+    color: themeColors.darkGrey,
+    marginBottom: 5,
+    ...fontFamilyStyles.montserratBold
+  },
 });

@@ -22,34 +22,13 @@ const Comment: React.FC<CommentProps> = ({ username, content, date, commentColor
     <View
       style={[globalStyles.defaultShadow, commentColorStyle, textColorStyle, customStyles]}
     >
-      <View style={styles.commentContainer}>
-        <Text style={[styles.commentText, fontFamilyStyles.montserratBold]}>{username}</Text>
-        <Text style={[styles.commentDate]}> · {date}</Text>
+      <View style={globalStyles.flexDirectionRow}>
+        <Text style={[typographyStyles.userDisplay, fontFamilyStyles.montserratBold]}>{username}</Text>
+        <Text style={[typographyStyles.commentDate]}> · {date}</Text>
       </View>
-      <Text style={[styles.commentText]}>{content}</Text>
+      <Text style={[typographyStyles.commentText]}>{content}</Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  commentContainer: {
-    flexDirection: 'row'
-  },
-  commentText: {
-    fontSize: 16,
-    color: themeColors.darkGrey,
-    marginBottom: 5,
-    ...fontFamilyStyles.montserratRegular
-  },
-  commentDate: {
-    fontSize: 16,
-    color: themeColors.grey,
-    marginBottom: 10,
-    ...fontFamilyStyles.montserratRegular
-  },
-  marginBottom: {
-    marginBottom: 10
-  }
-});
 
 export default Comment;
