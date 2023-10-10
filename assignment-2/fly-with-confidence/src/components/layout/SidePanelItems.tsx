@@ -17,10 +17,11 @@ import SidePanelItem from './SidePanelItem';
 const statusBarHeight = getStatusBarHeight();
 
 // @ts-ignore
-const SidePanelItems = ({ navigation, activeItem }) => {
+const SidePanelItems = ({ navigation, activeItem, selectedCategory }) => {
   const closeSidePanel = () => {
     navigation.dispatch(DrawerActions.closeDrawer());
   };
+
 
   return (
     <View style={styles.sidePanelContainer}>
@@ -36,22 +37,22 @@ const SidePanelItems = ({ navigation, activeItem }) => {
       <SidePanelItem
         title={'Articles'}
         onPress={() => navigation.navigate('CategoryOverview')}
-        active={activeItem === 'CategoryOverview' || activeItem === 'ArticleOverview'}
+        active={activeItem === 'CategoryOverview'}
       />
       <SidePanelItem
         title={'Education and information'}
-        onPress={() => navigation.navigate('SelectionScreen')}
-        active={activeItem === ''}
+        onPress={() => navigation.navigate('ArticleOverview', { selectedCategory: 'Education and information' })}
+        active={activeItem === 'ArticleOverview' && selectedCategory === 'Education and information'}
       />
       <SidePanelItem
         title={'Mindfulness'}
-        onPress={() => navigation.navigate('SelectionScreen')}
-        active={activeItem === ''}
+        onPress={() => navigation.navigate('ArticleOverview', { selectedCategory: 'Mindfulness' })}
+        active={activeItem === 'ArticleOverview' && selectedCategory === 'Mindfulness'}
       />
       <SidePanelItem
         title={'Flight information'}
-        onPress={() => navigation.navigate('SelectionScreen')}
-        active={activeItem === ''}
+        onPress={() => navigation.navigate('ArticleOverview', { selectedCategory: 'Flight information' })}
+        active={activeItem === 'ArticleOverview' && selectedCategory === 'Flight information'}
       />
       <SidePanelItem
         title={'Forum and discussion'}

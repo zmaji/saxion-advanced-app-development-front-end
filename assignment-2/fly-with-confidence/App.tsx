@@ -44,7 +44,11 @@ export default function App() {
       <SidePanelDrawer.Navigator
         drawerContent={
           (props) =>
-            <SidePanelItems activeItem={navigationRef.current?.getCurrentRoute().name} {...props} />
+            <SidePanelItems
+                activeItem={navigationRef.current?.getCurrentRoute().name}
+                selectedCategory={navigationRef.current?.getCurrentRoute().params?.selectedCategory}
+                {...props}
+            />
         }
         initialRouteName="Home"
         screenOptions={{
