@@ -9,3 +9,4 @@ export { default as TextTitle } from "./typography/TextTitle";
 export { default as TextSubTitle } from "./typography/TextSubTitle";
 export { default as FormLabel } from "./typography/FormLabel";
 export { default as ArticleOverviewItem } from "./ArticleOverviewItem";
+export { default as ForumOverviewItem } from "./ForumOverviewItem";

@@ -7,9 +7,7 @@ import {
 import { useRoute } from '@react-navigation/native';
 import { globalStyles } from "../../styles/global";
 import { fontFamilyStyles } from "../../styles/typography";
-import TextTitle from "../../components/typography/TextTitle";
-import TextSubTitle from "../../components/typography/TextSubTitle";
-import ForumOverviewItem from "../../components/ForumOverviewItem";
+import { TextTitle, TextSubTitle, ForumOverviewItem } from "../../components";
 
 // @ts-ignore
 export default function ArticleOverview({ navigation }) {

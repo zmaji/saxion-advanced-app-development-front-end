@@ -6,8 +6,8 @@ import {
   Image,
 } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faFaceSmile, faFaceFrown, faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { useRoute } from '@react-navigation/native';
+import { faFaceSmile, faFaceFrown, faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';

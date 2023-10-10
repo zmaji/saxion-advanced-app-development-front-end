@@ -1,5 +1,6 @@
-import { Text, View, StyleSheet } from 'react-native';
 import React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+
 import { fontFamilyStyles } from '../../styles/typography';
 import { globalStyles } from '../../styles/global';
 import { getBackgroundColorStyle } from '../../helpers/getColorStylesHelper';
