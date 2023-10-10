@@ -3,7 +3,6 @@ import { Text, View, StyleSheet } from 'react-native';
 import { fontFamilyStyles } from '../../styles/typography';
 import { globalStyles } from '../../styles/global';
 import { themeColors } from '../../styles/themeColors';
-import { getBackgroundColorStyle } from '../../helpers/getColorStylesHelper';
 
 interface CommentProps {
   username: string,
