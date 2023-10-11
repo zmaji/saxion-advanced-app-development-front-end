@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
+  Alert,
 } from 'react-native';
 import { inputStyles } from '../../styles/inputs';
 import { themeColors } from '../../styles/themeColors';
@@ -20,9 +21,10 @@ import UserController from '../../controllers/UserController'
 interface RegisterModalProps {
   isVisible: boolean;
   closeRegisterModal: () => void;
+  onRegisterSuccess: () => void;
 }
 
-const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterModal }) => {
+const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterModal, onRegisterSuccess }) => {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -46,8 +48,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
         password
       };
 
-      const response = await UserController.postUser(newUser);
-      console.log('User registered successfully:', response);
+      Alert.alert('Registration Successful', `Welcome ${newUser.userName}.`);
+      closeRegisterModal();
+      onRegisterSuccess();
     } catch (error) {
       throw error;
     }
