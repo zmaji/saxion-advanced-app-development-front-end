@@ -3,14 +3,15 @@ import type { Article } from '../../typings/Article';
 import React, { useState, useEffect } from 'react';
 import {
   FlatList,
-  SafeAreaView, StyleSheet,
+  SafeAreaView, StyleSheet, Text,
   View,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { globalStyles } from '../../styles/global';
-import { fontFamilyStyles } from '../../styles/typography';
-import { TextTitle, TextSubTitle, ArticleOverviewItem, TextButton } from '../../components';
+import {fontFamilyStyles, typographyStyles} from '../../styles/typography';
+import {TextTitle, TextSubTitle, ArticleOverviewItem, TextButton, Button} from '../../components';
 import ArticleController from '../../controllers/ArticleController';
+import {themeColors} from "../../styles/themeColors";
 
 // @ts-ignore
 export default function ArticleOverview({ navigation }) {
@@ -56,8 +57,14 @@ export default function ArticleOverview({ navigation }) {
           />
         ) : (
           <View style={styles.noContentContainer}>
-            <TextTitle content={'There are currently no articles available in this category'} />
-            <TextButton text={'Back to categories'} onPress={() => navigation.goBack()} />
+            <Text style={styles.noContentMessage}>
+              There are currently no articles available in category: {' '}
+
+              <Text style={styles.noContentSelectedCategory}>
+                {selectedCategory}
+              </Text>
+            </Text>
+            <Button text={'Back to categories'} onPress={() => navigation.goBack()} />
           </View>
         )}
       </SafeAreaView>
@@ -70,6 +77,16 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   noContentContainer: {
-    marginTop: 20
+    marginTop: 20,
+    padding: 25,
+    borderRadius: 5,
+    backgroundColor: themeColors.darkWhite
+  },
+  noContentMessage: {
+    marginBottom: 15,
+    ...fontFamilyStyles.montserratRegular
+  },
+  noContentSelectedCategory: {
+    ...fontFamilyStyles.montserratBold
   }
 });
