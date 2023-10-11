@@ -4,7 +4,8 @@ import {
   View,
   StyleSheet,
   TextInput,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 import { inputStyles } from '../../styles/inputs';
 import { themeColors } from '../../styles/themeColors';
@@ -15,18 +16,36 @@ import TextButton from '../buttons/TextButton';
 import TextSubTitle from '../typography/TextSubTitle';
 import FormLabel from '../typography/FormLabel';
 import InputError from "../error/InputError";
+import AuthController from '../../controllers/AuthController';
 
 interface LoginModalProps {
   isVisible: boolean;
   closeLoginModal: () => void;
-  onLogin: (username: string, password: string) => void;
+  onLoginSuccess: () => void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onLogin }) => {
+const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onLoginSuccess }) => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [usernameError, setUsernameError] = useState<string>('');
   const [passwordError, setPasswordError] = useState<string>('');
+
+  const onLogin = async (userName: string, password: string) => {
+    try {
+      const user = { userName, password };
+      const response = await AuthController.loginUser(user);
+
+      if (response) {
+        Alert.alert('Login Successful', 'You have successfully logged in.');
+        closeLoginModal();
+        onLoginSuccess();
+      } else {
+        Alert.alert('Login Failed', 'Invalid username or password. Please try again.');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  };
 
   const handleLogin = () => {
     setUsernameError('');
