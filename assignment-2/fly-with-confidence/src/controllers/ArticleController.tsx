@@ -1,9 +1,7 @@
 import type { Article } from '../typings/Article';
 
 import axios from 'axios';
-
-// TODO: Change to AWS IP
-const BASE_URL = 'http://192.168.2.3:3000';
+import { BASE_URL } from '../../config';
 
 const getArticles = async (): Promise<Article[]> => {
   try {
