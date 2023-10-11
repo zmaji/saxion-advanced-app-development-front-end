@@ -47,7 +47,7 @@ const deleteArticle = async (articleId: string): Promise<void> => {
   }
 }
 
-const PostController = {
+const ArticleController = {
   getArticles,
   getArticle,
   postArticle,
@@ -55,4 +55,4 @@ const PostController = {
   deleteArticle
 };
 
-export default PostController;
+export default ArticleController;

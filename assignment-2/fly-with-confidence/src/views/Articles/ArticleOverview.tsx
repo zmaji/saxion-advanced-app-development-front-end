@@ -2,6 +2,7 @@ import type { Article } from '../../typings/Article';
 
 import React, { useState, useEffect } from 'react';
 import {
+  Alert,
   FlatList,
   SafeAreaView, StyleSheet,
   View,
@@ -10,7 +11,7 @@ import { useRoute } from '@react-navigation/native';
 import { globalStyles } from '../../styles/global';
 import { fontFamilyStyles } from '../../styles/typography';
 import { TextTitle, TextSubTitle, ArticleOverviewItem } from '../../components';
-import PostController from '../../controllers/ArticleController';
+import ArticleController from '../../controllers/ArticleController';
 
 // @ts-ignore
 export default function ArticleOverview({ navigation }) {
@@ -22,8 +23,15 @@ export default function ArticleOverview({ navigation }) {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const articles = await PostController.getArticles();
-        setArticles(articles);
+        const articles = await ArticleController.getArticles();
+
+        if (articles.length > 0) {
+          setArticles(articles);
+        } else {
+          Alert.alert('No articles found', `Bringing you back..`);
+          navigation.navigate('CategoryOverview')
+        }
+
       } catch (error) {
         console.error('Error fetching articles:', error);
       }
