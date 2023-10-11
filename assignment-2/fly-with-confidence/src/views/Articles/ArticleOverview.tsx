@@ -28,7 +28,7 @@ export default function ArticleOverview({ navigation }) {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const articles = await ArticleController.getArticles();
+        const articles = await ArticleController.getArticles(selectedCategory);
         setArticles(articles);
       } catch (error) {
         console.error('Error fetching articles:', error);

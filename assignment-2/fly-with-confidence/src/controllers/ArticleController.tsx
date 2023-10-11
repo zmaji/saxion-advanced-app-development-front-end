@@ -3,9 +3,9 @@ import type { Article } from '../typings/Article';
 import axios from 'axios';
 import { BASE_URL } from '../../config';
 
-const getArticles = async (): Promise<Article[]> => {
+const getArticles = async (category: string): Promise<Article[]> => {
   try {
-    const response = await axios.get(`${BASE_URL}/articles`);
+    const response = await axios.get(`${BASE_URL}/articles?category=${category}`);
     return response.data
   } catch (error) {
     throw error;
