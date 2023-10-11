@@ -2,7 +2,6 @@ import type { Article } from '../../typings/Article';
 
 import React, { useState, useEffect } from 'react';
 import {
-  Alert,
   FlatList,
   SafeAreaView, StyleSheet,
   View,
@@ -10,7 +9,7 @@ import {
 import { useRoute } from '@react-navigation/native';
 import { globalStyles } from '../../styles/global';
 import { fontFamilyStyles } from '../../styles/typography';
-import { TextTitle, TextSubTitle, ArticleOverviewItem } from '../../components';
+import { TextTitle, TextSubTitle, ArticleOverviewItem, TextButton } from '../../components';
 import ArticleController from '../../controllers/ArticleController';
 
 // @ts-ignore
@@ -24,14 +23,7 @@ export default function ArticleOverview({ navigation }) {
     const fetchArticles = async () => {
       try {
         const articles = await ArticleController.getArticles();
-
-        if (articles.length > 0) {
-          setArticles(articles);
-        } else {
-          Alert.alert('No articles found', `Bringing you back..`);
-          navigation.navigate('CategoryOverview')
-        }
-
+        setArticles(articles);
       } catch (error) {
         console.error('Error fetching articles:', error);
       }
@@ -51,18 +43,33 @@ export default function ArticleOverview({ navigation }) {
       </View>
 
       <SafeAreaView style={[globalStyles.marginBottom, { height: '85%' }]}>
-        <FlatList
-          data={articles}
-          renderItem={({ item }) => <ArticleOverviewItem title={item.title} onPress={() => navigation.navigate('ArticleDetail', { articleID: item.articleID })} />}
-          keyExtractor={item => item.articleID}
-        />
+        {articles.length > 0 ? (
+          <FlatList
+            data={articles}
+            renderItem={({ item }) => (
+              <ArticleOverviewItem
+                title={item.title}
+                onPress={() => navigation.navigate('ArticleDetail', { articleID: item.articleID })}
+              />
+            )}
+            keyExtractor={item => item.articleID}
+          />
+        ) : (
+          <View style={styles.noContentContainer}>
+            <TextTitle content={'There are currently no articles available in this category'} />
+            <TextButton text={'Back to categories'} onPress={() => navigation.goBack()} />
+          </View>
+        )}
       </SafeAreaView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   textWrapper: {
     flexWrap: 'wrap',
   },
+  noContentContainer: {
+    marginTop: 20
+  }
 });
