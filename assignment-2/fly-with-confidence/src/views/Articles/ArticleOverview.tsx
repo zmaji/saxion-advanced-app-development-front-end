@@ -8,10 +8,15 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { globalStyles } from '../../styles/global';
-import {fontFamilyStyles, typographyStyles} from '../../styles/typography';
-import {TextTitle, TextSubTitle, ArticleOverviewItem, TextButton, Button} from '../../components';
+import { fontFamilyStyles } from '../../styles/typography';
+import { themeColors } from "../../styles/themeColors";
+import {
+  TextTitle,
+  TextSubTitle,
+  ArticleOverviewItem,
+  Button
+} from '../../components';
 import ArticleController from '../../controllers/ArticleController';
-import {themeColors} from "../../styles/themeColors";
 
 // @ts-ignore
 export default function ArticleOverview({ navigation }) {
