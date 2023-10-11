@@ -1,13 +1,14 @@
 import React from 'react';
 import {
     FlatList,
-    SafeAreaView,
+    SafeAreaView, StyleSheet,
     View,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { globalStyles } from '../../styles/global';
 import { fontFamilyStyles } from '../../styles/typography';
 import { TextTitle, TextSubTitle, ArticleOverviewItem } from '../../components';
+import {themeColors} from "../../styles/themeColors";
 
 
 // @ts-ignore
@@ -47,7 +48,7 @@ export default function ArticleOverview({ navigation }) {
         <View style={globalStyles.pageContainer}>
             <TextTitle content={'Articles'}/>
 
-            <View style={globalStyles.subTitleContainer}>
+            <View style={[globalStyles.subTitleContainer, styles.textWrapper]}>
                 <TextSubTitle content={'Popular articles in: '} color={'primary'}/>
 
                 <TextSubTitle content={`'${selectedCategory}'`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic}/>
@@ -63,3 +64,9 @@ export default function ArticleOverview({ navigation }) {
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    textWrapper: {
+        flexWrap: 'wrap',
+    },
+});
