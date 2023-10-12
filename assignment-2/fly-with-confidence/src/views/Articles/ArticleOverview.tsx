@@ -3,7 +3,9 @@ import type { Article } from '../../typings/Article';
 import React, { useState, useEffect } from 'react';
 import {
   FlatList,
-  SafeAreaView, StyleSheet, Text,
+  SafeAreaView, 
+  StyleSheet, 
+  Text,
   View,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
