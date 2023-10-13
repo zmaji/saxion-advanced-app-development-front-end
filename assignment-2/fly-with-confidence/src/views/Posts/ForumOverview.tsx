@@ -6,23 +6,24 @@ import {
   SafeAreaView,
   View,
   StyleSheet,
-  Text,
+  Text
 } from 'react-native';
-import { globalStyles } from '../../styles/global';
-import { fontFamilyStyles } from '../../styles/typography';
+import { globalStyles } from "../../styles/global";
+import { fontFamilyStyles } from "../../styles/typography";
 import { themeColors } from '../../styles/themeColors';
 import {
   TextTitle,
   TextSubTitle,
   ForumOverviewItem,
-  Button,
-} from '../../components';
+  Button
+} from "../../components";
 import PostController from '../../controllers/PostController';
+import CreatePostModal from '../../components/modals/CreatePostModal';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default function ForumOverview({ navigation }) {
   const [posts, setPosts] = useState<SimplePost[]>([]);
+  const [isCreatePostModalVisible, setCreatePostModalVisible] = React.useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -37,9 +38,21 @@ export default function ForumOverview({ navigation }) {
     fetchPosts();
   }, []);
 
+  const openCreatePostModal = () => {
+    setCreatePostModalVisible(true);
+  };
+
+  const closeCreatePostModal = () => {
+    setCreatePostModalVisible(false);
+  };
+
   return (
     <View style={globalStyles.pageContainer}>
       <TextTitle content={'Forum posts'} />
+
+      <View style={styles.container}>
+        <Button text='Create post' onPress={openCreatePostModal} />
+      </View>
 
       <View style={[globalStyles.subTitleContainer, styles.textWrapper]}>
         <TextSubTitle content={'Sorting posts on: '} color={'primary'} />
@@ -64,7 +77,7 @@ export default function ForumOverview({ navigation }) {
                 onPress={() => navigation.navigate('ForumDetail', { postID: item.postID })}
               />
             )}
-            keyExtractor={(item) => item.postID}
+            keyExtractor={item => item.postID}
           />
         ) : (
           <View style={styles.noContentContainer}>
@@ -75,9 +88,15 @@ export default function ForumOverview({ navigation }) {
           </View>
         )}
       </SafeAreaView>
+
+      <CreatePostModal
+        isVisible={isCreatePostModalVisible}
+        closeCreatePostModal={closeCreatePostModal}
+        onCreatePost={() => navigation.navigate('ForumOverview')}
+      />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   textWrapper: {
@@ -87,13 +106,18 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 25,
     borderRadius: 5,
-    backgroundColor: themeColors.darkWhite,
+    backgroundColor: themeColors.darkWhite
   },
   noContentMessage: {
     marginBottom: 15,
-    ...fontFamilyStyles.montserratRegular,
+    ...fontFamilyStyles.montserratRegular
   },
   noContentPosts: {
-    ...fontFamilyStyles.montserratBold,
+    ...fontFamilyStyles.montserratBold
   },
+  container: {
+    alignItems: 'flex-start',
+    marginBottom: 15,
+    marginTop: 10
+  }
 });
