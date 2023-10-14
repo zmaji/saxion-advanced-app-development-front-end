@@ -17,9 +17,8 @@ import {
   FormLabel,
   InputError
 } from '../../components';
+import { getCurrentCity, getCurrentLocation, getNearbyAirports, promptAuthorization } from '../../helpers/geoLocatationHelper';
 import DropDownPicker from 'react-native-dropdown-picker';
-import axios from 'axios';
-import * as Location from 'expo-location';
 
 interface CreatePostModalProps {
   isVisible: boolean;
@@ -49,16 +48,10 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
     { label: 'Anxiety Relief', value: 'Anxiety Relief' },
   ]);
 
-  // TODO: Move to config
-  const OPEN_CAGE_DATA_API_KEY = '056405b34b074031b8620556873c974f';
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
   const [currentLocation, setCurrentLocation] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
-  const [locations, setLocations] = useState([
-    { label: 'Location 1', value: 'Location 1' },
-    { label: 'Location 2', value: 'Location 2' },
-    { label: 'Location 3', value: 'Location 3' },
-  ]);
+  const [locations, setLocations] = useState([]);
 
   const handleCreatePost = () => {
     setTitleError('');
@@ -92,43 +85,35 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
     closeCreatePostModal();
   };
 
-  const getCoordinatesInfo = async (latitude: number, longitude: number) => {
-    console.log(latitude)
-    console.log(longitude)
+  const promptLocation = async () => {
     try {
-      const response = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?key=${OPEN_CAGE_DATA_API_KEY}&q=${latitude}%2C+${longitude}&pretty=1&no_annotations=1`
-      );
+      const authorization = await promptAuthorization();
 
-      if (response.data.results.length > 0) {
-        const city = response.data.results[0].components.city
-        setCurrentLocation(city);
+      if (authorization) {
+        const coordinates = await getCurrentLocation();
+
+        if (coordinates) {
+          const { latitude, longitude } = coordinates
+          const city = await getCurrentCity(latitude, longitude);
+          setCurrentLocation(city);
+
+          if (city) {
+            const distance = 20;
+            const airports = await getNearbyAirports(latitude, longitude, distance);
+            const airportNames = airports.map((airport: any) => airport.name);
+
+            const updatedLocations = airportNames.map((name: string) => ({
+              label: name,
+              value: name,
+            }));
+            setLocations(updatedLocations);
+          }
+        }
       }
     } catch (error) {
-      console.error('Error fetching location information:', error);
+      console.error('Error prompting location:', error);
     }
-    return null;
-  };
-
-  const promptGeolocatioPermissions = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-
-    if (status !== 'granted') {
-      console.error('Permission to access location was denied');
-      return;
-    }
-
-    try {
-      let location = await Location.getCurrentPositionAsync({});
-      const { latitude, longitude } = location.coords;
-      const result = await getCoordinatesInfo(latitude, longitude);
-      console.log('result');
-      console.log('result');
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  }
 
   return (
     <Modal
@@ -188,9 +173,9 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
             </View>
 
             <View style={inputStyles.formField}>
-              <FormLabel content={'Location'} />
+              <FormLabel content={`Current location: ${currentLocation}`} />
               <DropDownPicker
-                onPress={promptGeolocatioPermissions}
+                onPress={promptLocation}
                 open={isLocationDropdownOpen}
                 value={selectedLocation}
                 items={locations}
