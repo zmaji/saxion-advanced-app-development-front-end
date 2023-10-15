@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
+import DropDownPicker from 'react-native-dropdown-picker';
 import {
   Modal,
   View,
   StyleSheet,
   TextInput,
   ScrollView,
+  TouchableOpacity,
+  Text
 } from 'react-native';
-import { inputStyles } from '../../styles/inputs';
-import { themeColors } from '../../styles/themeColors';
-import { globalStyles } from '../../styles/global';
 import {
   TextTitle,
   Button,
@@ -17,22 +17,36 @@ import {
   FormLabel,
   InputError
 } from '../../components';
-import { getCurrentCity, getCurrentLocation, getNearbyAirports, promptAuthorization } from '../../helpers/geoLocatationHelper';
-import DropDownPicker from 'react-native-dropdown-picker';
+import {
+  getCurrentCity,
+  getCurrentLocation,
+  getNearbyAirports,
+  promptAuthorization
+} from '../../helpers/geoLocatationHelper';
+import { pickImage } from '../../helpers/imageHelper';
+import { inputStyles } from '../../styles/inputs';
+import { themeColors } from '../../styles/themeColors';
+import { globalStyles } from '../../styles/global';
+import { fontFamilyStyles } from '../../styles/typography';
 
 interface CreatePostModalProps {
   isVisible: boolean;
   closeCreatePostModal: () => void;
-  onCreatePost: (title: string, text: string, image: string | null, category: string, location: string) => void;
+  onCreatePost: (title: string, text: string, image: string | null, categories: string[], location: string | null) => void;
 }
 
 const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreatePostModal, onCreatePost }) => {
   const [titleError, setTitleError] = useState<string>('');
   const [textError, setTextError] = useState<string>('');
+  const [categoryError, setCategoryError] = useState<string>('');
+
   const [title, setTitle] = useState<string>('');
   const [text, setText] = useState<string>('');
-  const [image, setImage] = useState<string | null>(null);
 
+  const [image, setImage] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+
+  const [categoryDropdownHeight, setCategoryDropdownHeight] = useState(0);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [categories, setCategories] = useState([
@@ -48,14 +62,16 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
     { label: 'Anxiety Relief', value: 'Anxiety Relief' },
   ]);
 
+  const [locationDropdownHeight, setLocationDropdownHeight] = useState(0);
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
   const [currentLocation, setCurrentLocation] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('');
-  const [locations, setLocations] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [locations, setLocations] = useState([{ label: currentLocation, value: currentLocation }]);
 
   const handleCreatePost = () => {
     setTitleError('');
     setTextError('');
+    setCategoryError('');
 
     let isValid = true;
 
@@ -69,17 +85,22 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
       isValid = false;
     }
 
+    if (selectedCategories.length === 0) {
+      setCategoryError('At least one category is required');
+      isValid = false;
+    }
+
     if (isValid) {
-      onCreatePost(title, text, image, selectedCategories, location);
+      onCreatePost(title, text, image, selectedCategories, selectedLocation);
     }
   };
 
   const handleCloseModal = () => {
     setTitle('');
     setText('');
-    setImage(null);
+    setImage('');
     setSelectedCategories([]);
-    setSelectedLocation('');
+    setSelectedLocation(null);
     setTitleError('');
     setTextError('');
     closeCreatePostModal();
@@ -93,7 +114,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
         const coordinates = await getCurrentLocation();
 
         if (coordinates) {
-          const { latitude, longitude } = coordinates
+          const { latitude, longitude } = coordinates;
           const city = await getCurrentCity(latitude, longitude);
           setCurrentLocation(city);
 
@@ -106,6 +127,8 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
               label: name,
               value: name,
             }));
+
+            updatedLocations.unshift({ label: `Current location (${currentLocation})`, value: currentLocation });
             setLocations(updatedLocations);
           }
         }
@@ -113,6 +136,11 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
     } catch (error) {
       console.error('Error prompting location:', error);
     }
+  };
+
+  const openImagePicker = async () => {
+    const imageUri = pickImage();
+    // setImage(imageUri);
   }
 
   return (
@@ -144,37 +172,64 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
             <View style={inputStyles.formField}>
               <FormLabel content={'Text'} />
               <TextInput
-                style={inputStyles.formInput}
+                style={[inputStyles.formInput, styles.formHeight]}
                 placeholder='Text'
                 value={text}
                 onChangeText={setText}
+                multiline={true}
+                numberOfLines={4}
               />
 
               {textError ? (<InputError content={textError} color='error'></InputError>) : null}
             </View>
 
+            <View>
+              <FormLabel content={`Image`} />
+              <TouchableOpacity style={[inputStyles.formInput, styles.imageButton]} onPress={openImagePicker}>
+                <Text style={styles.imageButtonText}>Open camera roll</Text>
+              </TouchableOpacity>
+            </View>
+
             <View style={inputStyles.formField}>
               <FormLabel content={'Category'} />
               <DropDownPicker
+                loading={loading}
+                placeholder={'Select a category'}
                 multiple={true}
                 min={0}
                 max={2}
-                disableBorderRadius={true}
                 open={isCategoryDropdownOpen}
                 value={selectedCategories}
                 items={categories}
                 setOpen={setIsCategoryDropdownOpen}
                 setValue={setSelectedCategories}
                 setItems={setCategories}
+                listMode="SCROLLVIEW"
                 containerStyle={{
-                  marginBottom: 200
+                  marginBottom: isCategoryDropdownOpen ? categoryDropdownHeight : 0,
+                }}
+                style={{
+                  borderColor: themeColors.lightGrey,
+                }}
+                textStyle={{
+                  fontFamily: 'Montserrat-Regular'
+                }}
+                onOpen={() => {
+                  setCategoryDropdownHeight(200);
+                }}
+                onClose={() => {
+                  setCategoryDropdownHeight(0);
                 }}
               />
+
+              {categoryError ? (<InputError content={categoryError} color='error'></InputError>) : null}
             </View>
 
             <View style={inputStyles.formField}>
-              <FormLabel content={`Current location: ${currentLocation}`} />
+              <FormLabel content={`Location`} />
               <DropDownPicker
+                placeholder={'Select a location'}
+                loading={loading}
                 onPress={promptLocation}
                 open={isLocationDropdownOpen}
                 value={selectedLocation}
@@ -182,14 +237,27 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
                 setOpen={setIsLocationDropdownOpen}
                 setValue={setSelectedLocation}
                 setItems={setLocations}
+                listMode="SCROLLVIEW"
                 containerStyle={{
-                  marginBottom: 150
+                  marginBottom: isLocationDropdownOpen ? locationDropdownHeight : 0,
+                }}
+                style={{
+                  borderColor: themeColors.lightGrey,
+                }}
+                textStyle={{
+                  ...fontFamilyStyles.montserratRegular
+                }}
+                onOpen={() => {
+                  setLocationDropdownHeight(160);
+                }}
+                onClose={() => {
+                  setLocationDropdownHeight(0);
                 }}
               />
             </View>
           </View>
 
-          <Button text='Create Post' customStyles={styles.createPostButton} onPress={handleCreatePost} />
+          <Button text='Create Post' customStyles={styles.createButton} onPress={handleCreatePost} />
 
           <TextButton text={'Cancel'} onPress={handleCloseModal} />
         </ScrollView>
@@ -211,9 +279,18 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     padding: 25,
   },
-  createPostButton: {
+  createButton: {
     alignSelf: 'center',
   },
+  imageButton: {
+    marginBottom: 20
+  },
+  imageButtonText: {
+    ...fontFamilyStyles.montserratRegular
+  },
+  formHeight: {
+    height: 100
+  }
 });
 
 export default CreatePostModal;
