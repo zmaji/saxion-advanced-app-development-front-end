@@ -1,6 +1,5 @@
 import type { PostDetail } from '../../typings/Post';
 
-
 import React, { useEffect, useState } from 'react';
 import {
   View,

@@ -1,5 +1,6 @@
+import type { BasicPost } from '../../typings/Post';
+
 import React, { useState } from 'react';
-import DropDownPicker from 'react-native-dropdown-picker';
 import {
   Modal,
   View,
@@ -7,7 +8,9 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
-  Text
+  Text,
+  Image,
+  Alert
 } from 'react-native';
 import {
   TextTitle,
@@ -23,16 +26,19 @@ import {
   getNearbyAirports,
   promptAuthorization
 } from '../../helpers/geoLocatationHelper';
+import DropDownPicker from 'react-native-dropdown-picker';
 import { pickImage } from '../../helpers/imageHelper';
 import { inputStyles } from '../../styles/inputs';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
 import { fontFamilyStyles } from '../../styles/typography';
+import PostController from '../../controllers/PostController';
+import { getCurrentDate } from '../../helpers/getCurrentDate';
 
 interface CreatePostModalProps {
   isVisible: boolean;
   closeCreatePostModal: () => void;
-  onCreatePost: (title: string, text: string, image: string | null, categories: string[], location: string | null) => void;
+  onCreatePost: () => void;
 }
 
 const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreatePostModal, onCreatePost }) => {
@@ -44,7 +50,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
   const [text, setText] = useState<string>('');
 
   const [image, setImage] = useState<string>('');
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const [categoryDropdownHeight, setCategoryDropdownHeight] = useState(0);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
@@ -65,10 +71,10 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
   const [locationDropdownHeight, setLocationDropdownHeight] = useState(0);
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
   const [currentLocation, setCurrentLocation] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState('');
   const [locations, setLocations] = useState([{ label: currentLocation, value: currentLocation }]);
 
-  const handleCreatePost = () => {
+  const handleCreatePost = async () => {
     setTitleError('');
     setTextError('');
     setCategoryError('');
@@ -91,7 +97,21 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
     }
 
     if (isValid) {
-      onCreatePost(title, text, image, selectedCategories, selectedLocation);
+      const currentDate = await getCurrentDate();
+
+      const postData: BasicPost = {
+        title: title,
+        content: text,
+        image: image,
+        categories: selectedCategories,
+        location: selectedLocation,
+        date: currentDate,
+      };
+
+      PostController.createPost(postData);
+      Alert.alert("Post has been successfully created.");
+      closeCreatePostModal();
+      onCreatePost();
     }
   };
 
@@ -100,7 +120,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
     setText('');
     setImage('');
     setSelectedCategories([]);
-    setSelectedLocation(null);
+    setSelectedLocation('');
     setTitleError('');
     setTextError('');
     closeCreatePostModal();
@@ -139,8 +159,15 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
   };
 
   const openImagePicker = async () => {
-    const imageUri = pickImage();
-    // setImage(imageUri);
+    try {
+      const imageUri = await pickImage();
+
+      if (imageUri) {
+        setImage(imageUri);
+      }
+    } catch (error) {
+      console.error('Error fetching image:', error);
+    }
   }
 
   return (
@@ -187,6 +214,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
               <FormLabel content={`Image`} />
               <TouchableOpacity style={[inputStyles.formInput, styles.imageButton]} onPress={openImagePicker}>
                 <Text style={styles.imageButtonText}>Open camera roll</Text>
+                <Image source={require('../../../assets/icons/image-thin-white.png')} style={styles.imageIcon} />
               </TouchableOpacity>
             </View>
 
@@ -283,13 +311,21 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   imageButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: 20
   },
   imageButtonText: {
-    ...fontFamilyStyles.montserratRegular
+    ...fontFamilyStyles.montserratRegular,
   },
   formHeight: {
     height: 100
+  },
+  imageIcon: {
+    height: 27,
+    width: 30,
+    tintColor: themeColors.darkGrey
   }
 });
 

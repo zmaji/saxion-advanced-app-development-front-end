@@ -53,7 +53,14 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, c
         </View>
       </View>
 
-      {image !== '' ? (<Image source={require(`../../assets/images/article-banner.jpg`)} style={styles.forumOverviewItemImage} />) : null}
+      {
+        image !== '' && image.includes('mobile') ? (
+          <Image source={{ uri: `file://${image}` }} style={styles.forumOverviewItemImage} />
+        ) : image !== '' && image.includes('mock') ? (
+          <Image source={require('../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />
+        ) : null
+      }
+
 
       <Text
         style={styles.forumOverviewItemContent}

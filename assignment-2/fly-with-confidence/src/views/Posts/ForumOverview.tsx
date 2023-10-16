@@ -25,16 +25,18 @@ export default function ForumOverview({ navigation }) {
   const [posts, setPosts] = useState<SimplePost[]>([]);
   const [isCreatePostModalVisible, setCreatePostModalVisible] = React.useState(false);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const posts = await PostController.getPosts();
-        setPosts(posts);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-    };
+  const fetchPosts = async () => {
+    try {
+      const newPosts: SimplePost[] = await PostController.getPosts();
+      setPosts(newPosts);
 
+      // TODO: Implement sort
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
+
+  useEffect(() => {
     fetchPosts();
   }, []);
 
@@ -72,7 +74,7 @@ export default function ForumOverview({ navigation }) {
                 comments={item.commentCount}
                 likes={item.likes}
                 dislikes={item.dislikes}
-                image={item.image}
+                image={item.image ? item.image : ''}
                 categories={item.categories}
                 onPress={() => navigation.navigate('ForumDetail', { postID: item.postID })}
               />
@@ -92,7 +94,7 @@ export default function ForumOverview({ navigation }) {
       <CreatePostModal
         isVisible={isCreatePostModalVisible}
         closeCreatePostModal={closeCreatePostModal}
-        onCreatePost={() => navigation.navigate('ForumOverview')}
+        onCreatePost={() => fetchPosts()}
       />
     </View>
   );
