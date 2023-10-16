@@ -3,7 +3,7 @@ import {
   ImageBackground,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 import * as React from 'react';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
@@ -14,6 +14,7 @@ import { themeColorUtils } from '../styles/themeColors';
 import { fontFamilyStyles, typographyStyles } from '../styles/typography';
 import { Button, LoginModal, RegisterModal } from '../components';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default function Home({ navigation }) {
   const [isLoginModalVisible, setLoginModalVisible] = React.useState(false);
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     width: '100%',
     resizeMode: 'cover',
     justifyContent: 'center',
-    position: 'relative'
+    position: 'relative',
   },
   linearGradient: {
     position: 'absolute',
@@ -110,16 +111,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Bold',
     fontSize: 28,
     color: 'white',
-    marginBottom: 10
+    marginBottom: 10,
   },
   subHeader: {
     fontFamily: 'Lora-Medium-Italic',
     fontSize: 20,
     color: 'white',
-    marginBottom: 50
+    marginBottom: 50,
   },
   loginLink: {
     textDecorationLine: 'underline',
-    ...typographyStyles.baseFontSize
-  }
+    ...typographyStyles.baseFontSize,
+  },
 });

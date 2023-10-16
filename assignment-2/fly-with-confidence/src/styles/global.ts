@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { themeColors } from "./themeColors";
+import { themeColors } from './themeColors';
 
 export const globalStyles = StyleSheet.create({
   marginBottom: {
@@ -9,7 +9,7 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: themeColors.white,
     padding: 25,
     paddingTop: 15,
-    minHeight: "100%"
+    minHeight: '100%',
   },
   defaultShadow: {
     shadowColor: '#002E74',
@@ -22,9 +22,9 @@ export const globalStyles = StyleSheet.create({
     elevation: 5,
   },
   subTitleContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   flexDirectionRow: {
-    flexDirection: "row"
-  }
+    flexDirection: 'row',
+  },
 });

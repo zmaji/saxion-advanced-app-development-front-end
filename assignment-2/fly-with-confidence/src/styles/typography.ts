@@ -23,7 +23,7 @@ export const fontFamilyStyles = {
   montserratRegular: {
     fontFamily: 'Montserrat-Regular',
   },
-}
+};
 
 export const typographyStyles = StyleSheet.create({
   baseFontSize: {
@@ -33,30 +33,30 @@ export const typographyStyles = StyleSheet.create({
     fontSize: 24,
     color: themeColors.darkGrey,
     marginBottom: 5,
-    ...fontFamilyStyles.montserratBold
+    ...fontFamilyStyles.montserratBold,
   },
   pageSubTitle: {
     fontSize: 16,
     color: themeColors.darkGrey,
     marginBottom: 10,
-    ...fontFamilyStyles.loraItalic
+    ...fontFamilyStyles.loraItalic,
   },
   regularText: {
     fontSize: 16,
     color: themeColors.darkGrey,
     marginBottom: 20,
-    ...fontFamilyStyles.montserratRegular
+    ...fontFamilyStyles.montserratRegular,
   },
   formLabel: {
     fontSize: 12,
     color: themeColors.lightGrey,
     marginBottom: 5,
-    ...fontFamilyStyles.montserratRegular
+    ...fontFamilyStyles.montserratRegular,
   },
   formInputError: {
     fontSize: 12,
     color: themeColors.error,
     marginTop: 5,
-    ...fontFamilyStyles.montserratRegular
-  }
+    ...fontFamilyStyles.montserratRegular,
+  },
 });

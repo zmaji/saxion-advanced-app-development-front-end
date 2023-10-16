@@ -7,14 +7,14 @@ const loginUser = async (user: UserCredentials): Promise<string | null> => {
   try {
     const response = await axios.post(`${BASE_URL}/credentials`, user);
 
-    return response.data
+    return response.data;
   } catch (error) {
     throw error;
   }
-}
+};
 
 const AuthController = {
-  loginUser
+  loginUser,
 };
 
 export default AuthController;

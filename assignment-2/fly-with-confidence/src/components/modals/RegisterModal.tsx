@@ -16,7 +16,7 @@ import TextButton from '../buttons/TextButton';
 import TextSubTitle from '../typography/TextSubTitle';
 import FormLabel from '../typography/FormLabel';
 import InputError from '../error/InputError';
-import UserController from '../../controllers/UserController'
+import UserController from '../../controllers/UserController';
 
 interface RegisterModalProps {
   isVisible: boolean;
@@ -37,30 +37,27 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     return emailRegex.test(email);
   };
 
   const onRegister = async (userName: string, email: string, password: string) => {
-    try {
-      const newUser = {
-        userName,
-        email,
-        password
-      };
+    const newUser = {
+      userName,
+      email,
+      password,
+    };
 
-      const response = await UserController.postUser(newUser);
+    const response = await UserController.postUser(newUser);
 
-      if (response !== null) {
-        Alert.alert('Registration Successful', 'You can now login on your new account');
-        closeRegisterModal();
-        onRegisterSuccess();
-      } else {
-        Alert.alert('Registration failed', 'This username or email is already in use');
-      }
-    } catch (error) {
-      throw error;
+    if (response !== null) {
+      Alert.alert('Registration Successful', 'You can now login on your new account');
+      closeRegisterModal();
+      onRegisterSuccess();
+    } else {
+      Alert.alert('Registration failed', 'This username or email is already in use');
     }
-  }
+  };
 
   const handleRegister = () => {
     setUsernameError('');
@@ -179,7 +176,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
                 onChangeText={setPasswordConfirmation}
               />
 
-              {passwordConfirmationError ? (<InputError content={passwordConfirmationError} color='error'></InputError>) : null}
+              {passwordConfirmationError ? (<InputError content={passwordConfirmationError} color='error'/>) : null}
             </View>
           </View>
 

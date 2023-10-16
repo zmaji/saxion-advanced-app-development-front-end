@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
-  Alert
+  Alert,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../stores/tokenStore';
@@ -17,7 +17,7 @@ import Button from '../buttons/Button';
 import TextButton from '../buttons/TextButton';
 import TextSubTitle from '../typography/TextSubTitle';
 import FormLabel from '../typography/FormLabel';
-import InputError from "../error/InputError";
+import InputError from '../error/InputError';
 import AuthController from '../../controllers/AuthController';
 
 interface LoginModalProps {
@@ -68,8 +68,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
       isValid = false;
     }
 
-    if (isValid)
+    if (isValid) {
       onLogin(username, password);
+    }
   };
 
   const handleCloseModal = () => {

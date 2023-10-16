@@ -1,13 +1,13 @@
-import React from "react";
-import { Text, View } from "react-native";
-import { labelStyles } from "../../styles/labels";
-import { getBackgroundColorStyle, getTextColorStyle } from "../../helpers/getColorStylesHelper";
+import React from 'react';
+import { Text, View, ViewStyle } from 'react-native';
+import { labelStyles } from '../../styles/labels';
+import { getBackgroundColorStyle, getTextColorStyle } from '../../helpers/getColorStylesHelper';
 
 interface LabelProps {
   text: string,
   labelColor?: string,
   textColor?: string,
-  customStyles?: Object,
+  customStyles?: ViewStyle,
 }
 
 const CategoryLabel: React.FC<LabelProps> = ({ text, labelColor, textColor, customStyles }) => {
