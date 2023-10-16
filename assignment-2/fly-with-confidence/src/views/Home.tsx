@@ -73,7 +73,7 @@ export default function Home({ navigation }) {
         <RegisterModal
           isVisible={isRegisterModalVisible}
           closeRegisterModal={closeRegisterModal}
-          onRegister={() => navigation.navigate('SelectionScreen')}
+          onRegisterSuccess={() => navigation.navigate('HomeScreen')}
         />
 
         <StatusBar style='auto' />

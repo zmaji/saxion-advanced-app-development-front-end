@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
+  Alert,
 } from 'react-native';
 import { inputStyles } from '../../styles/inputs';
 import { themeColors } from '../../styles/themeColors';
@@ -15,14 +16,15 @@ import TextButton from '../buttons/TextButton';
 import TextSubTitle from '../typography/TextSubTitle';
 import FormLabel from '../typography/FormLabel';
 import InputError from '../error/InputError';
+import UserController from '../../controllers/UserController'
 
 interface RegisterModalProps {
   isVisible: boolean;
   closeRegisterModal: () => void;
-  onRegister: (username: string, email: string, password: string) => void;
+  onRegisterSuccess: () => void;
 }
 
-const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterModal, onRegister }) => {
+const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterModal, onRegisterSuccess }) => {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -37,6 +39,28 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
+
+  const onRegister = async (userName: string, email: string, password: string) => {
+    try {
+      const newUser = {
+        userName,
+        email,
+        password
+      };
+
+      const response = await UserController.postUser(newUser);
+
+      if (response !== null) {
+        Alert.alert('Registration Successful', 'You can now login on your new account');
+        closeRegisterModal();
+        onRegisterSuccess();
+      } else {
+        Alert.alert('Registration failed', 'This username or email is already in use');
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
 
   const handleRegister = () => {
     setUsernameError('');
