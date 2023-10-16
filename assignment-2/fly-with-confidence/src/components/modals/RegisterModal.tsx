@@ -17,7 +17,6 @@ import TextSubTitle from '../typography/TextSubTitle';
 import FormLabel from '../typography/FormLabel';
 import InputError from '../error/InputError';
 import UserController from '../../controllers/UserController'
-import AuthController from "../../controllers/AuthController";
 
 interface RegisterModalProps {
   isVisible: boolean;
