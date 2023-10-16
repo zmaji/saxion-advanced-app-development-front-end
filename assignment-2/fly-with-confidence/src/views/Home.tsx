@@ -40,7 +40,7 @@ export default function Home({ navigation }) {
       source={require('../../assets/images/home-bg.jpg')}
       style={styles.backgroundImage}
     >
-      <LinearGradient colors={['transparent', 'rgba(0,0,50,.35)']} style={styles.linearGradient}/>
+      <LinearGradient colors={['transparent', 'rgba(0,0,50,.35)']} style={styles.linearGradient} />
 
       <View style={styles.container}>
         <Text style={styles.header}>Fly with Confidence</Text>
@@ -49,13 +49,13 @@ export default function Home({ navigation }) {
         <Button text='Sign up' customStyles={globalStyles.marginBottom} onPress={openRegisterModal} />
 
         <Button
-            text='Enter as guest'
-            buttonColor='secondary'
-            customStyles={{ marginBottom: 35 }}
-            onPress={() => navigation.navigate('SelectionScreen')}
+          text='Enter as guest'
+          buttonColor='secondary'
+          customStyles={{ marginBottom: 35 }}
+          onPress={() => navigation.navigate('SelectionScreen')}
         />
 
-        <Text style={[themeColorUtils.textColorWhite, {fontSize: 16}]}>
+        <Text style={[themeColorUtils.textColorWhite, { fontSize: 16 }]}>
           Already have an account?{' '}
 
           <Text
@@ -67,7 +67,7 @@ export default function Home({ navigation }) {
         <LoginModal
           isVisible={isLoginModalVisible}
           closeLoginModal={closeLoginModal}
-          onLogin={() => navigation.navigate('SelectionScreen')}
+          onLoginSuccess={() => navigation.navigate('SelectionScreen')}
         />
 
         <RegisterModal
