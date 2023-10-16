@@ -4,3 +4,8 @@ export interface User {
   password: string,
   avatar?: string,
 }
+
+export interface UserCredentials {
+  userName: string,
+  password: string,
+}

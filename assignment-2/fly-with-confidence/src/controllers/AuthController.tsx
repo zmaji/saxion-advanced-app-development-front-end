@@ -1,13 +1,18 @@
-import type { User } from '../typings/User';
+import type { UserCredentials } from '../typings/User';
 
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { BASE_URL } from '../../config';
 
-// TODO: Change to AWS IP
-const BASE_URL = 'http://192.168.2.3:3000';
-
-const loginUser = async (existingUser: User): Promise<string | null> => {
+const loginUser = async (user: UserCredentials): Promise<string | null> => {
+  console.log('entering login function');
   try {
-    const response = await axios.post(`${BASE_URL}/credentials/login`, existingUser);
+    console.log('sending request with credentials:', user);
+    const response = await axios.post(`${BASE_URL}/credentials`, user);
+    if (response) {
+      await AsyncStorage.setItem('token', JSON.stringify(response.data));
+    }
+    console.log('response', response.data);
     return response.data
   } catch (error) {
     throw error;

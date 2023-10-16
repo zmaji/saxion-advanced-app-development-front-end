@@ -7,6 +7,8 @@ import {
   ScrollView,
   Alert
 } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../../stores/tokenStore';
 import { inputStyles } from '../../styles/inputs';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
@@ -30,6 +32,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
   const [usernameError, setUsernameError] = useState<string>('');
   const [passwordError, setPasswordError] = useState<string>('');
 
+  const dispatch = useDispatch();
+
   const onLogin = async (userName: string, password: string) => {
     try {
       const user = { userName, password };
@@ -37,6 +41,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
 
       if (response) {
         Alert.alert('Login Successful', 'You have successfully logged in.');
+        dispatch(setToken(response));
         closeLoginModal();
         onLoginSuccess();
       } else {

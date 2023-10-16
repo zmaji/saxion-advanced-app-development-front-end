@@ -5,6 +5,8 @@ import { DrawerActions, NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
+import { Provider } from 'react-redux'
+import tokenStore from './src/stores/tokenStore'
 import { themeColors } from './src/styles/themeColors';
 import { AppHeader, SidePanelItems } from './src/components';
 import Home from './src/views/Home';
@@ -40,54 +42,56 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer ref={navigationRef}>
-      <SidePanelDrawer.Navigator
-        drawerContent={
-          (props) =>
-            <SidePanelItems
-                activeItem={navigationRef.current?.getCurrentRoute().name}
-                selectedCategory={navigationRef.current?.getCurrentRoute().params?.selectedCategory}
-                {...props}
-            />
-        }
-        initialRouteName="Home"
-        screenOptions={{
-          header: () => <AppHeader onSidePanelPress={openSidePanel} />,
-          drawerPosition: 'right',
-          drawerStyle: {
-            width: "90%",
-            maxWidth: 325,
-          },
-          drawerItemStyle: {
-            backgroundColor: themeColors.white
-          }
-        }}
-      >
-        <SidePanelDrawer.Screen
-          name="Home"
-          options={{
-            title: "Home",
-            headerShown: false
-          }}
-        >
-          {() => (
-            <Stack.Navigator
+      <Provider store={tokenStore}>
+        <NavigationContainer ref={navigationRef}>
+          <SidePanelDrawer.Navigator
+              drawerContent={
+                (props) =>
+                    <SidePanelItems
+                        activeItem={navigationRef.current?.getCurrentRoute().name}
+                        selectedCategory={navigationRef.current?.getCurrentRoute().params?.selectedCategory}
+                        {...props}
+                    />
+              }
+              initialRouteName="Home"
               screenOptions={{
-                animation: 'slide_from_right',
-                animationDuration: 100,
                 header: () => <AppHeader onSidePanelPress={openSidePanel} />,
+                drawerPosition: 'right',
+                drawerStyle: {
+                  width: "90%",
+                  maxWidth: 325,
+                },
+                drawerItemStyle: {
+                  backgroundColor: themeColors.white
+                }
               }}
+          >
+            <SidePanelDrawer.Screen
+                name="Home"
+                options={{
+                  title: "Home",
+                  headerShown: false
+                }}
             >
-              <Stack.Screen name="HomeScreen" component={Home} options={{ headerShown: false }} />
-              <Stack.Screen name="SelectionScreen" component={SelectionScreen} />
-              <Stack.Screen name="CategoryOverview" component={CategoryOverview} />
-              <Stack.Screen name="ArticleOverview" component={ArticleOverview} />
-              <Stack.Screen name="ForumOverview" component={ForumOverview} />
-              <Stack.Screen name="ForumDetail" component={ForumDetail} />
-            </Stack.Navigator>
-          )}
-        </SidePanelDrawer.Screen>
-      </SidePanelDrawer.Navigator>
-    </NavigationContainer>
+              {() => (
+                  <Stack.Navigator
+                      screenOptions={{
+                        animation: 'slide_from_right',
+                        animationDuration: 100,
+                        header: () => <AppHeader onSidePanelPress={openSidePanel} />,
+                      }}
+                  >
+                    <Stack.Screen name="HomeScreen" component={Home} options={{ headerShown: false }} />
+                    <Stack.Screen name="SelectionScreen" component={SelectionScreen} />
+                    <Stack.Screen name="CategoryOverview" component={CategoryOverview} />
+                    <Stack.Screen name="ArticleOverview" component={ArticleOverview} />
+                    <Stack.Screen name="ForumOverview" component={ForumOverview} />
+                    <Stack.Screen name="ForumDetail" component={ForumDetail} />
+                  </Stack.Navigator>
+              )}
+            </SidePanelDrawer.Screen>
+          </SidePanelDrawer.Navigator>
+        </NavigationContainer>
+      </Provider>
   );
 }
