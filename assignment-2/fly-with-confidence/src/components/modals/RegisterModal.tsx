@@ -17,6 +17,7 @@ import TextSubTitle from '../typography/TextSubTitle';
 import FormLabel from '../typography/FormLabel';
 import InputError from '../error/InputError';
 import UserController from '../../controllers/UserController'
+import AuthController from "../../controllers/AuthController";
 
 interface RegisterModalProps {
   isVisible: boolean;
@@ -48,9 +49,15 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
         password
       };
 
-      Alert.alert('Registration Successful', `Welcome ${newUser.userName}.`);
-      closeRegisterModal();
-      onRegisterSuccess();
+      const response = await UserController.postUser(newUser);
+
+      if (response !== null) {
+        Alert.alert('Registration Successful', 'You can now login on your new account');
+        closeRegisterModal();
+        onRegisterSuccess();
+      } else {
+        Alert.alert('Registration failed', 'This username or email is already in use');
+      }
     } catch (error) {
       throw error;
     }
