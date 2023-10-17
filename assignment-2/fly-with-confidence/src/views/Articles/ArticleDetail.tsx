@@ -56,7 +56,10 @@ export default function ArticleDetail() {
             <FontAwesomeIcon icon={faBookmark} color={themeColors.white} size={15} />
           </TouchableOpacity>
 
-          <Image source={require(`../../../assets/images/article-banner.jpg`)} style={styles.articleOverviewItemImage} />
+          <Image
+            source={require(`../../../assets/images/article-banner.jpg`)}
+            style={styles.articleOverviewItemImage}
+          />
         </View>
       ) : null}
 

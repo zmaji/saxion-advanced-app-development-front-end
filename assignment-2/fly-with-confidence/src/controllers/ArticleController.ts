@@ -18,16 +18,17 @@ const getArticles = async (category?: string): Promise<Article[]> => {
 const getArticle = async (articleID: string): Promise<Article | undefined> => {
   try {
     const response = await axios.get(`${BASE_URL}/articles/${articleID}`);
-    return response.data
+
+    return response.data;
   } catch (error) {
     throw error;
   }
-}
+};
 
 
 const ArticleController = {
   getArticles,
-  getArticle
+  getArticle,
 };
 
 export default ArticleController;
