@@ -1,5 +1,5 @@
-import { themeColors } from "./themeColors";
-import { typographyStyles } from "./typography";
+import { themeColors } from './themeColors';
+import { typographyStyles } from './typography';
 
 export const buttonStyles = {
   button: {
@@ -7,12 +7,12 @@ export const buttonStyles = {
     padding: 15,
     elevation: 1,
     minWidth: 170,
-    backgroundColor: themeColors.primary
+    backgroundColor: themeColors.primary,
   },
   buttonText: {
     fontFamily: 'Montserrat-Medium',
     color: 'white',
     textAlign: 'center',
-    ...typographyStyles.baseFontSize
-  }
-}
+    ...typographyStyles.baseFontSize,
+  },
+};

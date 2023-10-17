@@ -1,7 +1,6 @@
 import type { User } from '../typings/User';
 
 import axios from 'axios';
-
 import { BASE_URL } from '../../config';
 
 const postUser = async (newUser: User): Promise<User | null> => {
@@ -12,10 +11,10 @@ const postUser = async (newUser: User): Promise<User | null> => {
   } catch (error) {
     return null;
   }
-}
+};
 
 const UserController = {
-  postUser
+  postUser,
 };
 
 export default UserController;

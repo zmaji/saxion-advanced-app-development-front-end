@@ -20,6 +20,7 @@ import PostController from '../../controllers/PostController';
 
 export default function ForumDetail() {
   const route = useRoute();
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const selectedPostID = route.params && route.params.postID;
   const [post, setPost] = useState<PostDetail | undefined>();
@@ -45,7 +46,13 @@ export default function ForumDetail() {
 
       <View style={styles.categoriesContainer}>
         {post.categories.map((category, index) => (
-          <CategoryLabel key={index} text={category} labelColor='darkWhite' textColor='grey' customStyles={styles.categoryLabel} />
+          <CategoryLabel
+            key={index}
+            text={category}
+            labelColor='darkWhite'
+            textColor='grey'
+            customStyles={styles.categoryLabel}
+          />
         ))}
       </View>
 
@@ -81,7 +88,6 @@ export default function ForumDetail() {
       })}
     </ScrollView>
   ) : null;
-
 }
 
 const styles = StyleSheet.create({
@@ -138,5 +144,5 @@ const styles = StyleSheet.create({
   },
   extraInfoText: {
     marginRight: 10,
-  }
+  },
 });

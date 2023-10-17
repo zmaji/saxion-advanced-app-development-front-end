@@ -6,19 +6,20 @@ import {
   SafeAreaView,
   View,
   StyleSheet,
-  Text
+  Text,
 } from 'react-native';
-import { globalStyles } from "../../styles/global";
-import { fontFamilyStyles } from "../../styles/typography";
+import { globalStyles } from '../../styles/global';
+import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
 import {
   TextTitle,
   TextSubTitle,
   ForumOverviewItem,
-  Button
-} from "../../components";
+  Button,
+} from '../../components';
 import PostController from '../../controllers/PostController';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default function ForumOverview({ navigation }) {
   const [posts, setPosts] = useState<SimplePost[]>([]);
@@ -63,7 +64,7 @@ export default function ForumOverview({ navigation }) {
                 onPress={() => navigation.navigate('ForumDetail', { postID: item.postID })}
               />
             )}
-            keyExtractor={item => item.postID}
+            keyExtractor={(item) => item.postID}
           />
         ) : (
           <View style={styles.noContentContainer}>
@@ -76,7 +77,7 @@ export default function ForumOverview({ navigation }) {
       </SafeAreaView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   textWrapper: {
@@ -86,13 +87,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 25,
     borderRadius: 5,
-    backgroundColor: themeColors.darkWhite
+    backgroundColor: themeColors.darkWhite,
   },
   noContentMessage: {
     marginBottom: 15,
-    ...fontFamilyStyles.montserratRegular
+    ...fontFamilyStyles.montserratRegular,
   },
   noContentPosts: {
-    ...fontFamilyStyles.montserratBold
-  }
+    ...fontFamilyStyles.montserratBold,
+  },
 });

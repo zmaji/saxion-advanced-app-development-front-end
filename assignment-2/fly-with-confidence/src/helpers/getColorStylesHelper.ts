@@ -1,4 +1,4 @@
-import { themeColorUtils } from "../styles/themeColors";
+import { themeColorUtils } from '../styles/themeColors';
 
 export const getTextColorStyle = (color: string) => {
   switch (color) {

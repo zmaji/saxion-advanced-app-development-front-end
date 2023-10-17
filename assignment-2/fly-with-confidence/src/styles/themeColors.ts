@@ -72,4 +72,4 @@ export const themeColorUtils = {
   backgroundColorSuccess: {
     backgroundColor: themeColors.success,
   },
-}
+};

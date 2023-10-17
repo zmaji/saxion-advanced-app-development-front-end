@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, ViewStyle } from 'react-native';
 import { buttonStyles } from '../../styles/buttons';
 import { getBackgroundColorStyle, getTextColorStyle } from '../../helpers/getColorStylesHelper';
 
@@ -7,7 +7,7 @@ interface ButtonProps {
   text: string,
   buttonColor?: string,
   textColor?: string,
-  customStyles?: Object,
+  customStyles?: ViewStyle,
   onPress?: () => void
 }
 

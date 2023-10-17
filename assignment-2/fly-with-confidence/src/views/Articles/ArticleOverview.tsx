@@ -3,24 +3,29 @@ import type { Article } from '../../typings/Article';
 import React, { useState, useEffect } from 'react';
 import {
   FlatList,
-  SafeAreaView, StyleSheet, Text,
+  SafeAreaView,
+  StyleSheet,
+  Text,
   View,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { globalStyles } from '../../styles/global';
 import { fontFamilyStyles } from '../../styles/typography';
-import { themeColors } from "../../styles/themeColors";
+import { themeColors } from '../../styles/themeColors';
 import {
   TextTitle,
   TextSubTitle,
   ArticleOverviewItem,
-  Button
+  Button,
 } from '../../components';
 import ArticleController from '../../controllers/ArticleController';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default function ArticleOverview({ navigation }) {
   const route = useRoute();
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const selectedCategory = route.params && route.params.selectedCategory;
   const [articles, setArticles] = useState<Article[]>([]);
@@ -45,7 +50,11 @@ export default function ArticleOverview({ navigation }) {
       <View style={[globalStyles.subTitleContainer, styles.textWrapper]}>
         <TextSubTitle content={'Popular articles in: '} color={'primary'} />
 
-        <TextSubTitle content={`'${selectedCategory}'`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic} />
+        <TextSubTitle
+          content={`'${selectedCategory}'`}
+          color={'primary'}
+          customStyles={fontFamilyStyles.loraBoldItalic}
+        />
       </View>
 
       <SafeAreaView style={[globalStyles.marginBottom, { height: '85%' }]}>
@@ -58,7 +67,7 @@ export default function ArticleOverview({ navigation }) {
                 onPress={() => navigation.navigate('ArticleDetail', { articleID: item.articleID })}
               />
             )}
-            keyExtractor={item => item.articleID}
+            keyExtractor={(item) => item.articleID}
           />
         ) : (
           <View style={styles.noContentContainer}>
@@ -85,13 +94,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 25,
     borderRadius: 5,
-    backgroundColor: themeColors.darkWhite
+    backgroundColor: themeColors.darkWhite,
   },
   noContentMessage: {
     marginBottom: 15,
-    ...fontFamilyStyles.montserratRegular
+    ...fontFamilyStyles.montserratRegular,
   },
   noContentSelectedCategory: {
-    ...fontFamilyStyles.montserratBold
-  }
+    ...fontFamilyStyles.montserratBold,
+  },
 });

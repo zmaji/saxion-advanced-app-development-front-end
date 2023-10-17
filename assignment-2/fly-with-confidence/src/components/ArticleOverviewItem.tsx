@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   articleOverviewItemPressed: {
-    backgroundColor: themeColors.primary + 25
+    backgroundColor: themeColors.primary + 25,
   },
   articleOverviewItemTitle: {
     fontSize: 14,
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
     marginRight: 5,
     color: themeColors.primary,
     textDecorationLine: 'underline',
-    ...fontFamilyStyles.loraItalic
-  }
+    ...fontFamilyStyles.loraItalic,
+  },
 });
 
 export default ArticleOverviewItem;
