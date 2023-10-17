@@ -6,8 +6,8 @@ import { BASE_URL } from '../../config';
 const getArticles = async (category?: string): Promise<Article[]> => {
   try {
     const response = category ?
-        await axios.get(`${BASE_URL}/articles?category=${category}`) :
-        await axios.get(`${BASE_URL}/articles`);
+      await axios.get(`${BASE_URL}/articles?category=${category}`) :
+      await axios.get(`${BASE_URL}/articles`);
 
     return response.data;
   } catch (error) {
@@ -15,8 +15,19 @@ const getArticles = async (category?: string): Promise<Article[]> => {
   }
 };
 
+const getArticle = async (articleID: string): Promise<Article | undefined> => {
+  try {
+    const response = await axios.get(`${BASE_URL}/articles/${articleID}`);
+    return response.data
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 const ArticleController = {
   getArticles,
+  getArticle
 };
 
 export default ArticleController;
