@@ -16,6 +16,7 @@ import { globalStyles } from '../../styles/global';
 import { TextTitle, CategoryLabel } from '../../components';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import ArticleController from '../../controllers/ArticleController';
+import { getMockImage } from '../../helpers/getMockImage';
 
 export default function ArticleDetail() {
   const route = useRoute();
@@ -57,7 +58,7 @@ export default function ArticleDetail() {
           </TouchableOpacity>
 
           <Image
-            source={require(`../../../assets/images/article-banner.jpg`)}
+            source={article.image ? getMockImage(article.image) : null}
             style={styles.articleOverviewItemImage}
           />
         </View>

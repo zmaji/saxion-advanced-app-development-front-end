@@ -64,6 +64,7 @@ export default function ArticleOverview({ navigation }) {
             renderItem={({ item }) => (
               <ArticleOverviewItem
                 title={item.title}
+                image={item.image}
                 onPress={() => navigation.navigate('ArticleDetail', { articleID: item.articleID })}
               />
             )}

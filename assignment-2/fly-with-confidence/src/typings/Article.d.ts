@@ -4,5 +4,5 @@ export interface Article {
   description: string,
   content: string,
   category: string,
-  image?: string
+  image: string
 }
