@@ -13,12 +13,14 @@ import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
-import { TextTitle, CategoryLabel } from '../../components';
+import { TextTitle, CategoryLabel, Button } from '../../components';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import ArticleController from '../../controllers/ArticleController';
 import { getMockImage } from '../../helpers/getMockImage';
 
-export default function ArticleDetail() {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export default function ArticleDetail({ navigation }) {
   const route = useRoute();
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -67,7 +69,12 @@ export default function ArticleDetail() {
       <Text style={styles.articleDetailItemContent}>{article.content}</Text>
 
     </ScrollView>
-  ) : null;
+  ) : <View style={styles.noContentContainer}>
+    <Text style={styles.noContentMessage}>
+      The article you were looking for is currently unavailable
+    </Text>
+    <Button text={'Back to categories'} onPress={() => navigation.goBack()} />
+  </View>
 }
 
 const styles = StyleSheet.create({
@@ -108,6 +115,16 @@ const styles = StyleSheet.create({
     color: themeColors.darkGrey,
     fontSize: 16,
     marginBottom: 13,
+    ...fontFamilyStyles.montserratRegular,
+  },
+  noContentContainer: {
+    marginTop: 20,
+    padding: 25,
+    borderRadius: 5,
+    backgroundColor: themeColors.darkWhite,
+  },
+  noContentMessage: {
+    marginBottom: 15,
     ...fontFamilyStyles.montserratRegular,
   },
 });
