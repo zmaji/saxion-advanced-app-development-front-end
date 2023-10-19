@@ -1,4 +1,4 @@
-import type { BasicPost } from '../../typings/Post';
+import type { PostFormData } from '../../typings/Post';
 
 import React, { useState } from 'react';
 import {
@@ -10,30 +10,28 @@ import {
   TouchableOpacity,
   Text,
   Image,
-  Alert
+  Alert,
 } from 'react-native';
-import {
-  TextTitle,
-  Button,
-  TextButton,
-  TextSubTitle,
-  FormLabel,
-  InputError
-} from '../../components';
+import { useSelector } from 'react-redux';
+import DropDownPicker from 'react-native-dropdown-picker';
+import TextTitle from '../typography/TextTitle';
+import Button from '../buttons/Button';
+import TextButton from '../buttons/TextButton';
+import TextSubTitle from '../typography/TextSubTitle';
+import FormLabel from '../typography/FormLabel';
+import InputError from '../error/InputError';
 import {
   getCurrentCity,
   getCurrentLocation,
   getNearbyAirports,
-  promptAuthorization
+  promptAuthorization,
 } from '../../helpers/geoLocatationHelper';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { pickImage } from '../../helpers/imageHelper';
 import { inputStyles } from '../../styles/inputs';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
 import { fontFamilyStyles } from '../../styles/typography';
 import PostController from '../../controllers/PostController';
-import { getCurrentDate } from '../../helpers/getCurrentDate';
 
 interface CreatePostModalProps {
   isVisible: boolean;
@@ -42,6 +40,9 @@ interface CreatePostModalProps {
 }
 
 const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreatePostModal, onCreatePost }) => {
+  const token = useSelector((state: { token: { token: string } }) => state.token.token);
+  const tokenString = token ? token.token : '';
+
   const [titleError, setTitleError] = useState<string>('');
   const [textError, setTextError] = useState<string>('');
   const [categoryError, setCategoryError] = useState<string>('');
@@ -97,21 +98,21 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
     }
 
     if (isValid) {
-      const currentDate = await getCurrentDate();
-
-      const postData: BasicPost = {
+      const postData: PostFormData = {
         title: title,
         content: text,
         image: image,
         categories: selectedCategories,
         location: selectedLocation,
-        date: currentDate,
       };
 
-      PostController.createPost(postData);
-      Alert.alert("Post has been successfully created.");
-      closeCreatePostModal();
-      onCreatePost();
+      const response = await PostController.createPost(postData, tokenString);
+
+      if (response) {
+        Alert.alert('Post has been successfully created.');
+        closeCreatePostModal();
+        onCreatePost();
+      }
     }
   };
 
@@ -141,8 +142,9 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
           if (city) {
             const distance = 20;
             const airports = await getNearbyAirports(latitude, longitude, distance);
-            const airportNames = airports.map((airport: any) => airport.name);
 
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const airportNames = airports.map((airport: any) => airport.name);
             const updatedLocations = airportNames.map((name: string) => ({
               label: name,
               value: name,
@@ -168,7 +170,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
     } catch (error) {
       console.error('Error fetching image:', error);
     }
-  }
+  };
 
   return (
     <Modal
@@ -240,7 +242,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
                   borderColor: themeColors.lightGrey,
                 }}
                 textStyle={{
-                  fontFamily: 'Montserrat-Regular'
+                  fontFamily: 'Montserrat-Regular',
                 }}
                 onOpen={() => {
                   setCategoryDropdownHeight(200);
@@ -273,7 +275,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
                   borderColor: themeColors.lightGrey,
                 }}
                 textStyle={{
-                  ...fontFamilyStyles.montserratRegular
+                  ...fontFamilyStyles.montserratRegular,
                 }}
                 onOpen={() => {
                   setLocationDropdownHeight(160);
@@ -314,19 +316,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20
+    marginBottom: 20,
   },
   imageButtonText: {
     ...fontFamilyStyles.montserratRegular,
   },
   formHeight: {
-    height: 100
+    height: 100,
   },
   imageIcon: {
     height: 27,
     width: 30,
-    tintColor: themeColors.darkGrey
-  }
+    tintColor: themeColors.darkGrey,
+  },
 });
 
 export default CreatePostModal;

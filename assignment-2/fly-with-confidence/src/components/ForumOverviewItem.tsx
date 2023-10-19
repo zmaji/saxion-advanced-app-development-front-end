@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Image,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
-} from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faEye, faComment, faFaceSmile, faFaceFrown } from "@fortawesome/free-regular-svg-icons";
-import { themeColors, themeColorUtils } from "../styles/themeColors";
-import { fontFamilyStyles } from "../styles/typography";
-import { globalStyles } from "../styles/global";
-import CategoryLabel from "./labels/CategoryLabel";
+  View,
+} from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {
+  faEye,
+  faComment,
+  faFaceSmile,
+  faFaceFrown,
+} from '@fortawesome/free-regular-svg-icons';
+import { themeColors, themeColorUtils } from '../styles/themeColors';
+import { fontFamilyStyles } from '../styles/typography';
+import { globalStyles } from '../styles/global';
+import CategoryLabel from './labels/CategoryLabel';
 
 type ForumOverviewItemProps = {
   title: string,
@@ -24,7 +29,16 @@ type ForumOverviewItemProps = {
   onPress: () => void;
 };
 
-const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, comments, likes, dislikes, image, categories, onPress }) => {
+const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({
+  title,
+  content,
+  comments,
+  likes,
+  dislikes,
+  image,
+  categories,
+  onPress,
+}) => {
   const [isPressed, setIsPressed] = useState(false);
 
   const handlePressIn = () => {
@@ -48,7 +62,13 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({ title, content, c
 
         <View style={styles.categoriesContainer}>
           {categories.map((category, index) => (
-            <CategoryLabel key={index} text={category} labelColor='darkWhite' textColor='grey' customStyles={styles.categoryLabel}></CategoryLabel>
+            <CategoryLabel
+              key={index}
+              text={category}
+              labelColor='darkWhite'
+              textColor='grey'
+              customStyles={styles.categoryLabel}
+            />
           ))}
         </View>
       </View>
@@ -104,7 +124,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   forumOverviewItemPressed: {
-    backgroundColor: themeColors.primary + 25
+    backgroundColor: themeColors.primary + 25,
   },
   titleContainer: {
     flexDirection: 'row',
@@ -125,7 +145,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginBottom: 5,
     marginTop: 4,
-    fontSize: 12
+    fontSize: 12,
   },
   forumOverviewItemContent: {
     fontSize: 16,
@@ -139,14 +159,14 @@ const styles = StyleSheet.create({
   readLinkContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 10
+    marginRight: 10,
   },
   readLinkText: {
     fontSize: 18,
     marginRight: 5,
     color: themeColors.primary,
     textDecorationLine: 'underline',
-    ...fontFamilyStyles.loraItalic
+    ...fontFamilyStyles.loraItalic,
   },
   extraInfoContainer: {
     flex: 1,
@@ -154,13 +174,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   extraInfoText: {
-    marginRight: 10
+    marginRight: 10,
   },
   extraInfoIcon: {
     marginRight: 5,
   },
   viewIcon: {
-    marginTop: 2.5
+    marginTop: 2.5,
   },
 });
 

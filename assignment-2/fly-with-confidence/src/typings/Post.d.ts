@@ -25,13 +25,12 @@ export interface SimplePost {
   image?: string
 }
 
-export interface BasicPost {
+export interface PostFormData {
   title: string,
   content: string,
   categories: string[],
   image?: string,
   location?: string,
-  date: string
 }
 
 export interface PostDetail {

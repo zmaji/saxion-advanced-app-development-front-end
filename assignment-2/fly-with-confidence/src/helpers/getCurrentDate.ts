@@ -6,4 +6,4 @@ export const getCurrentDate = async () => {
   const year = currentDate.getFullYear();
 
   return day + '-' + month + '-' + year + '-';
-}
+};

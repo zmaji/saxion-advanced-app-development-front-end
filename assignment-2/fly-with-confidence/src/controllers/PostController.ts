@@ -1,8 +1,8 @@
 import type {
-  BasicPost,
+  PostFormData,
   Post,
   PostDetail,
-  SimplePost
+  SimplePost,
 } from '../typings/Post';
 
 import axios from 'axios';
@@ -28,10 +28,10 @@ const getPost = async (postID: string): Promise<PostDetail | undefined> => {
   }
 };
 
-const createPost = async (postData: BasicPost): Promise<BasicPost | null> => {
-  // TODO: Change to getting token from store
-  const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI1NDU5MzEzYi03ZGI1LTQ1NjUtODcxMC04YWVlY2U3YzdmNzkiLCJlbWFpbCI6InptYWppQHNheGlvbi5ubCIsInJvbGVzIjpbInVzZXIiLCJhZG1pbiJdLCJpYXQiOjE2OTc0NDgwMDd9.EXuUObrfY_cNF-XtMMQ5EzHwLgp0taMUa1hoELLBv7w";
-
+const createPost = async (postData: PostFormData, authToken: string): Promise<PostFormData | null> => {
+  console.log('creating post');
+  console.log('authToken', authToken);
+  console.log('postData', postData);
   try {
     const response = await axios.post<Post | null>(`${BASE_URL}/posts`, postData, {
       headers: {
@@ -39,6 +39,7 @@ const createPost = async (postData: BasicPost): Promise<BasicPost | null> => {
       },
     });
     console.log(response.data);
+
     return response.data;
   } catch (error) {
     throw error;
