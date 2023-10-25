@@ -13,6 +13,7 @@ import Home from './src/views/Home';
 import SelectionScreen from './src/views/SelectionScreen';
 import CategoryOverview from './src/views/Articles/CategoryOverview';
 import ArticleOverview from './src/views/Articles/ArticleOverview';
+import ArticleDetail from './src/views/Articles/ArticleDetail';
 import ForumOverview from './src/views/Posts/ForumOverview';
 import ForumDetail from './src/views/Posts/ForumDetail';
 
@@ -87,6 +88,7 @@ export default function App() {
                 <Stack.Screen name="SelectionScreen" component={SelectionScreen} />
                 <Stack.Screen name="CategoryOverview" component={CategoryOverview} />
                 <Stack.Screen name="ArticleOverview" component={ArticleOverview} />
+                <Stack.Screen name="ArticleDetail" component={ArticleDetail} />
                 <Stack.Screen name="ForumOverview" component={ForumOverview} />
                 <Stack.Screen name="ForumDetail" component={ForumDetail} />
               </Stack.Navigator>
