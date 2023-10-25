@@ -69,7 +69,8 @@ export default function ArticleDetail({ navigation }) {
       <Text style={styles.articleDetailItemContent}>{article.content}</Text>
 
     </ScrollView>
-  ) : <View style={styles.noContentContainer}>
+  ) : 
+  <View style={styles.noContentContainer}>
     <Text style={styles.noContentMessage}>
       The article you were looking for is currently unavailable
     </Text>
