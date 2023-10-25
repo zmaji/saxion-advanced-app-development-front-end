@@ -23,12 +23,28 @@ export default function ForumDetail() {
   // @ts-ignore
   const selectedPostID = route.params && route.params.postID;
   const [post, setPost] = useState<PostDetail | undefined>();
+  const [date, setDate] = useState('');
+
+  const removeTimeStamp = (timestamp: string) => {
+    try {
+      const datePart = timestamp.split('T')[0];
+      return datePart;
+    } catch (error) {
+      console.error('Error removing timestamp:', error);
+      return '';
+    }
+  };
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const post = await PostController.getPost(selectedPostID);
-        setPost(post);
+
+        if (post) {
+          setPost(post);
+          const dateWithoutTimeStamp = removeTimeStamp(post.date);
+          setDate(dateWithoutTimeStamp);
+        }
       } catch (error) {
         console.error(`Error fetching post with id ${selectedPostID}:`, error);
       }
@@ -41,7 +57,7 @@ export default function ForumDetail() {
     <ScrollView style={globalStyles.pageContainer}>
       <TextTitle content={post.title}></TextTitle>
 
-      <Text style={styles.userDetails}>Posted by {post.user} at {post.date}</Text>
+      <Text style={styles.userDetails}>Posted by {post.user} at {date}</Text>
 
       <View style={styles.categoriesContainer}>
         {post.categories.map((category, index) => (
