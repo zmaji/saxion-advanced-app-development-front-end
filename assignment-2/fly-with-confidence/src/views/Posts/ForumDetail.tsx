@@ -55,15 +55,17 @@ export default function ForumDetail() {
         ))}
       </View>
 
-      {post.image !== '' ? (
-        <View style={styles.imageContainer}>
-          <TouchableOpacity style={styles.bookmarkButton}>
-            <FontAwesomeIcon icon={faBookmark} color={themeColors.white} size={15} />
-          </TouchableOpacity>
+      <View style={styles.imageContainer}>
+        <TouchableOpacity style={styles.bookmarkButton}>
+          <FontAwesomeIcon icon={faBookmark} color={themeColors.white} size={15} />
+        </TouchableOpacity>
 
-          <Image source={require(`../../../assets/images/article-banner.jpg`)} style={styles.forumOverviewItemImage} />
-        </View>
-      ) : null}
+        {post.image !== 'mock' && post.image !== '' ? (
+          <Image source={{ uri: post.image }} style={styles.forumOverviewItemImage} />
+        ) : (
+          <Image source={require('../../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />
+        )}
+      </View>
 
       <Text style={styles.forumDetailItemContent}>{post.content}</Text>
 
