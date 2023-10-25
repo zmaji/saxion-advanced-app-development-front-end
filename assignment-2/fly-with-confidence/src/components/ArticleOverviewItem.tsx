@@ -11,13 +11,15 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { themeColors, themeColorUtils } from '../styles/themeColors';
 import { fontFamilyStyles } from '../styles/typography';
 import { globalStyles } from '../styles/global';
+import { getMockImage } from '../helpers/getMockImage';
 
 type ArticleOverviewItemProps = {
   title: string,
+  image: string,
   onPress: () => void;
 };
 
-const ArticleOverviewItem: React.FC<ArticleOverviewItemProps> = ({ title, onPress }) => {
+const ArticleOverviewItem: React.FC<ArticleOverviewItemProps> = ({ title, image, onPress }) => {
   const [isPressed, setIsPressed] = useState(false);
 
   const handlePressIn = () => {
@@ -36,7 +38,8 @@ const ArticleOverviewItem: React.FC<ArticleOverviewItemProps> = ({ title, onPres
       style={[styles.articleOverviewItem, globalStyles.marginBottom, isPressed && styles.articleOverviewItemPressed]}
       onPress={onPress}
     >
-      <Image source={require('../../assets/images/article-banner.jpg')} style={styles.articleOverviewItemImage} />
+
+      <Image source={getMockImage(image)} style={styles.articleOverviewItemImage} />
       <Text style={[styles.articleOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
 
       <View style={styles.readLinkContainer}>
