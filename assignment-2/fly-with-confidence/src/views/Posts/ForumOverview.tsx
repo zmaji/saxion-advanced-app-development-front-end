@@ -66,8 +66,7 @@ export default function ForumOverview({ navigation }) {
         <View style={styles.container}>
           <Button text='Create post' onPress={openCreatePostModal} />
         </View>
-      ): null }
-
+      ) : null}
 
       <View>
         {posts.length > 0 ? (
