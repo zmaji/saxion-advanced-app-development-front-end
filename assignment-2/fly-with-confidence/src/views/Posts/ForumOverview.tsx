@@ -3,10 +3,10 @@ import type { SimplePost } from '../../typings/Post';
 import React, { useEffect, useState } from 'react';
 import {
   FlatList,
-  SafeAreaView,
   View,
   StyleSheet,
   Text,
+  ScrollView
 } from 'react-native';
 import { globalStyles } from '../../styles/global';
 import { fontFamilyStyles } from '../../styles/typography';
@@ -50,7 +50,7 @@ export default function ForumOverview({ navigation }) {
   };
 
   return (
-    <View style={globalStyles.pageContainer}>
+    <ScrollView style={globalStyles.pageContainer}>
       <TextTitle content={'Forum posts'} />
 
       <View style={[globalStyles.subTitleContainer, styles.textWrapper]}>
@@ -63,25 +63,21 @@ export default function ForumOverview({ navigation }) {
         <Button text='Create post' onPress={openCreatePostModal} />
       </View>
 
-      <SafeAreaView style={[globalStyles.marginBottom, { height: '70%' }]}>
+      <View>
         {posts.length > 0 ? (
-          <FlatList
-            data={posts}
-            renderItem={({ item }) => (
-              <ForumOverviewItem
-                key={item.postID}
-                title={item.title}
-                content={item.content}
-                comments={item.commentCount}
-                likes={item.likes}
-                dislikes={item.dislikes}
-                image={item.image ? item.image : ''}
-                categories={item.categories}
-                onPress={() => navigation.navigate('ForumDetail', { postID: item.postID })}
-              />
-            )}
-            keyExtractor={(item) => item.postID}
-          />
+          posts.map((post) => (
+            <ForumOverviewItem
+              key={post.postID}
+              title={post.title}
+              content={post.content}
+              comments={post.commentCount}
+              likes={post.likes}
+              dislikes={post.dislikes}
+              image={post.image ? post.image : ''}
+              categories={post.categories}
+              onPress={() => navigation.navigate('ForumDetail', { postID: post.postID })}
+            />
+          ))
         ) : (
           <View style={styles.noContentContainer}>
             <Text style={styles.noContentMessage}>
@@ -90,14 +86,15 @@ export default function ForumOverview({ navigation }) {
             <Button text={'Back to categories'} onPress={() => navigation.goBack()} />
           </View>
         )}
-      </SafeAreaView>
+      </View>
+
 
       <CreatePostModal
         isVisible={isCreatePostModalVisible}
         closeCreatePostModal={closeCreatePostModal}
         onCreatePost={() => fetchPosts()}
       />
-    </View>
+    </ScrollView>
   );
 }
 
