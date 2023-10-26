@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   articleOverviewItemImage: {
-    height: 80,
+    height: 120,
     width: '100%',
     resizeMode: 'cover',
     borderRadius: 5,

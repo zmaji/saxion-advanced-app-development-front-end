@@ -3,7 +3,8 @@ import { themeColors } from './themeColors';
 export const labelStyles = {
   label: {
     borderRadius: 5,
-    padding: 7,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     elevation: 1,
     backgroundColor: themeColors.primary,
   },

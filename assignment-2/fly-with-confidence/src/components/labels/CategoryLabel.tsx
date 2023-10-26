@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ViewStyle } from 'react-native';
+import {StyleSheet, Text, View, ViewStyle} from 'react-native';
 import { labelStyles } from '../../styles/labels';
 import { getBackgroundColorStyle, getTextColorStyle } from '../../helpers/getColorStylesHelper';
 
@@ -22,5 +22,11 @@ const CategoryLabel: React.FC<LabelProps> = ({ text, labelColor, textColor, cust
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  commentItem: {
+
+  },
+});
 
 export default CategoryLabel;
