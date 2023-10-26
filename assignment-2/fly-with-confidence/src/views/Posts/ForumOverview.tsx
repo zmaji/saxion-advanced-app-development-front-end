@@ -2,7 +2,6 @@ import type { SimplePost } from '../../typings/Post';
 
 import React, { useEffect, useState } from 'react';
 import {
-  FlatList,
   View,
   StyleSheet,
   Text,
