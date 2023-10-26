@@ -79,10 +79,11 @@ export default function ForumDetail() {
 
         {post.image !== 'mock' && post.image !== '' ? (
           <Image source={{ uri: post.image }} style={styles.forumOverviewItemImage} />
-        ) : (
+        ) : post.image === 'mock' ? (
           <Image source={require('../../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />
-        )}
+        ) : null}
       </View>
+
 
       {post.location ? (
         <View style={styles.locationContainer}>

@@ -92,7 +92,6 @@ export default function ForumOverview({ navigation }) {
         )}
       </View>
 
-
       <CreatePostModal
         isVisible={isCreatePostModalVisible}
         closeCreatePostModal={closeCreatePostModal}
