@@ -1,7 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View, ViewStyle} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { getBackgroundColorStyle, getTextColorStyle } from '../../helpers/getColorStylesHelper';
-import {themeColors} from "../../styles/themeColors";
+import { themeColors } from '../../styles/themeColors';
 
 interface LabelProps {
   text: string,

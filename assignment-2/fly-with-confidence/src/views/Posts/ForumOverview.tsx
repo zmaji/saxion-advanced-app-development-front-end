@@ -5,7 +5,7 @@ import {
   View,
   StyleSheet,
   Text,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { globalStyles } from '../../styles/global';
