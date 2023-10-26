@@ -8,6 +8,7 @@ import {
   Text,
   ScrollView
 } from 'react-native';
+import { useSelector } from 'react-redux';
 import { globalStyles } from '../../styles/global';
 import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
@@ -23,6 +24,8 @@ import CreatePostModal from '../../components/modals/CreatePostModal';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default function ForumOverview({ navigation }) {
+  const token = useSelector((state: { token: { token: string } }) => state.token.token);
+
   const [posts, setPosts] = useState<SimplePost[]>([]);
   const [isCreatePostModalVisible, setCreatePostModalVisible] = React.useState(false);
 
@@ -59,9 +62,12 @@ export default function ForumOverview({ navigation }) {
         <TextSubTitle content={`popularity`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic} />
       </View>
 
-      <View style={styles.container}>
-        <Button text='Create post' onPress={openCreatePostModal} />
-      </View>
+      {token ? (
+        <View style={styles.container}>
+          <Button text='Create post' onPress={openCreatePostModal} />
+        </View>
+      ): null }
+
 
       <View>
         {posts.length > 0 ? (
