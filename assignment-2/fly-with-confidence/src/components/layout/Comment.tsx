@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 20,
     backgroundColor: themeColors.darkWhite,
-    ...globalStyles.defaultShadow
+    ...globalStyles.defaultShadow,
   },
   commentText: {
     fontSize: 16,

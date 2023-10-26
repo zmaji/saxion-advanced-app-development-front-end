@@ -69,13 +69,13 @@ export default function ArticleDetail({ navigation }) {
       <Text style={styles.articleDetailItemContent}>{article.content}</Text>
 
     </ScrollView>
-  ) : 
+  ) :
   <View style={styles.noContentContainer}>
     <Text style={styles.noContentMessage}>
       The article you were looking for is currently unavailable
     </Text>
     <Button text={'Back to categories'} onPress={() => navigation.goBack()} />
-  </View>
+  </View>;
 }
 
 const styles = StyleSheet.create({

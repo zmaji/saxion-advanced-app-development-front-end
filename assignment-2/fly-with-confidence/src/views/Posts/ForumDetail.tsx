@@ -29,9 +29,11 @@ export default function ForumDetail() {
   const removeTimeStamp = (timestamp: string) => {
     try {
       const datePart = timestamp.split('T')[0];
+
       return datePart;
     } catch (error) {
       console.error('Error removing timestamp:', error);
+
       return '';
     }
   };
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
   },
   extraInfoText: {
     marginRight: 10,
-    color: themeColors.grey
+    color: themeColors.grey,
   },
   locationContainer: {
     flexDirection: 'row',
@@ -183,6 +185,6 @@ const styles = StyleSheet.create({
   },
   locationText: {
     marginRight: 10,
-    color: themeColors.grey
+    color: themeColors.grey,
   },
 });

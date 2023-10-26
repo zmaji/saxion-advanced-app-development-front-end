@@ -2,11 +2,10 @@ import type { SimplePost } from '../../typings/Post';
 
 import React, { useEffect, useState } from 'react';
 import {
-  FlatList,
   View,
   StyleSheet,
   Text,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { globalStyles } from '../../styles/global';
