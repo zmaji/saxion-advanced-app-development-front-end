@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, ViewStyle} from 'react-native';
-import { labelStyles } from '../../styles/labels';
 import { getBackgroundColorStyle, getTextColorStyle } from '../../helpers/getColorStylesHelper';
+import {themeColors} from "../../styles/themeColors";
 
 interface LabelProps {
   text: string,
@@ -16,16 +16,25 @@ const CategoryLabel: React.FC<LabelProps> = ({ text, labelColor, textColor, cust
 
   return (
     <View
-      style={[labelStyles.label, labelColorStyle, customStyles]}
+      style={[styles.label, labelColorStyle, customStyles]}
     >
-      <Text style={[labelStyles.labelText, textColorStyle]}>{text}</Text>
+      <Text style={[styles.labelText, textColorStyle]}>{text}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  commentItem: {
-
+  label: {
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    elevation: 1,
+    backgroundColor: themeColors.primary,
+  },
+  labelText: {
+    fontFamily: 'Montserrat-Medium',
+    color: 'white',
+    textAlign: 'center',
   },
 });
 
