@@ -35,6 +35,7 @@ const createPost = async (postData: PostFormData, authToken: string): Promise<Po
         authorization: `Bearer ${authToken}`,
       },
     });
+
     return response.data;
   } catch (error) {
     throw error;
