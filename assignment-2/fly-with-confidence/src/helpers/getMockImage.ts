@@ -32,6 +32,21 @@ export const getMockImage = (name: string) => {
     case 'relaxation-techniques-2':
       image = require(`../../assets/images/relaxation-techniques-2.jpg`);
       break;
+    case 'forum-post-1':
+      image = require(`../../assets/images/forum-post-1.jpg`);
+      break;
+    case 'forum-post-2':
+      image = require(`../../assets/images/forum-post-2.jpg`);
+      break;
+    case 'forum-post-3':
+      image = require(`../../assets/images/forum-post-3.jpg`);
+      break;
+    case 'forum-post-4':
+      image = require(`../../assets/images/forum-post-4.jpg`);
+      break;
+    case 'forum-post-5':
+      image = require(`../../assets/images/forum-post-5.jpg`);
+      break;
     default:
       break;
   }

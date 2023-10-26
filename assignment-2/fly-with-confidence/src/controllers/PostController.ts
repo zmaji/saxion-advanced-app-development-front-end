@@ -29,17 +29,12 @@ const getPost = async (postID: string): Promise<PostDetail | undefined> => {
 };
 
 const createPost = async (postData: PostFormData, authToken: string): Promise<PostFormData | null> => {
-  console.log('creating post');
-  console.log('authToken', authToken);
-  console.log('postData', postData);
   try {
     const response = await axios.post<Post | null>(`${BASE_URL}/posts`, postData, {
       headers: {
         authorization: `Bearer ${authToken}`,
       },
     });
-    console.log(response.data);
-
     return response.data;
   } catch (error) {
     throw error;

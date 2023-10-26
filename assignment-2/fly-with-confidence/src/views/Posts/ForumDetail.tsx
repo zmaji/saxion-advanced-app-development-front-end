@@ -17,6 +17,7 @@ import { globalStyles } from '../../styles/global';
 import { TextTitle, CategoryLabel, CommentPost } from '../../components';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import PostController from '../../controllers/PostController';
+import { getMockImage } from '../../helpers/getMockImage';
 
 export default function ForumDetail() {
   const route = useRoute();
@@ -79,10 +80,10 @@ export default function ForumDetail() {
           <FontAwesomeIcon icon={faBookmark} color={themeColors.white} size={15} />
         </TouchableOpacity>
 
-        {post.image !== 'mock' && post.image !== '' ? (
+        {post.image && !post.image.includes('forum-post') ? (
           <Image source={{ uri: post.image }} style={styles.forumOverviewItemImage} />
-        ) : post.image === 'mock' ? (
-          <Image source={require('../../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />
+        ) : post.image && post.image.includes('forum-post') ? (
+          <Image source={getMockImage(post.image)} style={styles.forumOverviewItemImage} />
         ) : null}
       </View>
 
