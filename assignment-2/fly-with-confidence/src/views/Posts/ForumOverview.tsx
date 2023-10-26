@@ -18,24 +18,36 @@ import {
   Button,
 } from '../../components';
 import PostController from '../../controllers/PostController';
+import CreatePostModal from '../../components/modals/CreatePostModal';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default function ForumOverview({ navigation }) {
   const [posts, setPosts] = useState<SimplePost[]>([]);
+  const [isCreatePostModalVisible, setCreatePostModalVisible] = React.useState(false);
+
+  const fetchPosts = async () => {
+    try {
+      const newPosts: SimplePost[] = await PostController.getPosts();
+
+      newPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      setPosts(newPosts);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const posts = await PostController.getPosts();
-        setPosts(posts);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-    };
-
     fetchPosts();
   }, []);
+
+  const openCreatePostModal = () => {
+    setCreatePostModalVisible(true);
+  };
+
+  const closeCreatePostModal = () => {
+    setCreatePostModalVisible(false);
+  };
 
   return (
     <View style={globalStyles.pageContainer}>
@@ -47,7 +59,11 @@ export default function ForumOverview({ navigation }) {
         <TextSubTitle content={`popularity`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic} />
       </View>
 
-      <SafeAreaView style={[globalStyles.marginBottom, { height: '85%' }]}>
+      <View style={styles.container}>
+        <Button text='Create post' onPress={openCreatePostModal} />
+      </View>
+
+      <SafeAreaView style={[globalStyles.marginBottom, { height: '70%' }]}>
         {posts.length > 0 ? (
           <FlatList
             data={posts}
@@ -59,7 +75,7 @@ export default function ForumOverview({ navigation }) {
                 comments={item.commentCount}
                 likes={item.likes}
                 dislikes={item.dislikes}
-                image={item.image}
+                image={item.image ? item.image : ''}
                 categories={item.categories}
                 onPress={() => navigation.navigate('ForumDetail', { postID: item.postID })}
               />
@@ -75,6 +91,12 @@ export default function ForumOverview({ navigation }) {
           </View>
         )}
       </SafeAreaView>
+
+      <CreatePostModal
+        isVisible={isCreatePostModalVisible}
+        closeCreatePostModal={closeCreatePostModal}
+        onCreatePost={() => fetchPosts()}
+      />
     </View>
   );
 }
@@ -95,5 +117,10 @@ const styles = StyleSheet.create({
   },
   noContentPosts: {
     ...fontFamilyStyles.montserratBold,
+  },
+  container: {
+    alignItems: 'flex-start',
+    marginBottom: 15,
+    marginTop: 10,
   },
 });

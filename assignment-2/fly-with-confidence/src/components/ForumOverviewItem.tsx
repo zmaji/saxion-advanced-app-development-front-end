@@ -73,10 +73,14 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({
         </View>
       </View>
 
-      {image !== '' ?
-          (<Image source={require(`../../assets/images/article-banner.jpg`)} style={styles.forumOverviewItemImage} />) :
-          null
+      {
+        image !== '' && image.includes('mobile') ? (
+          <Image source={{ uri: `file://${image}` }} style={styles.forumOverviewItemImage} />
+        ) : image !== '' && image.includes('mock') ? (
+          <Image source={require('../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />
+        ) : null
       }
+
 
       <Text
         style={styles.forumOverviewItemContent}
@@ -135,6 +139,7 @@ const styles = StyleSheet.create({
   },
   categoriesContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     marginBottom: 10,
   },
   categoryLabel: {

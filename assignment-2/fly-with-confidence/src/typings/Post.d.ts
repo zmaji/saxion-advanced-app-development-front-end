@@ -9,10 +9,12 @@ export interface Post {
   categories: string[],
   likes: number,
   dislikes: number,
-  image: string
+  image?: string,
+  location?: string
 }
 
 export interface SimplePost {
+  date: string,
   postID: string,
   title: string,
   content: string,
@@ -20,7 +22,15 @@ export interface SimplePost {
   likes: number,
   dislikes: number,
   commentCount: number,
-  image: string
+  image?: string
+}
+
+export interface PostFormData {
+  title: string,
+  content: string,
+  categories: string[],
+  image?: string,
+  location?: string,
 }
 
 export interface PostDetail {
@@ -33,6 +43,6 @@ export interface PostDetail {
   likes: number,
   dislikes: number,
   comments: Comment[],
-  image: string,
+  image?: string,
   location?: string
 }
