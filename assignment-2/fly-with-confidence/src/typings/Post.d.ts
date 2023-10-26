@@ -33,5 +33,6 @@ export interface PostDetail {
   likes: number,
   dislikes: number,
   comments: Comment[],
-  image: string
+  image: string,
+  location?: string
 }

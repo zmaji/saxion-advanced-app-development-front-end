@@ -11,6 +11,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useRoute } from '@react-navigation/native';
 import { faFaceSmile, faFaceFrown, faBookmark } from '@fortawesome/free-regular-svg-icons';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
@@ -66,6 +67,13 @@ export default function ForumDetail() {
         </View>
       ) : null}
 
+      {post.location ? (
+        <View style={styles.locationContainer}>
+          <FontAwesomeIcon style={styles.locationIcon} icon={faLocationDot} color={themeColors.grey} />
+          <Text style={styles.locationText}>{post.location}</Text>
+        </View>
+      ) : null}
+
       <Text style={styles.forumDetailItemContent}>{post.content}</Text>
 
       <View style={styles.extraInfoContainer}>
@@ -79,12 +87,12 @@ export default function ForumDetail() {
       <View>
         {post.comments.map((comment) => {
           return (
-              <CommentPost
-                  key={comment.commentID}
-                  content={comment.content}
-                  date={comment.date}
-                  username={comment.user}
-              />
+            <CommentPost
+              key={comment.commentID}
+              content={comment.content}
+              date={comment.date}
+              username={comment.user}
+            />
           );
         })}
       </View>
@@ -145,6 +153,17 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   extraInfoText: {
+    marginRight: 10,
+    color: themeColors.grey
+  },
+  locationContainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  locationIcon: {
+    marginRight: 5,
+  },
+  locationText: {
     marginRight: 10,
     color: themeColors.grey
   },
