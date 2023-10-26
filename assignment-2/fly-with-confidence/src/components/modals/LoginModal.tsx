@@ -83,6 +83,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
     setPassword('');
     setUsernameError('');
     setPasswordError('');
+    setLoginError('');
     closeLoginModal();
   };
 
