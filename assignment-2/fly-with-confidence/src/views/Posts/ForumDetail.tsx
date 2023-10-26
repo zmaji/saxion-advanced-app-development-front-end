@@ -10,12 +10,14 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useRoute } from '@react-navigation/native';
 import { faFaceSmile, faFaceFrown, faBookmark } from '@fortawesome/free-regular-svg-icons';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
 import { TextTitle, CategoryLabel, CommentPost } from '../../components';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import PostController from '../../controllers/PostController';
+import { getMockImage } from '../../helpers/getMockImage';
 
 export default function ForumDetail() {
   const route = useRoute();
@@ -28,9 +30,11 @@ export default function ForumDetail() {
   const removeTimeStamp = (timestamp: string) => {
     try {
       const datePart = timestamp.split('T')[0];
+
       return datePart;
     } catch (error) {
       console.error('Error removing timestamp:', error);
+
       return '';
     }
   };
@@ -76,12 +80,20 @@ export default function ForumDetail() {
           <FontAwesomeIcon icon={faBookmark} color={themeColors.white} size={15} />
         </TouchableOpacity>
 
-        {post.image !== 'mock' && post.image !== '' ? (
+        {post.image && !post.image.includes('forum-post') ? (
           <Image source={{ uri: post.image }} style={styles.forumOverviewItemImage} />
-        ) : (
-          <Image source={require('../../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />
-        )}
+        ) : post.image && post.image.includes('forum-post') ? (
+          <Image source={getMockImage(post.image)} style={styles.forumOverviewItemImage} />
+        ) : null}
       </View>
+
+
+      {post.location ? (
+        <View style={styles.locationContainer}>
+          <FontAwesomeIcon style={styles.locationIcon} icon={faLocationDot} color={themeColors.grey} />
+          <Text style={styles.locationText}>{post.location}</Text>
+        </View>
+      ) : null}
 
       <Text style={styles.forumDetailItemContent}>{post.content}</Text>
 
@@ -93,29 +105,32 @@ export default function ForumDetail() {
         <Text style={styles.extraInfoText}>{post.dislikes}</Text>
       </View>
 
-      {post.comments.map((comment) => {
-        return (
-          <CommentPost
-            key={comment.commentID}
-            content={comment.content}
-            date={comment.date}
-            username={comment.user}
-          />
-        );
-      })}
+      <View>
+        {post.comments.map((comment) => {
+          return (
+            <CommentPost
+              key={comment.commentID}
+              content={comment.content}
+              date={comment.date}
+              username={comment.user}
+            />
+          );
+        })}
+      </View>
     </ScrollView>
   ) : null;
 }
 
 const styles = StyleSheet.create({
   userDetails: {
-    color: themeColors.darkGrey,
+    color: themeColors.grey,
     fontSize: 14,
-    marginBottom: 7,
+    marginBottom: 10,
   },
   categoriesContainer: {
     flexDirection: 'row',
-    marginBottom: 10,
+    flexWrap: 'wrap',
+    marginBottom: 15,
   },
   categoryLabel: {
     fontSize: 12,
@@ -161,5 +176,17 @@ const styles = StyleSheet.create({
   },
   extraInfoText: {
     marginRight: 10,
+    color: themeColors.grey,
+  },
+  locationContainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  locationIcon: {
+    marginRight: 5,
+  },
+  locationText: {
+    marginRight: 10,
+    color: themeColors.grey,
   },
 });

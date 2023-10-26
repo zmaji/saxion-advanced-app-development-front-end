@@ -12,9 +12,7 @@ interface CommentProps {
 
 const Comment: React.FC<CommentProps> = ({ username, content, date }) => {
   return (
-    <View
-      style={[globalStyles.defaultShadow, styles.commentItem]}
-    >
+    <View style={styles.commentItem}>
       <View style={{ flexDirection: 'row' }}>
         <Text style={[styles.userDisplay, fontFamilyStyles.montserratBold]}>{username}</Text>
         <Text style={[styles.commentDate]}> · {date}</Text>
@@ -30,6 +28,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 20,
     backgroundColor: themeColors.darkWhite,
+    ...globalStyles.defaultShadow,
   },
   commentText: {
     fontSize: 16,

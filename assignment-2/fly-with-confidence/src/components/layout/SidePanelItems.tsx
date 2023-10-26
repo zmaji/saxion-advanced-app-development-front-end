@@ -92,27 +92,26 @@ const SidePanelItems = ({ navigation, activeItem, selectedCategory }) => {
       />
 
       {token ? (
-                    <View>
-                      <SidePanelItem
-                        title={'My profile'}
-                        icon={'circle-user'}
-                        onPress={() => navigation.navigate('SelectionScreen')}
-                        active={activeItem === ''}
-                      />
+        <View>
+          <SidePanelItem
+            title={'My profile'}
+            icon={'circle-user'}
+            onPress={() => navigation.navigate('SelectionScreen')}
+            active={activeItem === ''}
+          />
 
-                      <SidePanelItem
-                        title={'Logout'}
-                        icon={'arrow-right-from-bracket'}
-                        onPress={() => logout()}
-                      />
-                    </View>
-
-                ) :
-                <SidePanelItem
-                  title={'Login'}
-                  icon={'arrow-right-from-bracket'}
-                  onPress={() => openLoginModal()}
-                />
+          <SidePanelItem
+            title={'Logout'}
+            icon={'arrow-right-from-bracket'}
+            onPress={() => logout()}
+          />
+        </View>
+      ) :
+          <SidePanelItem
+            title={'Login'}
+            icon={'arrow-right-from-bracket'}
+            onPress={() => openLoginModal()}
+          />
       }
 
       <LoginModal

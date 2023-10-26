@@ -17,6 +17,7 @@ import { themeColors, themeColorUtils } from '../styles/themeColors';
 import { fontFamilyStyles } from '../styles/typography';
 import { globalStyles } from '../styles/global';
 import CategoryLabel from './labels/CategoryLabel';
+import { getMockImage } from '../helpers/getMockImage';
 
 type ForumOverviewItemProps = {
   title: string,
@@ -76,8 +77,8 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({
       {
         image !== '' && image.includes('mobile') ? (
           <Image source={{ uri: `file://${image}` }} style={styles.forumOverviewItemImage} />
-        ) : image !== '' && image.includes('mock') ? (
-          <Image source={require('../../assets/images/article-banner.jpg')} style={styles.forumOverviewItemImage} />
+        ) : image !== '' && image.includes('forum-post') ? (
+          <Image source={getMockImage(image)} style={styles.forumOverviewItemImage} />
         ) : null
       }
 
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   forumOverviewItemImage: {
-    height: 100,
+    height: 120,
     width: '100%',
     resizeMode: 'cover',
     borderRadius: 5,
@@ -139,6 +140,7 @@ const styles = StyleSheet.create({
   },
   categoriesContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     marginBottom: 10,
   },
   categoryLabel: {
@@ -175,6 +177,7 @@ const styles = StyleSheet.create({
   },
   extraInfoText: {
     marginRight: 10,
+    color: themeColors.grey,
   },
   extraInfoIcon: {
     marginRight: 5,

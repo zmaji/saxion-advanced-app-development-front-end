@@ -2,12 +2,12 @@ import type { SimplePost } from '../../typings/Post';
 
 import React, { useEffect, useState } from 'react';
 import {
-  FlatList,
-  SafeAreaView,
   View,
   StyleSheet,
   Text,
+  ScrollView,
 } from 'react-native';
+import { useSelector } from 'react-redux';
 import { globalStyles } from '../../styles/global';
 import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
@@ -23,6 +23,8 @@ import CreatePostModal from '../../components/modals/CreatePostModal';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default function ForumOverview({ navigation }) {
+  const token = useSelector((state: { token: { token: string } }) => state.token.token);
+
   const [posts, setPosts] = useState<SimplePost[]>([]);
   const [isCreatePostModalVisible, setCreatePostModalVisible] = React.useState(false);
 
@@ -50,7 +52,7 @@ export default function ForumOverview({ navigation }) {
   };
 
   return (
-    <View style={globalStyles.pageContainer}>
+    <ScrollView style={globalStyles.pageContainer}>
       <TextTitle content={'Forum posts'} />
 
       <View style={[globalStyles.subTitleContainer, styles.textWrapper]}>
@@ -59,29 +61,27 @@ export default function ForumOverview({ navigation }) {
         <TextSubTitle content={`popularity`} color={'primary'} customStyles={fontFamilyStyles.loraBoldItalic} />
       </View>
 
-      <View style={styles.container}>
-        <Button text='Create post' onPress={openCreatePostModal} />
-      </View>
+      {token ? (
+        <View style={styles.container}>
+          <Button text='Create post' onPress={openCreatePostModal} />
+        </View>
+      ) : null}
 
-      <SafeAreaView style={[globalStyles.marginBottom, { height: '70%' }]}>
+      <View>
         {posts.length > 0 ? (
-          <FlatList
-            data={posts}
-            renderItem={({ item }) => (
-              <ForumOverviewItem
-                key={item.postID}
-                title={item.title}
-                content={item.content}
-                comments={item.commentCount}
-                likes={item.likes}
-                dislikes={item.dislikes}
-                image={item.image ? item.image : ''}
-                categories={item.categories}
-                onPress={() => navigation.navigate('ForumDetail', { postID: item.postID })}
-              />
-            )}
-            keyExtractor={(item) => item.postID}
-          />
+          posts.map((post) => (
+            <ForumOverviewItem
+              key={post.postID}
+              title={post.title}
+              content={post.content}
+              comments={post.commentCount}
+              likes={post.likes}
+              dislikes={post.dislikes}
+              image={post.image ? post.image : ''}
+              categories={post.categories}
+              onPress={() => navigation.navigate('ForumDetail', { postID: post.postID })}
+            />
+          ))
         ) : (
           <View style={styles.noContentContainer}>
             <Text style={styles.noContentMessage}>
@@ -90,14 +90,14 @@ export default function ForumOverview({ navigation }) {
             <Button text={'Back to categories'} onPress={() => navigation.goBack()} />
           </View>
         )}
-      </SafeAreaView>
+      </View>
 
       <CreatePostModal
         isVisible={isCreatePostModalVisible}
         closeCreatePostModal={closeCreatePostModal}
         onCreatePost={() => fetchPosts()}
       />
-    </View>
+    </ScrollView>
   );
 }
 

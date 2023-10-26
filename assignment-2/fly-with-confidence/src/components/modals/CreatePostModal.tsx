@@ -41,6 +41,8 @@ interface CreatePostModalProps {
 
 const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreatePostModal, onCreatePost }) => {
   const token = useSelector((state: { token: { token: string } }) => state.token.token);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const tokenString = token ? token.token : '';
 
   const [titleError, setTitleError] = useState<string>('');
