@@ -31,12 +31,13 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
   const [password, setPassword] = useState<string>('');
   const [usernameError, setUsernameError] = useState<string>('');
   const [passwordError, setPasswordError] = useState<string>('');
+  const [loginError, setLoginError] = useState<string>('');
 
   const dispatch = useDispatch();
 
   const onLogin = async (userName: string, password: string) => {
+    const user = { userName, password };
     try {
-      const user = { userName, password };
       const response = await AuthController.loginUser(user);
 
       if (response) {
@@ -44,11 +45,15 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
         dispatch(setToken(response));
         closeLoginModal();
         onLoginSuccess();
-      } else {
-        Alert.alert('Login Failed', 'Invalid username or password. Please try again.');
+        setPassword('');
+        setUsername('');
       }
     } catch (error) {
-      console.error('Login error:', error);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (error.response && error.response.status === 401) {
+        setLoginError('Invalid username or password. Please try again.');
+      }
     }
   };
 
@@ -118,6 +123,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
               />
 
               {passwordError ? (<InputError content={passwordError} color='error'></InputError>) : null}
+
+              {loginError ? (<InputError content={loginError} color='error'></InputError>) : null}
             </View>
           </View>
 
