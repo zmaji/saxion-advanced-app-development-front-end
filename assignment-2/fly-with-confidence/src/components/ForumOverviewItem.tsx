@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
   },
   extraInfoText: {
     marginRight: 10,
+    color: themeColors.grey
   },
   extraInfoIcon: {
     marginRight: 5,
