@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   forumOverviewItemImage: {
-    height: 100,
+    height: 120,
     width: '100%',
     resizeMode: 'cover',
     borderRadius: 5,

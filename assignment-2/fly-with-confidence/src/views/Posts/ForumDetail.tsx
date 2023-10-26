@@ -93,29 +93,31 @@ export default function ForumDetail() {
         <Text style={styles.extraInfoText}>{post.dislikes}</Text>
       </View>
 
-      {post.comments.map((comment) => {
-        return (
-          <CommentPost
-            key={comment.commentID}
-            content={comment.content}
-            date={comment.date}
-            username={comment.user}
-          />
-        );
-      })}
+      <View>
+        {post.comments.map((comment) => {
+          return (
+              <CommentPost
+                  key={comment.commentID}
+                  content={comment.content}
+                  date={comment.date}
+                  username={comment.user}
+              />
+          );
+        })}
+      </View>
     </ScrollView>
   ) : null;
 }
 
 const styles = StyleSheet.create({
   userDetails: {
-    color: themeColors.darkGrey,
+    color: themeColors.grey,
     fontSize: 14,
-    marginBottom: 7,
+    marginBottom: 10,
   },
   categoriesContainer: {
     flexDirection: 'row',
-    marginBottom: 10,
+    marginBottom: 15,
   },
   categoryLabel: {
     fontSize: 12,
