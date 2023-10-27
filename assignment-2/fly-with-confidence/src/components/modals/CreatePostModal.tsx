@@ -75,6 +75,8 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
 
   const [selectedLocation, setSelectedLocation] = useState('');
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [locations, setLocations] = useState<any[]>([]);
 
   const handleCreatePost = async () => {
@@ -160,7 +162,6 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
       console.error('Error prompting location:', error);
     }
   };
-
 
   const openImagePicker = async () => {
     try {
