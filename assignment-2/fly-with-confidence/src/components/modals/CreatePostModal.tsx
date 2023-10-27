@@ -73,6 +73,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
 
   const [locationDropdownHeight, setLocationDropdownHeight] = useState(0);
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
+
   const [currentLocation, setCurrentLocation] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
   const [locations, setLocations] = useState([{ label: currentLocation, value: currentLocation }]);
@@ -124,6 +125,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
     setImage('');
     setSelectedCategories([]);
     setSelectedLocation('');
+    setCurrentLocation('');
     setTitleError('');
     setTextError('');
     closeCreatePostModal();
@@ -139,9 +141,10 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
         if (coordinates) {
           const { latitude, longitude } = coordinates;
           const city = await getCurrentCity(latitude, longitude);
-          setCurrentLocation(city);
 
           if (city) {
+            setCurrentLocation(city);
+
             const distance = 20;
             const airports = await getNearbyAirports(latitude, longitude, distance);
 
@@ -161,6 +164,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
       console.error('Error prompting location:', error);
     }
   };
+
 
   const openImagePicker = async () => {
     try {
