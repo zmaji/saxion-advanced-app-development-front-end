@@ -17,9 +17,6 @@ export const promptAuthorization = async () => {
 
 export const getCurrentCity = async (latitude: number, longitude: number) => {
   try {
-    console.log(OPEN_CAGE_DATA_API_KEY);
-    console.log(latitude);
-    console.log(longitude);
     const response = await axios.get(
       `https://api.opencagedata.com/geocode/v1/json?key=${OPEN_CAGE_DATA_API_KEY}` +
       `&q=${latitude}%2C+${longitude}&pretty=1&no_annotations=1`,

@@ -73,9 +73,11 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
 
   const [locationDropdownHeight, setLocationDropdownHeight] = useState(0);
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
-  const [currentLocation, setCurrentLocation] = useState('');
+
   const [selectedLocation, setSelectedLocation] = useState('');
-  const [locations, setLocations] = useState([{ label: currentLocation, value: currentLocation }]);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [locations, setLocations] = useState<any[]>([]);
 
   const handleCreatePost = async () => {
     setTitleError('');
@@ -139,7 +141,6 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
         if (coordinates) {
           const { latitude, longitude } = coordinates;
           const city = await getCurrentCity(latitude, longitude);
-          setCurrentLocation(city);
 
           if (city) {
             const distance = 20;
@@ -152,7 +153,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
               value: name,
             }));
 
-            updatedLocations.unshift({ label: `Current location (${currentLocation})`, value: currentLocation });
+            updatedLocations.unshift({ label: `Current location (${city})`, value: city });
             setLocations(updatedLocations);
           }
         }
