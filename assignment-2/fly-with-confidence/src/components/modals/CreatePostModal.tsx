@@ -74,9 +74,8 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
   const [locationDropdownHeight, setLocationDropdownHeight] = useState(0);
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
 
-  const [currentLocation, setCurrentLocation] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
-  const [locations, setLocations] = useState([{ label: currentLocation, value: currentLocation }]);
+  const [locations, setLocations] = useState<any[]>([]);
 
   const handleCreatePost = async () => {
     setTitleError('');
@@ -125,7 +124,6 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
     setImage('');
     setSelectedCategories([]);
     setSelectedLocation('');
-    setCurrentLocation('');
     setTitleError('');
     setTextError('');
     closeCreatePostModal();
@@ -143,8 +141,6 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
           const city = await getCurrentCity(latitude, longitude);
 
           if (city) {
-            setCurrentLocation(city);
-
             const distance = 20;
             const airports = await getNearbyAirports(latitude, longitude, distance);
 
@@ -155,7 +151,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
               value: name,
             }));
 
-            updatedLocations.unshift({ label: `Current location (${currentLocation})`, value: currentLocation });
+            updatedLocations.unshift({ label: `Current location (${city})`, value: city });
             setLocations(updatedLocations);
           }
         }
