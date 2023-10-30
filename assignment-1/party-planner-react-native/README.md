@@ -9,7 +9,7 @@ using Node.js, React native and Expo Go.
 Before you begin, ensure you have met the following requirements:
 
 - **Expo Go App**: You should have the Expo Go App installed from your App Store. 
-- **(Optional) Node.js**: If you don't have Node installed, you can install it by following
+- **Node.js**: If you don't have Node installed, you can install it by following
   the instructions at
   [Node.js's official website](https://nodejs.org/en).
 
@@ -21,6 +21,7 @@ To get this project up and running, follow these steps:
 2. Navigate to 'assignment-1-party-planner-react-native'
 3. Install all dependencies using 'npm i'
 4. Run the application using 'npm run start'
+**NOTE:** If you're using a public network like Saxion's, use 'npx expo start --tunnel'
 5. Scan the QR code in the console with the Expo Go App (or with the camera if you're using iOS).
 
 ## Functionality
