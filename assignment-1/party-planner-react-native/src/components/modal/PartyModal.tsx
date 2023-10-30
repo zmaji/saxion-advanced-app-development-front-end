@@ -16,7 +16,7 @@ import {
   ScrollView, Linking
 } from 'react-native';
 import React from "react";
-import { addPartyToLocalstorage, getPartiesFromStorage, isPartyPast, updatePartyInLocalStorage } from "../../helpers/PartyHelper";
+import { getPartyByIdFromStorage, isPartyPast, updatePartyInLocalStorage } from "../../helpers/PartyHelper";
 
 interface PartyModalProps {
   party: Party;
@@ -28,8 +28,7 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
   const [contacts, setContacts] = useState<any[]>([]);
   const [selectedContacts, setSelectedContacts] = useState<any[]>([]);
   const [partyWithAttendees, setPartyWithAttendees] = useState<Party>({
-    ...party,
-    attendees: [],
+    ...party
   });
 
   const openContactPicker = async () => {
@@ -59,26 +58,26 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
   };
 
   const addSelectedContactsToParty = async () => {
-    const attendees: Person[] = selectedContacts.map((contact) => {
-      return {
-        id: contact.id,
-        name: contact.name,
-        phoneNumber: contact.phoneNumber || '',
-        email: contact.emails && contact.emails.length > 0 ? contact.emails[0] : '',
-      };
-    });
+    try {
+      const attendees: Person[] = selectedContacts.map((contact) => {
+        return {
+          id: contact.id,
+          name: contact.name,
+          phoneNumber: contact.phoneNumber || '',
+          email: contact.emails && contact.emails.length > 0 ? contact.emails[0] : '',
+        };
+      });
 
-    const updatedParty = { ...partyWithAttendees, attendees: [...partyWithAttendees.attendees, ...attendees] };
-    await updatePartyInLocalStorage(updatedParty);
-    const currentParties = await getPartiesFromStorage();
-    const shownParty = currentParties.find((p: { id: number; }) => p.id === party.id);
-
-    if (updatedParty) {
-      setPartyWithAttendees(shownParty);
+      party.attendees = party.attendees.concat(attendees);
+      await updatePartyInLocalStorage(party);
+      const updatedParty = await getPartyByIdFromStorage(party.id);
+      setPartyWithAttendees(updatedParty);
+      setSelectedContacts([]);
+    } catch (error) {
+      console.error('Error adding selected contacts to the party:', error);
     }
-
-    setSelectedContacts([]);
   };
+
 
   function sendEmail(email: any) {
     const recipientEmail = email.email;

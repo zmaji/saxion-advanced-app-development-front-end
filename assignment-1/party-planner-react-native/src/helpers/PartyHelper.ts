@@ -12,6 +12,19 @@ export const getPartiesFromStorage = async () => {
   }
 };
 
+export const getPartyByIdFromStorage = async (partyId: number) => {
+  try {
+    const partiesJSON = await AsyncStorage.getItem('parties');
+    const parties = partiesJSON ? JSON.parse(partiesJSON) : [];
+
+    const party = parties.find((party: Party) => party.id === partyId);
+    return party || null;
+  } catch (error) {
+    console.error('Error retrieving party from local storage:', error);
+    return null;
+  }
+};
+
 export const addPartyToLocalstorage = async (party: Party): Promise<void> => {
   try {
     const existingPartiesJSON = await AsyncStorage.getItem('parties');
