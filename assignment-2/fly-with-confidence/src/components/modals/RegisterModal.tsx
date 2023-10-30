@@ -121,6 +121,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
       transparent={true}
       visible={isVisible}
       onRequestClose={closeRegisterModal}
+      testID="registerModal"
     >
       <View style={styles.modalView}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -176,11 +177,11 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
                 onChangeText={setPasswordConfirmation}
               />
 
-              {passwordConfirmationError ? (<InputError content={passwordConfirmationError} color='error'/>) : null}
+              {passwordConfirmationError ? (<InputError content={passwordConfirmationError} color='error' />) : null}
             </View>
           </View>
 
-          <Button text='Register' customStyles={styles.registerButton} onPress={handleRegister} />
+          <Button text='Register account' customStyles={styles.registerButton} onPress={handleRegister} />
 
           <TextButton text={'Cancel'} onPress={handleCloseModal} />
         </ScrollView>
