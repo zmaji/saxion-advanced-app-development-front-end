@@ -1,9 +1,9 @@
-# Prototype 2: Express
+# Prototype 1: Ionic
 
 ## Description
 
 This project is a hybrid prototype built by Nils Kimenai and Maurice ten Teije
-using Ionic and Vite.
+using Ionic and Vue.js.
 
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
@@ -27,7 +27,7 @@ You can do this by following these instructions:
 To get this project up and running, follow these steps:
 
 1. Unzip the project
-2. Navigate to the project's root directory
+2. Navigate to 'assignment-1-party-planner-ionic'
 3. Install all dependencies using 'npm i'
 4. Build and run the application using 'ionic cap build android'
 5. Wait for Android Studio to build the app.
