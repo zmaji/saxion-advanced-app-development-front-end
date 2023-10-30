@@ -27,6 +27,7 @@ interface PartyModalProps {
 const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyModal }) => {
   const [contacts, setContacts] = useState<any[]>([]);
   const [selectedContacts, setSelectedContacts] = useState<any[]>([]);
+  const [showContactsList, setShowContactsList] = useState(true);
   const [partyWithAttendees, setPartyWithAttendees] = useState<Party>({
     ...party
   });
@@ -73,11 +74,11 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
       const updatedParty = await getPartyByIdFromStorage(party.id);
       setPartyWithAttendees(updatedParty);
       setSelectedContacts([]);
+      setShowContactsList(false);
     } catch (error) {
       console.error('Error adding selected contacts to the party:', error);
     }
   };
-
 
   function sendEmail(email: any) {
     const recipientEmail = email.email;
@@ -126,11 +127,19 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
             {partyWithAttendees.attendees.length > 0 ? (
               partyWithAttendees.attendees.map((attendee) => (
                 <View key={attendee.id} style={styles.partyAttendee}>
-                  <Text>{attendee.name}</Text>
+                  <Text>
+                    {attendee.name}
+                    {attendee.email ? '' : ' (contact has no email)'}
+                  </Text>
 
-                  {attendee.email && (
-                    <TouchableOpacity onPress={() => sendEmail(attendee.email)} style={styles.emaiIconButton}>
+                  {attendee.email ? (
+                    <TouchableOpacity onPress={() => sendEmail(attendee.email)} style={styles.emailIconButton}>
                       <FontAwesomeIcon icon={faEnvelope} color="#2196F3" />
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity style={styles.emailIconButton}>
+                      <FontAwesomeIcon icon={faEnvelope} color="gray" />
+
                     </TouchableOpacity>
                   )}
                 </View>
@@ -139,7 +148,6 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
               <Text>No attendees yet.</Text>
             )}
           </View>
-
 
           {selectedContacts.length > 0 ? (
             <TouchableOpacity
@@ -157,7 +165,7 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
             </TouchableOpacity>
           )}
 
-          {contacts.length > 0 && contacts.map((contact) => (
+          {showContactsList && contacts.length > 0 && contacts.map((contact) => (
             <View style={styles.contactItem} key={contact.id}>
               <TouchableOpacity onPress={() => toggleContactSelection(contact)} style={styles.checkboxButton}>
                 {selectedContacts.includes(contact) ? (
@@ -169,14 +177,14 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
               <Text>{contact.name}</Text>
             </View>
           ))}
-        </View>
 
-        <View style={styles.buttonContainer}>
-          <Pressable
-            style={[styles.button, styles.closeButton]}
-            onPress={closePartyModal}>
-            <Text style={styles.buttonTextStyle}>Close</Text>
-          </Pressable>
+          <View style={styles.buttonContainer}>
+            <Pressable
+              style={[styles.button, styles.closeButton]}
+              onPress={closePartyModal}>
+              <Text style={styles.buttonTextStyle}>Close</Text>
+            </Pressable>
+          </View>
         </View>
       </ScrollView>
     </Modal>
@@ -279,7 +287,7 @@ const styles = StyleSheet.create({
   partyAttendee: {
     flexDirection: 'row'
   },
-  emaiIconButton: {
+  emailIconButton: {
     marginStart: 5
   }
 });
