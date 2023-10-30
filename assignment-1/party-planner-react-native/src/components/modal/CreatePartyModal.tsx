@@ -1,4 +1,4 @@
-import type {Party} from '../../types/Party';
+import type { Party } from '../../types/Party';
 
 import React, { useEffect, useState } from 'react';
 import {
@@ -92,8 +92,8 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
       console.log('event', event);
 
       const eventId = await Calendar.createEventAsync(
-          calendarId,
-          event
+        calendarId,
+        event
       );
 
       console.log('Event added to Android calendar with ID:', eventId);
@@ -122,8 +122,8 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
         const remindersPermission = await Calendar.requestRemindersPermissionsAsync();
         if (remindersPermission.status === 'granted') {
           const eventId = await Calendar.createEventAsync(
-              defaultCalendar.id,
-              eventDetails
+            defaultCalendar.id,
+            eventDetails
           );
           console.log('Event added to calendar with ID:', eventId);
         } else {
@@ -163,6 +163,7 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
     }
   };
 
+  // @ts-ignore
   const handleDateChange = (event, selected) => {
     setShowDatePicker(false);
 
@@ -175,6 +176,7 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
     }
   };
 
+  // @ts-ignore
   const handleTimeChange = (event, selected) => {
     setShowTimePicker(false);
 
@@ -195,7 +197,7 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
     setCalendarModalVisible(false);
   };
 
-  const selectCalendar =  async(calendarId: number) => {
+  const selectCalendar = async (calendarId: number) => {
     console.log('selecting calendar', calendarId)
 
     // @ts-ignore
@@ -206,6 +208,7 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
       await addToiOSCalendar();
     } else if (Platform.OS === 'android') {
       console.log('addToAndroidCalendar', calendarId)
+      // @ts-ignore
       await addToAndroidCalendar(calendarId);
     }
 
@@ -253,11 +256,12 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
       const remindersPermission = await Calendar.requestRemindersPermissionsAsync();
 
       if (
-          calendarPermission.status === 'granted' &&
-          remindersPermission.status === 'granted'
+        calendarPermission.status === 'granted' &&
+        remindersPermission.status === 'granted'
       ) {
 
         const calendarList = await Calendar.getCalendarsAsync();
+        // @ts-ignore
         setCalendars(calendarList);
       } else {
         console.warn('Calendar permission denied.');
@@ -277,8 +281,8 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
       ]);
 
       if (
-          granted['android.permission.READ_CALENDAR'] === 'granted' &&
-          granted['android.permission.WRITE_CALENDAR'] === 'granted'
+        granted['android.permission.READ_CALENDAR'] === 'granted' &&
+        granted['android.permission.WRITE_CALENDAR'] === 'granted'
       ) {
         const calendarList = await Calendar.getCalendarsAsync();
         // @ts-ignore
@@ -298,96 +302,96 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
   }, []);
 
   return (
-      <View>
-        <Modal animationType="slide" transparent={true} visible={visible}>
-          <View style={styles.modalView}>
-            <View style={styles.header}>
-              <Text style={styles.headerText}>Create a party</Text>
-            </View>
-
-            <View style={styles.modalContainer}>
-              <Text style={styles.inputLabel}>Name the party</Text>
-              <TextInput
-                  style={styles.inputField}
-                  placeholder="Party name"
-                  value={newParty.title}
-                  onChangeText={(text) => setNewParty({ ...newParty, title: text })}
-              />
-
-              <Text>What's the party about?</Text>
-              <TextInput
-                  style={styles.inputField}
-                  placeholder="Party description"
-                  multiline={true}
-                  value={newParty.description}
-                  onChangeText={(text) =>
-                      setNewParty({ ...newParty, description: text })
-                  }
-              />
-
-              <Text>Where is the party?</Text>
-              <TextInput
-                  style={styles.inputField}
-                  placeholder="Party location"
-                  value={newParty.location}
-                  onChangeText={(text) => setNewParty({ ...newParty, location: text })}
-              />
-
-              <TouchableOpacity onPress={displayDatePicker}>
-                <Text style={styles.inputLabel}>When is the party?</Text>
-
-                <Text style={styles.inputField}>{newParty.date ? newParty.date : 'Select a date'}</Text>
-              </TouchableOpacity>
-
-              {showDatePicker && (
-                  <DateTimePicker
-                      mode="date"
-                      value={selectedDate}
-                      display="default"
-                      onChange={handleDateChange}
-                  />
-              )}
-
-              <TouchableOpacity onPress={displayTimePicker}>
-                <Text style={styles.inputLabel}>What time is the party?</Text>
-
-                <Text style={[styles.inputField, styles.noMargin]}>{newParty.time ? newParty.time : 'Select the time'}</Text>
-              </TouchableOpacity>
-
-              {showTimePicker && (
-                  <DateTimePicker
-                      mode="time"
-                      value={selectedTime}
-                      is24Hour={true}
-                      display="default"
-                      onChange={handleTimeChange}
-                  />
-              )}
-            </View>
-
-            <View style={styles.buttonContainer}>
-              <Pressable
-                  style={[styles.button, styles.cancelButton]}
-                  onPress={onCancel}>
-                <Text style={styles.buttonTextStyle}>Cancel</Text>
-              </Pressable>
-
-              <Pressable
-                  style={[styles.button, styles.submitButton]}
-                  onPress={onPartyConfirm}>
-                <Text style={styles.buttonTextStyle}>Submit</Text>
-              </Pressable>
-            </View>
+    <View>
+      <Modal animationType="slide" transparent={true} visible={visible}>
+        <View style={styles.modalView}>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Create a party</Text>
           </View>
-        </Modal>
 
-        <CalendarModal
-            isVisible={isCalendarModalVisible}
-            calendars={calendars}
-            selectCalendar={selectCalendar}
-            hideCalendarModal={hideCalendarModal}
-        />
-      </View>
+          <View style={styles.modalContainer}>
+            <Text style={styles.inputLabel}>Name the party</Text>
+            <TextInput
+              style={styles.inputField}
+              placeholder="Party name"
+              value={newParty.title}
+              onChangeText={(text) => setNewParty({ ...newParty, title: text })}
+            />
+
+            <Text>What's the party about?</Text>
+            <TextInput
+              style={styles.inputField}
+              placeholder="Party description"
+              multiline={true}
+              value={newParty.description}
+              onChangeText={(text) =>
+                setNewParty({ ...newParty, description: text })
+              }
+            />
+
+            <Text>Where is the party?</Text>
+            <TextInput
+              style={styles.inputField}
+              placeholder="Party location"
+              value={newParty.location}
+              onChangeText={(text) => setNewParty({ ...newParty, location: text })}
+            />
+
+            <TouchableOpacity onPress={displayDatePicker}>
+              <Text style={styles.inputLabel}>When is the party?</Text>
+
+              <Text style={styles.inputField}>{newParty.date ? newParty.date : 'Select a date'}</Text>
+            </TouchableOpacity>
+
+            {showDatePicker && (
+              <DateTimePicker
+                mode="date"
+                value={selectedDate}
+                display="default"
+                onChange={handleDateChange}
+              />
+            )}
+
+            <TouchableOpacity onPress={displayTimePicker}>
+              <Text style={styles.inputLabel}>What time is the party?</Text>
+
+              <Text style={[styles.inputField, styles.noMargin]}>{newParty.time ? newParty.time : 'Select the time'}</Text>
+            </TouchableOpacity>
+
+            {showTimePicker && (
+              <DateTimePicker
+                mode="time"
+                value={selectedTime}
+                is24Hour={true}
+                display="default"
+                onChange={handleTimeChange}
+              />
+            )}
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <Pressable
+              style={[styles.button, styles.cancelButton]}
+              onPress={onCancel}>
+              <Text style={styles.buttonTextStyle}>Cancel</Text>
+            </Pressable>
+
+            <Pressable
+              style={[styles.button, styles.submitButton]}
+              onPress={onPartyConfirm}>
+              <Text style={styles.buttonTextStyle}>Submit</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+
+      <CalendarModal
+        isVisible={isCalendarModalVisible}
+        calendars={calendars}
+        selectCalendar={selectCalendar}
+        hideCalendarModal={hideCalendarModal}
+      />
+    </View>
   );
 };
 

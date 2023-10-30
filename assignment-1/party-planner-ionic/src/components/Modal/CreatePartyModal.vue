@@ -71,6 +71,7 @@ import {
 import { OverlayEventDetail } from '@ionic/core/components';
 import { addPartyToLocalstorage } from "@/helper/PartyHelper";
 
+
 const emit = defineEmits<{ (event: 'partyCreated', value: Party): void }>();
 
 const createPartyModal = ref();
@@ -80,12 +81,13 @@ const newParty: Party = reactive({
   title: '',
   description: '',
   location: '',
-  datetime: new Date().toISOString()
+  datetime: new Date().toISOString(),
+  attendees: []
 });
 
 const cancel = () => createPartyModal.value.$el.dismiss(null, 'cancel');
 
-const confirm = () => {
+const confirm = async () => {
   createPartyModal.value.$el.dismiss(newParty, 'confirm');
 };
 

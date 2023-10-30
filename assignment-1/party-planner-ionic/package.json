@@ -12,6 +12,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@awesome-cordova-plugins/calendar": "^6.4.0",
     "@capacitor-community/contacts": "^5.0.4",
     "@capacitor/android": "5.4.1",
     "@capacitor/app": "5.0.6",
@@ -23,6 +24,7 @@
     "@capacitor/status-bar": "5.0.6",
     "@ionic/vue": "^7.0.0",
     "@ionic/vue-router": "^7.0.0",
+    "cordova-plugin-calendar": "^5.1.6",
     "ionicons": "^7.0.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"

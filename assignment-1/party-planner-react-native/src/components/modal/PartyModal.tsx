@@ -3,7 +3,8 @@ import type { Person } from '../../types/Person';
 
 import * as Contacts from 'expo-contacts';
 import { useState } from 'react';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faEnvelope, faSquareCheck, faSquare } from '@fortawesome/free-regular-svg-icons';
 
 import {
   Modal,
@@ -15,7 +16,7 @@ import {
   ScrollView, Linking
 } from 'react-native';
 import React from "react";
-import { isPartyPast } from "../../helpers/PartyHelper";
+import { getPartyByIdFromStorage, isPartyPast, updatePartyInLocalStorage } from "../../helpers/PartyHelper";
 
 interface PartyModalProps {
   party: Party;
@@ -26,9 +27,9 @@ interface PartyModalProps {
 const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyModal }) => {
   const [contacts, setContacts] = useState<any[]>([]);
   const [selectedContacts, setSelectedContacts] = useState<any[]>([]);
+  const [showContactsList, setShowContactsList] = useState(true);
   const [partyWithAttendees, setPartyWithAttendees] = useState<Party>({
-    ...party,
-    attendees: [],
+    ...party
   });
 
   const openContactPicker = async () => {
@@ -57,19 +58,26 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
     console.log(selectedContacts);
   };
 
-  const addSelectedContactsToParty = () => {
-    const attendees: Person[] = selectedContacts.map((contact) => {
-      return {
-        id: contact.id,
-        name: contact.name,
-        phoneNumber: contact.phoneNumber || '',
-        email: contact.emails && contact.emails.length > 0 ? contact.emails[0] : '',
-      };
-    });
+  const addSelectedContactsToParty = async () => {
+    try {
+      const attendees: Person[] = selectedContacts.map((contact) => {
+        return {
+          id: contact.id,
+          name: contact.name,
+          phoneNumber: contact.phoneNumber || '',
+          email: contact.emails && contact.emails.length > 0 ? contact.emails[0] : '',
+        };
+      });
 
-    const updatedParty = { ...partyWithAttendees, attendees: [...partyWithAttendees.attendees, ...attendees] };
-    setPartyWithAttendees(updatedParty);
-    setSelectedContacts([]);
+      party.attendees = party.attendees.concat(attendees);
+      await updatePartyInLocalStorage(party);
+      const updatedParty = await getPartyByIdFromStorage(party.id);
+      setPartyWithAttendees(updatedParty);
+      setSelectedContacts([]);
+      setShowContactsList(false);
+    } catch (error) {
+      console.error('Error adding selected contacts to the party:', error);
+    }
   };
 
   function sendEmail(email: any) {
@@ -119,11 +127,19 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
             {partyWithAttendees.attendees.length > 0 ? (
               partyWithAttendees.attendees.map((attendee) => (
                 <View key={attendee.id} style={styles.partyAttendee}>
-                  <Text>{attendee.name}</Text>
+                  <Text>
+                    {attendee.name}
+                    {attendee.email ? '' : ' (contact has no email)'}
+                  </Text>
 
-                  {attendee.email && (
-                    <TouchableOpacity onPress={() => sendEmail(attendee.email)} style={styles.emaiIconButton}>
-                      <FontAwesome name="envelope" size={16} color="#2196F3" />
+                  {attendee.email ? (
+                    <TouchableOpacity onPress={() => sendEmail(attendee.email)} style={styles.emailIconButton}>
+                      <FontAwesomeIcon icon={faEnvelope} color="#2196F3" />
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity style={styles.emailIconButton}>
+                      <FontAwesomeIcon icon={faEnvelope} color="gray" />
+
                     </TouchableOpacity>
                   )}
                 </View>
@@ -132,7 +148,6 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
               <Text>No attendees yet.</Text>
             )}
           </View>
-
 
           {selectedContacts.length > 0 ? (
             <TouchableOpacity
@@ -150,26 +165,26 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
             </TouchableOpacity>
           )}
 
-          {contacts.length > 0 && contacts.map((contact) => (
+          {showContactsList && contacts.length > 0 && contacts.map((contact) => (
             <View style={styles.contactItem} key={contact.id}>
               <TouchableOpacity onPress={() => toggleContactSelection(contact)} style={styles.checkboxButton}>
                 {selectedContacts.includes(contact) ? (
-                  <FontAwesome name="check-square-o" size={24} color="green" />
+                  <FontAwesomeIcon icon={faSquareCheck} color="green" />
                 ) : (
-                  <FontAwesome name="square-o" size={24} color="gray" />
+                  <FontAwesomeIcon icon={faSquare} color="gray" />
                 )}
               </TouchableOpacity>
               <Text>{contact.name}</Text>
             </View>
           ))}
-        </View>
 
-        <View style={styles.buttonContainer}>
-          <Pressable
-            style={[styles.button, styles.closeButton]}
-            onPress={closePartyModal}>
-            <Text style={styles.buttonTextStyle}>Close</Text>
-          </Pressable>
+          <View style={styles.buttonContainer}>
+            <Pressable
+              style={[styles.button, styles.closeButton]}
+              onPress={closePartyModal}>
+              <Text style={styles.buttonTextStyle}>Close</Text>
+            </Pressable>
+          </View>
         </View>
       </ScrollView>
     </Modal>
@@ -272,7 +287,7 @@ const styles = StyleSheet.create({
   partyAttendee: {
     flexDirection: 'row'
   },
-  emaiIconButton: {
+  emailIconButton: {
     marginStart: 5
   }
 });

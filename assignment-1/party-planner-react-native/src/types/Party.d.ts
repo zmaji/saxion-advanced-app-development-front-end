@@ -1,3 +1,5 @@
+import type { Person } from './Person';
+
 export interface Party {
   id: number,
   title: string,
