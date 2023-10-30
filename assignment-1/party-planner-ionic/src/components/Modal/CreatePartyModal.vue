@@ -80,7 +80,8 @@ const newParty: Party = reactive({
   title: '',
   description: '',
   location: '',
-  datetime: new Date().toISOString()
+  datetime: new Date().toISOString(),
+  attendees: []
 });
 
 const cancel = () => createPartyModal.value.$el.dismiss(null, 'cancel');

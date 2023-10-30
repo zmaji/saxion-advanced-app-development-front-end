@@ -17,7 +17,8 @@
         </ion-button>
 
         <p>
-          Explore the details, mark your calendars, and prepare for an epic journey through the latest and greatest parties
+          Explore the details, mark your calendars, and prepare for an epic journey through the latest and greatest
+          parties
           in town!
         </p>
       </div>
@@ -39,7 +40,7 @@
 <script setup lang="ts">
 import { Party } from "@/types/Party";
 
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import {
   IonButton,
   IonCol,
@@ -51,7 +52,6 @@ import {
   IonToolbar,
   IonTitle,
 } from "@ionic/vue";
-import { addPartyToLocalstorage } from "@/helper/PartyHelper";
 import { CreatePartyModal, MediaCard, PartyModal } from "@/components";
 
 const parties = ref<Party[]>([]);
@@ -59,6 +59,11 @@ const selectedParty = ref<Party | null>(null);
 const isOpen = ref(false);
 
 const openPartyModal = (party: Party) => {
+  console.log('parties.value.length')
+  console.log('parties.value.length')
+  console.log('parties.value.length')
+  console.log('parties.value.length')
+  console.log(parties.value.length)
   isOpen.value = true;
   selectedParty.value = party;
 };
@@ -74,47 +79,47 @@ function fetchParties(): void {
   console.log('Fetching parties from LocalStorage');
 }
 
-onMounted(() => {
-  //Temporary to leave clean entries within localstorage
-  localStorage.clear();
+// onMounted(() => {
+//   //Temporary to leave clean entries within localstorage
+//   localStorage.clear();
 
-  const partyOne: Party = {
-    id: 1,
-    title: 'Party at Saxion',
-    description: 'description',
-    location: 'location 1',
-    datetime: new Date().toISOString(),
-    attendees: []
-  };
+//   const partyOne: Party = {
+//     id: 1,
+//     title: 'Party at Saxion',
+//     description: 'description',
+//     location: 'location 1',
+//     datetime: new Date().toISOString(),
+//     attendees: []
+//   };
 
-  const partyTwo: Party = {
-    id: 2,
-    title: 'Domino\'s',
-    description: 'description',
-    location: 'location 2',
-    datetime: new Date().toISOString(),
-    attendees: []
-  };
+//   const partyTwo: Party = {
+//     id: 2,
+//     title: 'Domino\'s',
+//     description: 'description',
+//     location: 'location 2',
+//     datetime: new Date().toISOString(),
+//     attendees: []
+//   };
 
-  const partyThree: Party = {
-    id: 3,
-    title: 'Max his project X chess party',
-    description: 'description',
-    location: 'location 3',
-    datetime: new Date().toISOString(),
-    attendees: []
-  };
+//   const partyThree: Party = {
+//     id: 3,
+//     title: 'Max his project X chess party',
+//     description: 'description',
+//     location: 'location 3',
+//     datetime: new Date().toISOString(),
+//     attendees: []
+//   };
 
-  addPartyToLocalstorage(partyOne);
-  addPartyToLocalstorage(partyTwo);
-  addPartyToLocalstorage(partyThree);
+//   addPartyToLocalstorage(partyOne);
+//   addPartyToLocalstorage(partyTwo);
+//   addPartyToLocalstorage(partyThree);
 
-  fetchParties();
-});
+//   fetchParties();
+// });
 </script>
 
 <style scoped>
-  .introduction {
-    background-color: var(--ion-color-light);
-  }
+.introduction {
+  background-color: var(--ion-color-light);
+}
 </style>

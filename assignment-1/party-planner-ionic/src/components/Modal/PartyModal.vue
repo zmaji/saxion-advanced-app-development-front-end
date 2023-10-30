@@ -28,8 +28,7 @@
       <ion-item>
         <ion-label position="stacked" class="ion-padding-bottom">Attendees</ion-label>
 
-        <ion-list v-if="party.attendees.length > 0">
-          <p>Attendees</p>
+        <ion-list v-if="party.attendees && party.attendees.length > 0">
 
           <ion-item v-for="attendee in party.attendees" :key="attendee.id">
             <p>{{ attendee.name }}</p>
@@ -43,7 +42,7 @@
 
       <ion-content class="ion-padding">
         <ion-button @click="openContactModal(party)">Add Contacts</ion-button>
-        </ion-content>
+      </ion-content>
 
       <ContactsModal :party="party" :is-open="isOpen" @modal-closed="onModalClosed" />
     </ion-content>
@@ -51,7 +50,7 @@
     <ion-footer class="ion-padding-horizontal">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-button :strong="true" :color="'primary'"  @click="shareParty(party)">Share party</ion-button>
+          <ion-button :strong="true" :color="'primary'" @click="shareParty(party)">Share party</ion-button>
         </ion-buttons>
 
         <ion-buttons slot="end">
