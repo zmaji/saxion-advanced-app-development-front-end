@@ -16,7 +16,7 @@ import {
   ScrollView, Linking
 } from 'react-native';
 import React from "react";
-import { isPartyPast } from "../../helpers/PartyHelper";
+import { addPartyToLocalstorage, getPartiesFromStorage, isPartyPast, updatePartyInLocalStorage } from "../../helpers/PartyHelper";
 
 interface PartyModalProps {
   party: Party;
@@ -58,7 +58,7 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
     console.log(selectedContacts);
   };
 
-  const addSelectedContactsToParty = () => {
+  const addSelectedContactsToParty = async () => {
     const attendees: Person[] = selectedContacts.map((contact) => {
       return {
         id: contact.id,
@@ -69,7 +69,14 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
     });
 
     const updatedParty = { ...partyWithAttendees, attendees: [...partyWithAttendees.attendees, ...attendees] };
-    setPartyWithAttendees(updatedParty);
+    await updatePartyInLocalStorage(updatedParty);
+    const currentParties = await getPartiesFromStorage();
+    const shownParty = currentParties.find((p: { id: number; }) => p.id === party.id);
+
+    if (updatedParty) {
+      setPartyWithAttendees(shownParty);
+    }
+
     setSelectedContacts([]);
   };
 
