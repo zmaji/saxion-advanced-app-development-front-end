@@ -208,6 +208,7 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
       await addToiOSCalendar();
     } else if (Platform.OS === 'android') {
       console.log('addToAndroidCalendar', calendarId)
+      // @ts-ignore
       await addToAndroidCalendar(calendarId);
     }
 
@@ -260,6 +261,7 @@ const CreatePartyModal: React.FC<CreatePartyModalProps> = ({
       ) {
 
         const calendarList = await Calendar.getCalendarsAsync();
+        // @ts-ignore
         setCalendars(calendarList);
       } else {
         console.warn('Calendar permission denied.');

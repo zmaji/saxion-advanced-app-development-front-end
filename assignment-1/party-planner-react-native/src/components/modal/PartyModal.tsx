@@ -3,7 +3,8 @@ import type { Person } from '../../types/Person';
 
 import * as Contacts from 'expo-contacts';
 import { useState } from 'react';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faEnvelope, faSquareCheck, faSquare } from '@fortawesome/free-regular-svg-icons';
 
 import {
   Modal,
@@ -123,7 +124,7 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
 
                   {attendee.email && (
                     <TouchableOpacity onPress={() => sendEmail(attendee.email)} style={styles.emaiIconButton}>
-                      <FontAwesome name="envelope" size={16} color="#2196F3" />
+                      <FontAwesomeIcon icon={faEnvelope} color="#2196F3" />
                     </TouchableOpacity>
                   )}
                 </View>
@@ -154,9 +155,9 @@ const PartyModal: React.FC<PartyModalProps> = ({ party, isVisible, closePartyMod
             <View style={styles.contactItem} key={contact.id}>
               <TouchableOpacity onPress={() => toggleContactSelection(contact)} style={styles.checkboxButton}>
                 {selectedContacts.includes(contact) ? (
-                  <FontAwesome name="check-square-o" size={24} color="green" />
+                  <FontAwesomeIcon icon={faSquareCheck} color="green" />
                 ) : (
-                  <FontAwesome name="square-o" size={24} color="gray" />
+                  <FontAwesomeIcon icon={faSquare} color="gray" />
                 )}
               </TouchableOpacity>
               <Text>{contact.name}</Text>
