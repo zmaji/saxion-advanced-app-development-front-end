@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react-native';
-import RegisterModal from '../components/modals/RegisterModal';
+import RegisterModal from '../../components/modals/RegisterModal';
 
 describe('RegisterModal', () => {
   it('should render the modal and interact with input fields', async () => {
     const { getByPlaceholderText, getByText, getByTestId } = render(
-      <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />
+        <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />,
     );
 
     expect(getByTestId('registerModal')).toBeTruthy();

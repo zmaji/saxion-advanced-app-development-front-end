@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import Button from '../components/buttons/Button';
+import Button from '../../components/buttons/Button';
 
 describe('Button', () => {
   it('should render the button with the provided text, buttonColor, and textColor', () => {
@@ -10,7 +10,7 @@ describe('Button', () => {
     const onPressMock = jest.fn();
 
     const { getByText } = render(
-      <Button text={buttonText} buttonColor={buttonColor} textColor={textColor} onPress={onPressMock} />
+        <Button text={buttonText} buttonColor={buttonColor} textColor={textColor} onPress={onPressMock} />,
     );
 
     const buttonElement = getByText(buttonText);
@@ -26,7 +26,7 @@ describe('Button', () => {
     const onPressMock = jest.fn();
 
     const { getByText } = render(
-      <Button text={buttonText} onPress={onPressMock} />
+        <Button text={buttonText} onPress={onPressMock} />,
     );
 
     const buttonElement = getByText(buttonText);
