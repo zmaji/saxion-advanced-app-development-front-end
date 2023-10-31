@@ -181,6 +181,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
       transparent={true}
       visible={isVisible}
       onRequestClose={closeCreatePostModal}
+      testID="createPostModal"
     >
       <View style={styles.modalView}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>

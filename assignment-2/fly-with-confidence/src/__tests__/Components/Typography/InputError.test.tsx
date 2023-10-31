@@ -9,7 +9,7 @@ describe('InputError', () => {
     const customStyles = { fontSize: 16, fontWeight: 'bold' };
 
     const { getByText } = render(
-        <InputError content={errorMessage} color={color} customStyles={customStyles} />,
+      <InputError content={errorMessage} color={color} customStyles={customStyles} />,
     );
 
     const errorElement = getByText(errorMessage);
@@ -25,14 +25,13 @@ describe('InputError', () => {
     const errorMessage = 'This is an error message';
 
     const { getByText } = render(
-        <InputError content={errorMessage} />,
+      <InputError content={errorMessage} />,
     );
 
     const errorElement = getByText(errorMessage);
     expect(errorElement).toBeTruthy();
 
     const errorStyle = errorElement.props.style;
-    console.log(errorStyle);
     expect(errorStyle[1].color).toBe('#333333');
   });
 });
