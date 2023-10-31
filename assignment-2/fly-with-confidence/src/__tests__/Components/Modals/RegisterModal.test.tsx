@@ -1,21 +1,11 @@
 import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react-native';
 import RegisterModal from '../../../components/modals/RegisterModal';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from '../../../redux/reducers';
 
 describe('RegisterModal', () => {
-  // Create a mock store using createStore from Redux
-  const store = createStore(rootReducer, {
-    // Define your initial state here if needed
-  });
-
   it('should render the modal and interact with input fields', async () => {
     const { getByPlaceholderText, getByText, getByTestId } = render(
-      <Provider store={store}>
-        <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />
-      </Provider>
+      <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />,
     );
 
     expect(getByTestId('registerModal')).toBeTruthy();
@@ -41,9 +31,7 @@ describe('RegisterModal', () => {
 
   it('should display error messages for invalid input', async () => {
     const { getByPlaceholderText, getByText } = render(
-      <Provider store={store}>
-        <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />
-      </Provider>
+      <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />,
     );
 
     let queryByText: Element | null;
