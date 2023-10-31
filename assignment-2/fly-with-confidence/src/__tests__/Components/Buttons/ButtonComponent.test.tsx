@@ -10,7 +10,7 @@ describe('Button', () => {
     const onPressMock = jest.fn();
 
     const { getByText } = render(
-        <Button text={buttonText} buttonColor={buttonColor} textColor={textColor} onPress={onPressMock} />,
+      <Button text={buttonText} buttonColor={buttonColor} textColor={textColor} onPress={onPressMock} />,
     );
 
     const buttonElement = getByText(buttonText);
@@ -26,7 +26,7 @@ describe('Button', () => {
     const onPressMock = jest.fn();
 
     const { getByText } = render(
-        <Button text={buttonText} onPress={onPressMock} />,
+      <Button text={buttonText} onPress={onPressMock} />,
     );
 
     const buttonElement = getByText(buttonText);
