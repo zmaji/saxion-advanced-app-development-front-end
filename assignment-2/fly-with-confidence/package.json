@@ -9,7 +9,8 @@
     "web": "expo start --web",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix src/**/*",
-    "test": "jest"
+    "test": "echo \"Starting Jest tests\" && jest",
+    "test:coverage": "echo \"Generating code coverage report\" && jest --coverage"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
