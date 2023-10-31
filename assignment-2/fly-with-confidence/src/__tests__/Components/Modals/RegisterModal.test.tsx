@@ -5,7 +5,7 @@ import RegisterModal from '../../../components/modals/RegisterModal';
 describe('RegisterModal', () => {
   it('should render the modal and interact with input fields', async () => {
     const { getByPlaceholderText, getByText, getByTestId } = render(
-        <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />,
+      <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />,
     );
 
     expect(getByTestId('registerModal')).toBeTruthy();
@@ -27,5 +27,34 @@ describe('RegisterModal', () => {
     expect(getByPlaceholderText('Confirm Password').props.value).toBe('password123');
 
     fireEvent.press(getByText('Register account'));
+  });
+
+  it('should display error messages for invalid input', async () => {
+    const { getByPlaceholderText, getByText } = render(
+      <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />,
+    );
+
+    let queryByText: Element | null;
+
+    await act(async () => {
+      fireEvent.changeText(getByPlaceholderText('Username'), '');
+      fireEvent.changeText(getByPlaceholderText('Email'), 'invalid-email');
+      fireEvent.changeText(getByPlaceholderText('Password'), 'pass');
+      fireEvent.changeText(getByPlaceholderText('Confirm Password'), 'password');
+    });
+
+    fireEvent.press(getByText('Register account'));
+
+    queryByText = getByText('Username is required');
+    expect(queryByText).toBeTruthy();
+
+    queryByText = getByText('Email is not valid');
+    expect(queryByText).toBeTruthy();
+
+    queryByText = getByText('Password must be at least 8 characters long');
+    expect(queryByText).toBeTruthy();
+
+    queryByText = getByText('Passwords do not match');
+    expect(queryByText).toBeTruthy();
   });
 });
