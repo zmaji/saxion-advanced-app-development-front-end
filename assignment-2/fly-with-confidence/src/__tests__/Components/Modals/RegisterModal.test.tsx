@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react-native';
-import RegisterModal from '../../components/modals/RegisterModal';
+import RegisterModal from '../../../components/modals/RegisterModal';
 
 describe('RegisterModal', () => {
   it('should render the modal and interact with input fields', async () => {

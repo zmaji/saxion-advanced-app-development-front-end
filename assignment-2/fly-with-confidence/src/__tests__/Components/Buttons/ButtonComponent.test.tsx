@@ -1,22 +1,24 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import TextButton from '../../components/buttons/TextButton';
+import Button from '../../../components/buttons/Button';
 
-describe('TextButton', () => {
-  it('should render the text button with the provided text and custom styles', () => {
+describe('Button', () => {
+  it('should render the button with the provided text, buttonColor, and textColor', () => {
     const buttonText = 'Click me';
-    const customStyles = { backgroundColor: 'blue' };
+    const buttonColor = 'white';
+    const textColor = 'grey';
     const onPressMock = jest.fn();
 
     const { getByText } = render(
-        <TextButton text={buttonText} customStyles={customStyles} onPress={onPressMock} />,
+        <Button text={buttonText} buttonColor={buttonColor} textColor={textColor} onPress={onPressMock} />,
     );
 
     const buttonElement = getByText(buttonText);
     expect(buttonElement).toBeTruthy();
 
     const buttonStyle = buttonElement.props.style;
-    expect(buttonStyle.backgroundColor).toBe('#FFFFFF');
+    expect(buttonStyle[0].color).toBe(buttonColor);
+    expect(buttonStyle[1].color).toBe('#666666');
   });
 
   it('should invoke the onPress callback when clicked', () => {
@@ -24,7 +26,7 @@ describe('TextButton', () => {
     const onPressMock = jest.fn();
 
     const { getByText } = render(
-        <TextButton text={buttonText} onPress={onPressMock} />,
+        <Button text={buttonText} onPress={onPressMock} />,
     );
 
     const buttonElement = getByText(buttonText);
