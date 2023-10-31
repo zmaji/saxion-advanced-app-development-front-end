@@ -2,12 +2,18 @@ import type { UserCredentials } from '../typings/User';
 
 import axios from 'axios';
 import { BASE_URL } from '../../config';
+import { isOnline } from '../utils/NetworkDetection';
+import NetworkError from '../errors/NetworkError';
 
-const loginUser = async (user: UserCredentials): Promise<string | null> => {
+const loginUser = async (user: UserCredentials): Promise<string | NetworkError | null> => {
   try {
-    const response = await axios.post(`${BASE_URL}/credentials`, user);
+    if (await isOnline()) {
+      const response = await axios.post(`${BASE_URL}/credentials`, user);
 
-    return response.data;
+      return response.data;
+    } else {
+      return new NetworkError();
+    }
   } catch (error) {
     throw error;
   }
