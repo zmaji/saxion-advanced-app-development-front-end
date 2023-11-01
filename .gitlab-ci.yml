@@ -1,0 +1,54 @@
+# Official framework image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/node/tags/
+image: node:latest
+
+# This folder is cached between builds
+# https://docs.gitlab.com/ee/ci/yaml/index.html#cache
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - assignment-2/fly-with-confidence/node_modules/
+
+# All jobs stages in execution order
+stages:
+  - build
+  - test
+
+# Build the application in preparation for testing
+build:
+  stage: build
+  script:
+    - cd assignment-2/fly-with-confidence
+    - npm install
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
+
+# Check if linting rules are in order
+test_lint:
+  stage: test
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - assignment-2/fly-with-confidence/node_modules/
+  script:
+    - cd assignment-2/fly-with-confidence
+    - npm run lint
+  needs:
+    - build
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
+
+# Run unit test suites
+#test_unit:
+#  stage: test
+#  cache:
+#    key: $CI_COMMIT_REF_SLUG
+#    paths:
+#      - assignment-2/fly-with-confidence/node_modules/
+#  script:
+#    - cd assignment-2/fly-with-confidence
+#    - npm run test
+#  needs:
+#    - build
+#  rules:
+#    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
