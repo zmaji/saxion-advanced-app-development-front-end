@@ -8,7 +8,7 @@ describe('TextTitle', () => {
     const textColor = 'primary';
 
     const { getByText } = render(
-      <TextTitle content={titleText} color={textColor} />,
+        <TextTitle content={titleText} color={textColor} />,
     );
 
     const titleElement = getByText(titleText);
@@ -25,7 +25,7 @@ describe('TextTitle', () => {
     const titleText = 'Test Title';
 
     const { getByText } = render(
-      <TextTitle content={titleText} />,
+        <TextTitle content={titleText} />,
     );
 
     const titleElement = getByText(titleText);
@@ -45,7 +45,7 @@ describe('TextTitle', () => {
     };
 
     const { getByText } = render(
-      <TextTitle content={titleText} customStyles={customStyles} />,
+        <TextTitle content={titleText} customStyles={customStyles} />,
     );
 
     const titleElement = getByText(titleText);

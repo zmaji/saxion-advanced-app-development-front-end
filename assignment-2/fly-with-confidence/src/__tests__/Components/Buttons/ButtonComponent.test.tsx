@@ -10,7 +10,7 @@ describe('Button', () => {
     const onPressMock = jest.fn();
 
     const { getByText } = render(
-      <Button text={buttonText} buttonColor={buttonColor} textColor={textColor} onPress={onPressMock} />,
+        <Button text={buttonText} buttonColor={buttonColor} textColor={textColor} onPress={onPressMock} />,
     );
 
     const buttonElement = getByText(buttonText);
@@ -19,7 +19,7 @@ describe('Button', () => {
     expect(buttonElement).toBeTruthy();
     expect(buttonStyle).toBeTruthy();
 
-    expect(buttonElement.props.children).toBe(buttonText)
+    expect(buttonElement.props.children).toBe(buttonText);
     expect(buttonStyle[0].color).toBe(buttonColor);
     expect(buttonStyle[1].color).toBe('#666666');
   });
@@ -29,7 +29,7 @@ describe('Button', () => {
     const onPressMock = jest.fn();
 
     const { getByText } = render(
-      <Button text={buttonText} onPress={onPressMock} />,
+        <Button text={buttonText} onPress={onPressMock} />,
     );
 
     const buttonElement = getByText(buttonText);

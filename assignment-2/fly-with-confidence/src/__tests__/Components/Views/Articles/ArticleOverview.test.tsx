@@ -22,18 +22,19 @@ const mockArticles = [
 ];
 
 test('renders article overview with mock data', async () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('../../../../controllers/ArticleController').getArticles.mockResolvedValue(mockArticles);
 
   const Stack = createStackNavigator();
 
   const { getByText, getAllByTestId } = render(
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="ArticleOverview">
-          {() => <ArticleOverview navigation={undefined} />}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="ArticleOverview">
+            {() => <ArticleOverview navigation={undefined} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>,
   );
 
   await waitFor(() => {
@@ -56,18 +57,19 @@ test('renders article overview with mock data', async () => {
 });
 
 test('renders article overview with no data message', async () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('../../../../controllers/ArticleController').getArticles.mockResolvedValue([]);
 
   const Stack = createStackNavigator();
 
   const { getByText } = render(
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="ArticleOverview">
-          {() => <ArticleOverview navigation={undefined} />}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="ArticleOverview">
+            {() => <ArticleOverview navigation={undefined} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>,
   );
 
   await waitFor(() => {

@@ -9,26 +9,26 @@ describe('CategoryOverview', () => {
     };
 
     const { getAllByText, getByText } = render(
-      <CategoryOverview navigation={navigation} />
+        <CategoryOverview navigation={navigation} />,
     );
 
     const titleElement = getByText('Articles');
     const subtitleElement = getByText('Popular categories');
 
     const relaxationTechniquesElements = getAllByText('Relaxation techniques');
-    const relaxationTechniquesElement = relaxationTechniquesElements[1]
+    const relaxationTechniquesElement = relaxationTechniquesElements[1];
 
     const educationAndInformationElements = getAllByText('Education and information');
-    const educationAndInformationElement = educationAndInformationElements[1]
+    const educationAndInformationElement = educationAndInformationElements[1];
 
     const mindfulnessElements = getAllByText('Mindfulness');
-    const mindfulnessElement = mindfulnessElements[1]
+    const mindfulnessElement = mindfulnessElements[1];
 
     const flightActivitiesElements = getAllByText('Flight activities');
-    const flightActivitiesElement = flightActivitiesElements[1]
+    const flightActivitiesElement = flightActivitiesElements[1];
 
     const preFlightPreparationElements = getAllByText('Pre-flight preparation');
-    const preFlightPreparationElement = preFlightPreparationElements[1]
+    const preFlightPreparationElement = preFlightPreparationElements[1];
 
     expect(titleElement).toBeTruthy();
     expect(subtitleElement).toBeTruthy();
@@ -52,11 +52,11 @@ describe('CategoryOverview', () => {
     };
 
     const { getAllByText } = render(
-      <CategoryOverview navigation={navigation} />
+        <CategoryOverview navigation={navigation} />,
     );
 
     const relaxationTechniquesElements = getAllByText('Relaxation techniques');
-    const relaxationTechniquesElement = relaxationTechniquesElements[1]
+    const relaxationTechniquesElement = relaxationTechniquesElements[1];
 
     fireEvent.press(relaxationTechniquesElement);
     expect(navigation.navigate).toHaveBeenCalledWith('ArticleOverview', { selectedCategory: 'Relaxation techniques' });

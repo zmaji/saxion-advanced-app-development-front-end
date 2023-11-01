@@ -8,9 +8,9 @@ describe('CreatePostModal', () => {
   it('should render the modal and interact with input fields', async () => {
     try {
       const { getAllByText, getByPlaceholderText, getByText, getByTestId } = render(
-        <Provider store={tokenStore}>
-          <CreatePostModal isVisible={true} closeCreatePostModal={() => { }} onCreatePost={() => { }} />
-        </Provider>
+          <Provider store={tokenStore}>
+            <CreatePostModal isVisible={true} closeCreatePostModal={() => { }} onCreatePost={() => { }} />
+          </Provider>,
       );
 
       expect(getByTestId('createPostModal')).toBeTruthy();
@@ -34,7 +34,7 @@ describe('CreatePostModal', () => {
       expect(textInput.props.value).toBe('Test Text');
 
       const createPostElements = getAllByText('Create Post');
-      const createPostElement = createPostElements[1]
+      const createPostElement = createPostElements[1];
       fireEvent.press(createPostElement);
     } catch (error) {
       console.error('Error occurred during rendering:', error);
@@ -44,9 +44,9 @@ describe('CreatePostModal', () => {
   it('should display error messages for invalid input', async () => {
     try {
       const { getAllByText, getByPlaceholderText, getByText } = render(
-        <Provider store={tokenStore}>
-          <CreatePostModal isVisible={true} closeCreatePostModal={() => { }} onCreatePost={() => { }} />
-        </Provider>
+          <Provider store={tokenStore}>
+            <CreatePostModal isVisible={true} closeCreatePostModal={() => { }} onCreatePost={() => { }} />
+          </Provider>,
       );
 
       let queryByText;
@@ -57,7 +57,7 @@ describe('CreatePostModal', () => {
       });
 
       const createPostElements = getAllByText('Create Post');
-      const createPostElement = createPostElements[1]
+      const createPostElement = createPostElements[1];
       fireEvent.press(createPostElement);
 
       queryByText = getByText('Title is required');

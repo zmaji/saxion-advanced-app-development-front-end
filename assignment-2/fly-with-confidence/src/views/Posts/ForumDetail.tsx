@@ -14,7 +14,12 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
-import { TextTitle, CategoryLabel, CommentPost, Button } from '../../components';
+import {
+  TextTitle,
+  CategoryLabel,
+  CommentPost,
+  Button,
+} from '../../components';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import PostController from '../../controllers/PostController';
 import { getMockImage } from '../../helpers/getMockImage';
@@ -206,5 +211,5 @@ const styles = StyleSheet.create({
   noContentMessage: {
     marginBottom: 15,
     ...fontFamilyStyles.montserratRegular,
-  }
+  },
 });

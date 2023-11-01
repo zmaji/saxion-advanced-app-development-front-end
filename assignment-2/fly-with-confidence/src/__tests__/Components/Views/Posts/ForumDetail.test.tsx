@@ -35,18 +35,19 @@ const mockPost = {
 };
 
 test('renders forum detail with mock data', async () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('../../../../controllers/PostController').getPost.mockResolvedValue(mockPost);
 
   const Stack = createStackNavigator();
 
   const { getByText, getByTestId } = render(
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="ForumDetail">
-          {() => <ForumDetail navigation={undefined} />}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="ForumDetail">
+            {() => <ForumDetail navigation={undefined} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>,
   );
 
   await waitFor(() => {
@@ -89,18 +90,19 @@ test('renders forum detail with mock data', async () => {
 });
 
 test('renders forum detail with no data message', async () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('../../../../controllers/PostController').getPost.mockResolvedValue(null);
 
   const Stack = createStackNavigator();
 
   const { getByText } = render(
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="ForumDetail">
-          {() => <ForumDetail navigation={undefined} />}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="ForumDetail">
+            {() => <ForumDetail navigation={undefined} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>,
   );
 
   await waitFor(() => {

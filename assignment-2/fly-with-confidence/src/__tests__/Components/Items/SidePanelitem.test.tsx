@@ -9,7 +9,7 @@ describe('SidePanelItem', () => {
     const onPress = jest.fn();
 
     const { getByText, getByTestId } = render(
-      <SidePanelItem title={title} icon={icon} onPress={onPress} />
+        <SidePanelItem title={title} icon={icon} onPress={onPress} />,
     );
 
     const titleElement = getByText(title);
@@ -31,7 +31,7 @@ describe('SidePanelItem', () => {
     const onPress = jest.fn();
 
     const { getByText } = render(
-      <SidePanelItem title={title} icon={icon} onPress={onPress} />
+        <SidePanelItem title={title} icon={icon} onPress={onPress} />,
     );
 
     const titleElement = getByText(title);

@@ -10,16 +10,16 @@ describe('ForumOverviewItem', () => {
     const onPress = jest.fn();
 
     const { getByTestId, getByText } = render(
-      <ForumOverviewItem
-        title={title}
-        image={image}
-        content={content}
-        comments={3}
-        likes={5}
-        dislikes={2}
-        categories={['Category 1', 'Category 2']}
-        onPress={onPress}
-      />
+        <ForumOverviewItem
+          title={title}
+          image={image}
+          content={content}
+          comments={3}
+          likes={5}
+          dislikes={2}
+          categories={['Category 1', 'Category 2']}
+          onPress={onPress}
+        />,
     );
 
     const titleElement = getByText(title);

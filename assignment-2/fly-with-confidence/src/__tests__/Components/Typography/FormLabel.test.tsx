@@ -8,7 +8,7 @@ describe('FormLabel', () => {
     const textColor = 'primary';
 
     const { getByText } = render(
-      <FormLabel content={labelText} color={textColor} />,
+        <FormLabel content={labelText} color={textColor} />,
     );
 
     const labelElement = getByText(labelText);
@@ -17,7 +17,7 @@ describe('FormLabel', () => {
     expect(labelElement).toBeTruthy();
     expect(labelStyle).toBeTruthy();
 
-    expect(labelElement.props.children).toBe(labelText)
+    expect(labelElement.props.children).toBe(labelText);
     expect(labelStyle[1].color).toBe('#87CEEB');
   });
 
@@ -25,7 +25,7 @@ describe('FormLabel', () => {
     const labelText = 'Test Label';
 
     const { getByText } = render(
-      <FormLabel content={labelText} />,
+        <FormLabel content={labelText} />,
     );
 
     const labelElement = getByText(labelText);
@@ -34,7 +34,7 @@ describe('FormLabel', () => {
     expect(labelElement).toBeTruthy();
     expect(labelStyle).toBeTruthy();
 
-    expect(labelElement.props.children).toBe(labelText)
+    expect(labelElement.props.children).toBe(labelText);
     expect(labelStyle[1].color).toBe('#333333');
   });
 
@@ -45,7 +45,7 @@ describe('FormLabel', () => {
     };
 
     const { getByText } = render(
-      <FormLabel content={labelText} customStyles={customStyles} />,
+        <FormLabel content={labelText} customStyles={customStyles} />,
     );
 
     const labelElement = getByText(labelText);
@@ -54,7 +54,7 @@ describe('FormLabel', () => {
     expect(labelElement).toBeTruthy();
     expect(labelStyle).toBeTruthy();
 
-    expect(labelElement.props.children).toBe(labelText)
+    expect(labelElement.props.children).toBe(labelText);
     expect(labelStyle[2].fontSize).toBe(20);
   });
 });

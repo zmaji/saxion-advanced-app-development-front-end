@@ -8,7 +8,7 @@ describe('TextSubTitle', () => {
     const textColor = 'primary';
 
     const { getByText } = render(
-      <TextSubTitle content={subTitleText} color={textColor} />,
+        <TextSubTitle content={subTitleText} color={textColor} />,
     );
 
     const subTitleElement = getByText(subTitleText);
@@ -25,7 +25,7 @@ describe('TextSubTitle', () => {
     const subTitleText = 'Test Sub-Title';
 
     const { getByText } = render(
-      <TextSubTitle content={subTitleText} />,
+        <TextSubTitle content={subTitleText} />,
     );
 
     const subTitleElement = getByText(subTitleText);
@@ -45,7 +45,7 @@ describe('TextSubTitle', () => {
     };
 
     const { getByText } = render(
-      <TextSubTitle content={subTitleText} customStyles={customStyles} />,
+        <TextSubTitle content={subTitleText} customStyles={customStyles} />,
     );
 
     const subTitleElement = getByText(subTitleText);

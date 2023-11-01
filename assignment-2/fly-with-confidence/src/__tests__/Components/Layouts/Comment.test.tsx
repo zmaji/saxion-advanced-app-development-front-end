@@ -9,7 +9,7 @@ describe('Comment', () => {
     const content = 'This is a test comment.';
 
     const { getByText } = render(
-      <Comment username={username} date={date} content={content} />
+        <Comment username={username} date={date} content={content} />,
     );
 
     const usernameElement = getByText(username);

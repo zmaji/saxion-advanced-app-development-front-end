@@ -8,9 +8,9 @@ describe('AppHeader', () => {
     const mockSidePanelPress = jest.fn();
 
     const { getByTestId } = render(
-      <NavigationContainer>
-        <AppHeader onSidePanelPress={mockSidePanelPress} />
-      </NavigationContainer>
+        <NavigationContainer>
+          <AppHeader onSidePanelPress={mockSidePanelPress} />
+        </NavigationContainer>,
     );
 
     const sidePanelButton = getByTestId('side-panel-button');

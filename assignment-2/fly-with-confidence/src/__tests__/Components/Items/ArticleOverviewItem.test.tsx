@@ -9,7 +9,7 @@ describe('ArticleOverviewItem', () => {
     const onPress = jest.fn();
 
     const { getByTestId, getByText } = render(
-      <ArticleOverviewItem title={title} image={image} onPress={onPress} />
+        <ArticleOverviewItem title={title} image={image} onPress={onPress} />,
     );
 
     const itemElement = getByText(title);
@@ -27,7 +27,7 @@ describe('ArticleOverviewItem', () => {
     const onPress = jest.fn();
 
     const { getByText } = render(
-      <ArticleOverviewItem title={title} image={image} onPress={onPress} />
+        <ArticleOverviewItem title={title} image={image} onPress={onPress} />,
     );
 
     const itemElement = getByText(title);

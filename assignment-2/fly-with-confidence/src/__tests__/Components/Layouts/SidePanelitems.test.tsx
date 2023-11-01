@@ -10,13 +10,13 @@ describe('SidePanelItems', () => {
     const selectedCategory = 'Education and information';
 
     const { getByText } = render(
-      <Provider store={tokenStore}>
-        <SidePanelItems
-          navigation={{}}
-          activeItem={activeItem}
-          selectedCategory={selectedCategory}
-        />
-      </Provider>
+        <Provider store={tokenStore}>
+          <SidePanelItems
+            navigation={{}}
+            activeItem={activeItem}
+            selectedCategory={selectedCategory}
+          />
+        </Provider>,
     );
 
     const articlesItem = getByText('Articles');
@@ -42,13 +42,13 @@ describe('SidePanelItems', () => {
     };
 
     const { getByText } = render(
-      <Provider store={tokenStore}>
-        <SidePanelItems
-          navigation={navigation}
-          activeItem={activeItem}
-          selectedCategory={selectedCategory}
-        />
-      </Provider>
+        <Provider store={tokenStore}>
+          <SidePanelItems
+            navigation={navigation}
+            activeItem={activeItem}
+            selectedCategory={selectedCategory}
+          />
+        </Provider>,
     );
 
     const educationItem = getByText(selectedCategory);

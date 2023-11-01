@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
+import { render } from '@testing-library/react-native';
 import SelectionScreen from '../../../views/SelectionScreen';
 
 test('renders SelectionScreen component', () => {
@@ -15,7 +15,7 @@ test('renders SelectionScreen component', () => {
       title: 'Education and information',
       icon: 'graduation-cap',
       onPress: jest.fn(),
-    }
+    },
   ];
 
   const navigationMock = {
@@ -23,9 +23,9 @@ test('renders SelectionScreen component', () => {
   };
 
   const { getByText } = render(
-    <SelectionScreen
-      navigation={navigationMock}
-    />
+      <SelectionScreen
+        navigation={navigationMock}
+      />,
   );
 
   const mainTitle = getByText('How can we help you?');
@@ -34,8 +34,8 @@ test('renders SelectionScreen component', () => {
   expect(mainTitle).toBeTruthy();
   expect(subTitle).toBeTruthy();
 
-  expect(mainTitle).toBe(mainTitle)
-  expect(subTitle).toBe(subTitle)
+  expect(mainTitle).toBe(mainTitle);
+  expect(subTitle).toBe(subTitle);
 
   navigationOptions.forEach((item) => {
     const titleElement = getByText(item.title);

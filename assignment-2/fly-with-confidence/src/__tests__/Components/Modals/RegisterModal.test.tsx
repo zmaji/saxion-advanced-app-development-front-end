@@ -5,7 +5,7 @@ import RegisterModal from '../../../components/modals/RegisterModal';
 describe('RegisterModal', () => {
   it('should render the modal and interact with input fields', async () => {
     const { getByPlaceholderText, getByText, getByTestId } = render(
-      <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />,
+        <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />,
     );
 
     expect(getByTestId('registerModal')).toBeTruthy();
@@ -31,7 +31,7 @@ describe('RegisterModal', () => {
 
   it('should display error messages for invalid input', async () => {
     const { getByPlaceholderText, getByText } = render(
-      <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />,
+        <RegisterModal isVisible={true} closeRegisterModal={() => { }} onRegisterSuccess={() => { }} />,
     );
 
     let queryByText: Element | null;

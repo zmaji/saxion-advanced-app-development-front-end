@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import Home from '../../../views/Home'
-import tokenStore from '../../../stores/tokenStore'
+import Home from '../../../views/Home';
+import tokenStore from '../../../stores/tokenStore';
 import { Provider } from 'react-redux';
 
 describe('Home', () => {
@@ -11,9 +11,9 @@ describe('Home', () => {
     };
 
     const { getByText } = render(
-      <Provider store={tokenStore}>
-        <Home navigation={navigation} />
-      </Provider>
+        <Provider store={tokenStore}>
+          <Home navigation={navigation} />
+        </Provider>,
     );
 
     const header = getByText('Fly with Confidence');
@@ -33,9 +33,9 @@ describe('Home', () => {
     };
 
     const { getByText, queryByTestId } = render(
-      <Provider store={tokenStore}>
-        <Home navigation={navigation} />
-      </Provider>
+        <Provider store={tokenStore}>
+          <Home navigation={navigation} />
+        </Provider>,
     );
 
     const loginLink = getByText('Login');
@@ -59,9 +59,9 @@ describe('Home', () => {
     };
 
     const { getByText } = render(
-      <Provider store={tokenStore}>
-        <Home navigation={navigation} />
-      </Provider>
+        <Provider store={tokenStore}>
+          <Home navigation={navigation} />
+        </Provider>,
     );
 
     const guestButton = getByText('Enter as guest');

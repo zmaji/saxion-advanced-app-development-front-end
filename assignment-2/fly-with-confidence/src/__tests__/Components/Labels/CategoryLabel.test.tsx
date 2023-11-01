@@ -9,7 +9,7 @@ describe('CategoryLabel', () => {
     const textColor = 'darkGrey';
 
     const { getByText } = render(
-      <CategoryLabel text={labelText} labelColor={labelColor} textColor={textColor} />,
+        <CategoryLabel text={labelText} labelColor={labelColor} textColor={textColor} />,
     );
 
     const labelElement = getByText(labelText);
@@ -18,7 +18,7 @@ describe('CategoryLabel', () => {
     expect(labelElement).toBeTruthy();
     expect(labelStyle).toBeTruthy();
 
-    expect(labelElement.props.children).toBe(labelText)
+    expect(labelElement.props.children).toBe(labelText);
     expect(labelStyle[0].color).toBe(labelColor);
     expect(labelStyle[1].color).toBe('#333333');
   });
@@ -27,7 +27,7 @@ describe('CategoryLabel', () => {
     const labelText = 'Test Label';
 
     const { getByText } = render(
-      <CategoryLabel text={labelText} />,
+        <CategoryLabel text={labelText} />,
     );
 
     const labelElement = getByText(labelText);

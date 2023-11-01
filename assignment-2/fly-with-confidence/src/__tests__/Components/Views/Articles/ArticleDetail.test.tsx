@@ -16,18 +16,19 @@ const mockArticle = {
 };
 
 test('renders article detail with mock data', async () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('../../../../controllers/ArticleController').getArticle.mockResolvedValue(mockArticle);
 
   const Stack = createStackNavigator();
 
   const { getByText, getByTestId } = render(
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="ArticleDetail">
-          {() => <ArticleDetail navigation={undefined} />}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="ArticleDetail">
+            {() => <ArticleDetail navigation={undefined} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>,
   );
 
   await waitFor(() => {
@@ -49,22 +50,23 @@ test('renders article detail with mock data', async () => {
 });
 
 test('renders article detail with no data message', async () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('../../../../controllers/ArticleController').getArticle.mockResolvedValue(null);
 
   const Stack = createStackNavigator();
 
   const { getByText } = render(
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="ArticleDetail">
-          {() => <ArticleDetail navigation={undefined} />}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="ArticleDetail">
+            {() => <ArticleDetail navigation={undefined} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>,
   );
 
   await waitFor(() => {
-    const errorMessage = 'The article you were looking for is currently unavailable'
+    const errorMessage = 'The article you were looking for is currently unavailable';
     const noArticleElement = getByText(errorMessage);
     expect(noArticleElement).toBeTruthy();
     expect(noArticleElement.props.children).toBe(errorMessage);
