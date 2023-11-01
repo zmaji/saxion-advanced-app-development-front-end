@@ -32,7 +32,7 @@ describe('Home', () => {
       navigate: jest.fn(),
     };
 
-    const { getByText, queryByTestId, getByTestId } = render(
+    const { getByText, queryByTestId } = render(
       <Provider store={tokenStore}>
         <Home navigation={navigation} />
       </Provider>
