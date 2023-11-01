@@ -14,9 +14,12 @@ describe('Button', () => {
     );
 
     const buttonElement = getByText(buttonText);
-    expect(buttonElement).toBeTruthy();
-
     const buttonStyle = buttonElement.props.style;
+
+    expect(buttonElement).toBeTruthy();
+    expect(buttonStyle).toBeTruthy();
+
+    expect(buttonElement.props).toBe(buttonText)
     expect(buttonStyle[0].color).toBe(buttonColor);
     expect(buttonStyle[1].color).toBe('#666666');
   });
