@@ -36,7 +36,7 @@ const AppHeader = ({ onSidePanelPress }) => {
         <Text style={styles.backText}>Back</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={openSidePanel} style={styles.sidePanelButton}>
+      <TouchableOpacity testID='side-panel-button' onPress={openSidePanel} style={styles.sidePanelButton}>
         <FontAwesomeIcon icon={faBars} color={themeColors.white} size={16} />
       </TouchableOpacity>
     </View>
