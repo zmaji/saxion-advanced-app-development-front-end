@@ -39,7 +39,7 @@ const ArticleOverviewItem: React.FC<ArticleOverviewItemProps> = ({ title, image,
       onPress={onPress}
     >
 
-      <Image source={getMockImage(image)} style={styles.articleOverviewItemImage} />
+      <Image testID="article-item-image" source={getMockImage(image)} style={styles.articleOverviewItemImage} />
       <Text style={[styles.articleOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
 
       <View style={styles.readLinkContainer}>

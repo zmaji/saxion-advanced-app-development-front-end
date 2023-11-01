@@ -76,12 +76,11 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({
 
       {
         image !== '' && image.includes('mobile') ? (
-          <Image source={{ uri: `file://${image}` }} style={styles.forumOverviewItemImage} />
+          <Image source={{ uri: `file://${image}` }} style={styles.forumOverviewItemImage} testID="forum-item-image" />
         ) : image !== '' && image.includes('forum-post') ? (
-          <Image source={getMockImage(image)} style={styles.forumOverviewItemImage} />
+          <Image source={getMockImage(image)} style={styles.forumOverviewItemImage} testID="forum-item-image" />
         ) : null
       }
-
 
       <Text
         style={styles.forumOverviewItemContent}

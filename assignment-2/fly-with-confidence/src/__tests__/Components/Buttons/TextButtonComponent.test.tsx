@@ -9,7 +9,7 @@ describe('TextButton', () => {
     const onPressMock = jest.fn();
 
     const { getByText } = render(
-        <TextButton text={buttonText} customStyles={customStyles} onPress={onPressMock} />,
+      <TextButton text={buttonText} customStyles={customStyles} onPress={onPressMock} />,
     );
 
     const buttonElement = getByText(buttonText);
@@ -24,13 +24,12 @@ describe('TextButton', () => {
     const onPressMock = jest.fn();
 
     const { getByText } = render(
-        <TextButton text={buttonText} onPress={onPressMock} />,
+      <TextButton text={buttonText} onPress={onPressMock} />,
     );
 
     const buttonElement = getByText(buttonText);
 
     fireEvent.press(buttonElement);
-
     expect(onPressMock).toHaveBeenCalledTimes(1);
   });
 });
