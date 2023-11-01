@@ -18,9 +18,9 @@ import { themeColors, themeColorUtils } from '../styles/themeColors';
 import { fontFamilyStyles, typographyStyles } from '../styles/typography';
 
 type SelectionItemProps = {
-    title: string,
-    icon?: string,
-    onPress: () => void;
+  title: string,
+  icon?: string,
+  onPress: () => void;
 };
 
 const textIcons: Record<string, IconDefinition> = {
@@ -53,14 +53,14 @@ const SelectionItem: React.FC<SelectionItemProps> = ({ title, icon, onPress }) =
     >
       <Text style={[styles.selectionItemTitle, isPressed && themeColorUtils.textColorPrimary]}>
         {icon && (
-          <View style={styles.textIconContainer}>
-            <FontAwesomeIcon icon={textIcons[icon]} style={styles.textIcon}/>
+          <View testID='selection-item-icon-container' style={styles.textIconContainer}>
+            <FontAwesomeIcon icon={textIcons[icon]} style={styles.textIcon} />
           </View>
         )}
         {title}
       </Text>
 
-      <FontAwesomeIcon icon={faChevronRight} color={isPressed && themeColors.primary || themeColors.darkGrey}/>
+      <FontAwesomeIcon icon={faChevronRight} color={isPressed && themeColors.primary || themeColors.darkGrey} />
     </TouchableOpacity>
   );
 };
