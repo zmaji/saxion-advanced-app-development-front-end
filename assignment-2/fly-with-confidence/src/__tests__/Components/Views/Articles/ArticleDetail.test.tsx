@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'; // Import the appropriate navigator
+import { createStackNavigator } from '@react-navigation/stack';
 import ArticleDetail from '../../../../views/Articles/ArticleDetail';
 
 jest.mock('../../../../controllers/ArticleController', () => ({
@@ -31,9 +31,9 @@ test('renders article detail with mock data', async () => {
   );
 
   await waitFor(() => {
-    const titleElement = getByText(mockArticle.title)
-    const categoryElement = getByText(mockArticle.category)
-    const contentElement = getByText(mockArticle.content)
+    const titleElement = getByText(mockArticle.title);
+    const categoryElement = getByText(mockArticle.category);
+    const contentElement = getByText(mockArticle.content);
     const imageElement = getByTestId('article-image');
 
     expect(titleElement).toBeTruthy();
@@ -41,9 +41,32 @@ test('renders article detail with mock data', async () => {
     expect(contentElement).toBeTruthy();
     expect(imageElement).toBeTruthy();
 
-    expect(categoryElement.props.children).toBe(mockArticle.category)
-    expect(titleElement.props.children).toBe(mockArticle.title)
-    expect(contentElement.props.children).toBe(mockArticle.content)
+    expect(categoryElement.props.children).toBe(mockArticle.category);
+    expect(titleElement.props.children).toBe(mockArticle.title);
+    expect(contentElement.props.children).toBe(mockArticle.content);
     expect(imageElement.props.source).toBe(1);
+  });
+});
+
+test('renders article detail with no data message', async () => {
+  require('../../../../controllers/ArticleController').getArticle.mockResolvedValue(null);
+
+  const Stack = createStackNavigator();
+
+  const { getByText } = render(
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="ArticleDetail">
+          {() => <ArticleDetail navigation={undefined} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+
+  await waitFor(() => {
+    const errorMessage = 'The article you were looking for is currently unavailable'
+    const noArticleElement = getByText(errorMessage);
+    expect(noArticleElement).toBeTruthy();
+    expect(noArticleElement.props.children).toBe(errorMessage);
   });
 });
