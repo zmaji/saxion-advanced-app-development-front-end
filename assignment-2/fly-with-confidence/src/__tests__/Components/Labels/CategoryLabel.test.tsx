@@ -13,9 +13,12 @@ describe('CategoryLabel', () => {
     );
 
     const labelElement = getByText(labelText);
-    expect(labelElement).toBeTruthy();
-
     const labelStyle = labelElement.props.style;
+
+    expect(labelElement).toBeTruthy();
+    expect(labelStyle).toBeTruthy();
+
+    expect(labelElement.props.children).toBe(labelText)
     expect(labelStyle[0].color).toBe(labelColor);
     expect(labelStyle[1].color).toBe('#333333');
   });

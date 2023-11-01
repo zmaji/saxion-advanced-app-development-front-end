@@ -13,9 +13,12 @@ describe('InputError', () => {
     );
 
     const errorElement = getByText(errorMessage);
-    expect(errorElement).toBeTruthy();
-
     const errorStyle = errorElement.props.style;
+
+    expect(errorElement).toBeTruthy();
+    expect(errorStyle).toBeTruthy();
+
+    expect(errorElement.props.children).toBe(errorMessage);
     expect(errorStyle[1].color).toBe('#CC3333');
     expect(errorStyle[2].fontSize).toBe(16);
     expect(errorStyle[2].fontWeight).toBe('bold');
@@ -29,9 +32,12 @@ describe('InputError', () => {
     );
 
     const errorElement = getByText(errorMessage);
-    expect(errorElement).toBeTruthy();
-
     const errorStyle = errorElement.props.style;
+
+    expect(errorElement).toBeTruthy();
+    expect(errorStyle).toBeTruthy();
+
+    expect(errorElement.props.children).toBe(errorMessage);
     expect(errorStyle[1].color).toBe('#333333');
   });
 });

@@ -12,9 +12,12 @@ describe('TextSubTitle', () => {
     );
 
     const subTitleElement = getByText(subTitleText);
-    expect(subTitleElement).toBeTruthy();
-
     const subTitleStyle = subTitleElement.props.style;
+
+    expect(subTitleElement).toBeTruthy();
+    expect(subTitleStyle).toBeTruthy();
+
+    expect(subTitleElement.props.children).toBe(subTitleText);
     expect(subTitleStyle[1].color).toBe('#87CEEB');
   });
 
@@ -26,9 +29,12 @@ describe('TextSubTitle', () => {
     );
 
     const subTitleElement = getByText(subTitleText);
-    expect(subTitleElement).toBeTruthy();
-
     const subTitleStyle = subTitleElement.props.style;
+
+    expect(subTitleElement).toBeTruthy();
+    expect(subTitleStyle).toBeTruthy();
+
+    expect(subTitleElement.props.children).toBe(subTitleText);
     expect(subTitleStyle[0].color).toBe('#333333');
   });
 
@@ -43,9 +49,12 @@ describe('TextSubTitle', () => {
     );
 
     const subTitleElement = getByText(subTitleText);
-    expect(subTitleElement).toBeTruthy();
-
     const subTitleStyle = subTitleElement.props.style;
+
+    expect(subTitleElement).toBeTruthy();
+    expect(subTitleStyle).toBeTruthy();
+
+    expect(subTitleElement.props.children).toBe(subTitleText);
     expect(subTitleStyle[2].fontSize).toBe(20);
   });
 });

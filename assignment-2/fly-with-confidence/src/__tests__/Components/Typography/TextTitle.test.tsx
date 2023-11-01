@@ -12,9 +12,12 @@ describe('TextTitle', () => {
     );
 
     const titleElement = getByText(titleText);
-    expect(titleElement).toBeTruthy();
-
     const titleStyle = titleElement.props.style;
+
+    expect(titleElement).toBeTruthy();
+    expect(titleStyle).toBeTruthy();
+
+    expect(titleElement.props.children).toBe(titleText);
     expect(titleStyle[1].color).toBe('#87CEEB');
   });
 
@@ -26,9 +29,12 @@ describe('TextTitle', () => {
     );
 
     const titleElement = getByText(titleText);
-    expect(titleElement).toBeTruthy();
-
     const titleStyle = titleElement.props.style;
+
+    expect(titleElement).toBeTruthy();
+    expect(titleStyle).toBeTruthy();
+
+    expect(titleElement.props.children).toBe(titleText);
     expect(titleStyle[1].color).toBe('#333333');
   });
 
@@ -43,9 +49,12 @@ describe('TextTitle', () => {
     );
 
     const titleElement = getByText(titleText);
-    expect(titleElement).toBeTruthy();
-
     const titleStyle = titleElement.props.style;
+
+    expect(titleElement).toBeTruthy();
+    expect(titleStyle).toBeTruthy();
+
+    expect(titleElement.props.children).toBe(titleText);
     expect(titleStyle[2].fontSize).toBe(24);
   });
 });

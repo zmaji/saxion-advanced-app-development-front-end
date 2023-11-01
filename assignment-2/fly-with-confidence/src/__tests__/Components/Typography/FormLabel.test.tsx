@@ -12,9 +12,12 @@ describe('FormLabel', () => {
     );
 
     const labelElement = getByText(labelText);
-    expect(labelElement).toBeTruthy();
-
     const labelStyle = labelElement.props.style;
+
+    expect(labelElement).toBeTruthy();
+    expect(labelStyle).toBeTruthy();
+
+    expect(labelElement.props.children).toBe(labelText)
     expect(labelStyle[1].color).toBe('#87CEEB');
   });
 
@@ -26,9 +29,12 @@ describe('FormLabel', () => {
     );
 
     const labelElement = getByText(labelText);
-    expect(labelElement).toBeTruthy();
-
     const labelStyle = labelElement.props.style;
+
+    expect(labelElement).toBeTruthy();
+    expect(labelStyle).toBeTruthy();
+
+    expect(labelElement.props.children).toBe(labelText)
     expect(labelStyle[1].color).toBe('#333333');
   });
 
@@ -43,10 +49,12 @@ describe('FormLabel', () => {
     );
 
     const labelElement = getByText(labelText);
+    const labelStyle = labelElement.props.style;
 
     expect(labelElement).toBeTruthy();
+    expect(labelStyle).toBeTruthy();
 
-    const labelStyle = labelElement.props.style;
+    expect(labelElement.props.children).toBe(labelText)
     expect(labelStyle[2].fontSize).toBe(20);
   });
 });

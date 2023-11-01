@@ -10,9 +10,9 @@ import { themeColors } from '../../styles/themeColors';
 import { fontFamilyStyles } from '../../styles/typography';
 
 interface CancelButtonProps {
-    text: string,
-    customStyles?: ViewStyle,
-    onPress?: () => void
+  text: string,
+  customStyles?: ViewStyle,
+  onPress?: () => void
 }
 
 const TextButton: React.FC<CancelButtonProps> = ({ text, customStyles, onPress }) => {

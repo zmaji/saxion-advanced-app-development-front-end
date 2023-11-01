@@ -19,7 +19,7 @@ describe('Button', () => {
     expect(buttonElement).toBeTruthy();
     expect(buttonStyle).toBeTruthy();
 
-    expect(buttonElement.props).toBe(buttonText)
+    expect(buttonElement.props.children).toBe(buttonText)
     expect(buttonStyle[0].color).toBe(buttonColor);
     expect(buttonStyle[1].color).toBe('#666666');
   });
