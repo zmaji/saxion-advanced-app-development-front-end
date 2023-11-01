@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   StyleSheet,
@@ -14,7 +14,6 @@ import { fontFamilyStyles } from '../styles/typography';
 import { globalStyles } from '../styles/global';
 import { isOnline } from '../utils/NetworkDetection';
 import { getSingleImage } from '../utils/ImageCacher';
-import ArticleController from "../controllers/ArticleController";
 
 type ArticleOverviewItemProps = {
   title: string,

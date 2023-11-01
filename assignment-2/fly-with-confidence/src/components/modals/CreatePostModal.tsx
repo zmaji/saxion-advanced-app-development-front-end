@@ -1,5 +1,3 @@
-import type { PostFormData } from '../../typings/Post';
-
 import React, { useState } from 'react';
 import {
   Modal,
