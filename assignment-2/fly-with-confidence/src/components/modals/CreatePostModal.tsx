@@ -134,22 +134,6 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
       } catch (error) {
         console.error('Error creating post:', error);
       }
-
-      // const postData: PostFormData = {
-      //   title: title,
-      //   content: text,
-      //   image: image,
-      //   categories: selectedCategories,
-      //   location: selectedLocation,
-      // };
-      //
-      // const response = await PostController.createPost(postData, tokenString);
-
-      // if (response) {
-      //   Alert.alert('Post has been successfully created.');
-      //   closeCreatePostModal();
-      //   onCreatePost();
-      // }
     }
   };
 
