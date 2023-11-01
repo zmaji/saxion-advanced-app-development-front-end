@@ -60,6 +60,7 @@ export default function ArticleDetail({ navigation }) {
           </TouchableOpacity>
 
           <Image
+            testID='article-image'
             source={article.image ? getMockImage(article.image) : null}
             style={styles.articleOverviewItemImage}
           />
@@ -70,12 +71,12 @@ export default function ArticleDetail({ navigation }) {
 
     </ScrollView>
   ) :
-  <View style={styles.noContentContainer}>
-    <Text style={styles.noContentMessage}>
-      The article you were looking for is currently unavailable
-    </Text>
-    <Button text={'Back to categories'} onPress={() => navigation.goBack()} />
-  </View>;
+    <View style={styles.noContentContainer}>
+      <Text style={styles.noContentMessage}>
+        The article you were looking for is currently unavailable
+      </Text>
+      <Button text={'Back to categories'} onPress={() => navigation.goBack()} />
+    </View>;
 }
 
 const styles = StyleSheet.create({
