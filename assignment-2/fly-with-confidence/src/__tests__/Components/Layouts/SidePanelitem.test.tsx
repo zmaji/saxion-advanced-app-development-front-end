@@ -30,7 +30,7 @@ describe('SidePanelItem', () => {
     const icon = 'newspaper';
     const onPress = jest.fn();
 
-    const { getByText, getByTestId } = render(
+    const { getByText } = render(
       <SidePanelItem title={title} icon={icon} onPress={onPress} />
     );
 
