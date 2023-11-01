@@ -28,19 +28,10 @@ describe('CreatePostModal', () => {
         fireEvent.changeText(titleInput, 'Test Title');
         fireEvent.changeText(textInput, 'Test Text');
         fireEvent.press(categoryInput);
-
-        // const category = getByText('Anxiety Management')
-        // fireEvent.press(category);
-        // fireEvent.press(getByText('Anxiety Management'));
-        // fireEvent.press(getByText('Air Travel Worries'));
-        // fireEvent.press(locationInput);
-        // fireEvent.press(getByText('Current location (Test City)'));
       });
 
       expect(titleInput.props.value).toBe('Test Title');
       expect(textInput.props.value).toBe('Test Text');
-      // expect(categoryInput.props.value).toBe('Anxiety Management');
-      // expect(locationInput.props.value).toBe('Current location (Test City)');
 
       const createPostElements = getAllByText('Create Post');
       const createPostElement = createPostElements[1]
