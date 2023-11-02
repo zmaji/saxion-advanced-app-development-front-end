@@ -51,8 +51,8 @@ test('should render article overview with mock data', async () => {
 
     expect(titleElement1.props.children).toBe(mockArticles[0].title);
     expect(titleElement2.props.children).toBe(mockArticles[1].title);
-    expect(articleImage1.props.source).toBe(1);
-    expect(articleImage2.props.source).toBe(1);
+    expect(articleImage1.props.source.uri).toContain(mockArticles[0].image);
+    expect(articleImage2.props.source.uri).toContain(mockArticles[1].image);
   });
 });
 

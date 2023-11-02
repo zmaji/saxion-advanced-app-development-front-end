@@ -94,8 +94,8 @@ test('should render forum overview with mock data', async () => {
     expect(likesElement2.props.children).toBe(mockPosts[1].likes);
     expect(dislikesElement1.props.children).toBe(mockPosts[0].dislikes);
     expect(dislikesElement2.props.children).toBe(mockPosts[1].dislikes);
-    expect(forumImage1.props.source).toBe(1);
-    expect(forumImage2.props.source).toBe(1);
+    expect(forumImage1.props.source.uri).toContain(mockPosts[0].image);
+    expect(forumImage2.props.source.uri).toContain(mockPosts[1].image);
   });
 });
 

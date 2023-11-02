@@ -37,7 +37,7 @@ describe('ForumOverviewItem', () => {
     expect(dislikesElement).toBeTruthy();
 
     expect(titleElement.props.children).toBe(title);
-    expect(imageElement.props.source).toBe(1);
+    expect(imageElement.props.source.uri).toContain(image);
     expect(contentElement.props.children).toBe(content);
     expect(commentsElement.props.children).toBe(3);
     expect(likesElement.props.children).toBe(5);

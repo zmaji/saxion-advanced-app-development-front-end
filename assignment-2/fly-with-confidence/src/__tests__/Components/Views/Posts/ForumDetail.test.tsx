@@ -79,7 +79,7 @@ test('should render forum detail with mock data', async () => {
     expect(userElement.props.children.join('')).toBe(`Posted by ${mockPost.user} at 2023-11-01`);
     expect(categoriesElement1.props.children).toBe(mockPost.categories[0]);
     expect(categoriesElement2.props.children).toBe(mockPost.categories[1]);
-    expect(imageElement.props.source).toBe(1);
+    expect(imageElement.props.source.uri).toContain(mockPost.image);
     expect(locationElement.props.children).toBe(mockPost.location);
     expect(contentElement.props.children).toBe(mockPost.content);
     expect(likesElement.props.children).toBe(mockPost.likes);

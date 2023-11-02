@@ -18,7 +18,7 @@ describe('ArticleOverviewItem', () => {
     expect(itemElement).toBeTruthy();
     expect(imageElement).toBeTruthy();
     expect(itemElement.props.children).toBe(title);
-    expect(imageElement.props.source).toBe(1);
+    expect(imageElement.props.source.uri).toContain(image);
   });
 
   it('should call the onPress function when pressed', () => {

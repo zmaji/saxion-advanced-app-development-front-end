@@ -45,7 +45,7 @@ test('should render article detail with mock data', async () => {
     expect(categoryElement.props.children).toBe(mockArticle.category);
     expect(titleElement.props.children).toBe(mockArticle.title);
     expect(contentElement.props.children).toBe(mockArticle.content);
-    expect(imageElement.props.source).toBe(1);
+    expect(imageElement.props.source.uri).toContain(mockArticle.image);
   });
 });
 
