@@ -3,6 +3,7 @@ module.exports = {
   transform: {
     '^.+\\.js$': 'babel-jest',
   },
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx|js)$',
   transformIgnorePatterns: [
     'node_modules/(?!((jest-)?react-native|@fortawesome/react-native-fontawesome|' +
     '@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*' +

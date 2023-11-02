@@ -2,7 +2,7 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ForumDetail from '../../../../views/Posts/ForumDetail';
+import ForumDetail from '../../../views/Posts/ForumDetail';
 
 jest.mock('../../../../controllers/PostController', () => ({
   getPost: jest.fn(),
@@ -41,13 +41,13 @@ test('should render forum detail with mock data', async () => {
   const Stack = createStackNavigator();
 
   const { getByText, getByTestId } = render(
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="ForumDetail">
-          {() => <ForumDetail navigation={undefined} />}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>,
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="ForumDetail">
+            {() => <ForumDetail navigation={undefined} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>,
   );
 
   await waitFor(() => {
@@ -96,13 +96,13 @@ test('should render forum detail with no data message', async () => {
   const Stack = createStackNavigator();
 
   const { getByText } = render(
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="ForumDetail">
-          {() => <ForumDetail navigation={undefined} />}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>,
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="ForumDetail">
+            {() => <ForumDetail navigation={undefined} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>,
   );
 
   await waitFor(() => {

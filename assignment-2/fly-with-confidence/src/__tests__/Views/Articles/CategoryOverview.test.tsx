@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import CategoryOverview from '../../../../views/Articles/CategoryOverview';
+import CategoryOverview from '../../../views/Articles/CategoryOverview';
 
 describe('CategoryOverview', () => {
   it('should render the CategoryOverview view with categories', () => {

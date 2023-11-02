@@ -2,9 +2,9 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ForumOverview from '../../../../views/Posts/ForumOverview';
+import ForumOverview from '../../../views/Posts/ForumOverview';
 import { Provider } from 'react-redux';
-import tokenStore from '../../../../stores/tokenStore';
+import tokenStore from '../../../stores/tokenStore';
 
 jest.mock('../../../../controllers/PostController', () => ({
   getPosts: jest.fn(),
@@ -40,15 +40,15 @@ test('should render forum overview with mock data', async () => {
   const Stack = createStackNavigator();
 
   const { getByText, getAllByTestId } = render(
-    <Provider store={tokenStore}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="ForumOverview">
-            {() => <ForumOverview navigation={undefined} />}
-          </Stack.Screen>
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>,
+      <Provider store={tokenStore}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="ForumOverview">
+              {() => <ForumOverview navigation={undefined} />}
+            </Stack.Screen>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>,
   );
 
   await waitFor(() => {
@@ -106,15 +106,15 @@ test('should render forum overview with no data message', async () => {
   const Stack = createStackNavigator();
 
   const { getByText } = render(
-    <Provider store={tokenStore}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="ForumOverview">
-            {() => <ForumOverview navigation={undefined} />}
-          </Stack.Screen>
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>,
+      <Provider store={tokenStore}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="ForumOverview">
+              {() => <ForumOverview navigation={undefined} />}
+            </Stack.Screen>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>,
   );
 
   await waitFor(() => {

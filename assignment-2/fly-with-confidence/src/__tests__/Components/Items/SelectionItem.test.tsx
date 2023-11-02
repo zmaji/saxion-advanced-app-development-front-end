@@ -9,7 +9,7 @@ describe('SelectionItem', () => {
     const onPress = jest.fn();
 
     const { getByText, getByTestId } = render(
-      <SelectionItem title={title} icon={icon} onPress={onPress} />,
+        <SelectionItem title={title} icon={icon} onPress={onPress} />,
     );
 
     const titleElement = getByText(title);
@@ -34,7 +34,7 @@ describe('SelectionItem', () => {
     const onPress = jest.fn();
 
     const { getByText } = render(
-      <SelectionItem title={title} icon={icon} onPress={onPress} />,
+        <SelectionItem title={title} icon={icon} onPress={onPress} />,
     );
 
     const titleElement = getByText(title);

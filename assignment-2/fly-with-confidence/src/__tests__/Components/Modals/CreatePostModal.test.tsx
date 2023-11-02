@@ -8,9 +8,9 @@ describe('CreatePostModal', () => {
   it('should render the create post modal and interact with input fields', async () => {
     try {
       const { getAllByText, getByPlaceholderText, getByText, getByTestId } = render(
-        <Provider store={tokenStore}>
-          <CreatePostModal isVisible={true} closeCreatePostModal={() => { }} onCreatePost={() => { }} />
-        </Provider>,
+          <Provider store={tokenStore}>
+            <CreatePostModal isVisible={true} closeCreatePostModal={() => { }} onCreatePost={() => { }} />
+          </Provider>,
       );
 
       expect(getByTestId('createPostModal')).toBeTruthy();
@@ -44,9 +44,9 @@ describe('CreatePostModal', () => {
   it('should display error messages for invalid input', async () => {
     try {
       const { getAllByText, getByPlaceholderText, getByText } = render(
-        <Provider store={tokenStore}>
-          <CreatePostModal isVisible={true} closeCreatePostModal={() => { }} onCreatePost={() => { }} />
-        </Provider>,
+          <Provider store={tokenStore}>
+            <CreatePostModal isVisible={true} closeCreatePostModal={() => { }} onCreatePost={() => { }} />
+          </Provider>,
       );
 
       let queryByText;

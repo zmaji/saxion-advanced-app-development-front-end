@@ -2,9 +2,9 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ArticleOverview from '../../../../views/Articles/ArticleOverview';
+import ArticleOverview from '../../../views/Articles/ArticleOverview';
 
-jest.mock('../../../../controllers/ArticleController', () => ({
+jest.mock('../../../controllers/ArticleController', () => ({
   getArticles: jest.fn(),
 }));
 
@@ -23,18 +23,18 @@ const mockArticles = [
 
 test('should render article overview with mock data', async () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require('../../../../controllers/ArticleController').getArticles.mockResolvedValue(mockArticles);
+  require('../../../controllers/ArticleController').getArticles.mockResolvedValue(mockArticles);
 
   const Stack = createStackNavigator();
 
   const { getByText, getAllByTestId } = render(
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="ArticleOverview">
-          {() => <ArticleOverview navigation={undefined} />}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>,
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="ArticleOverview">
+            {() => <ArticleOverview navigation={undefined} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>,
   );
 
   await waitFor(() => {
@@ -58,18 +58,18 @@ test('should render article overview with mock data', async () => {
 
 test('should renders article overview with no data message', async () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require('../../../../controllers/ArticleController').getArticles.mockResolvedValue([]);
+  require('../../../controllers/ArticleController').getArticles.mockResolvedValue([]);
 
   const Stack = createStackNavigator();
 
   const { getByText } = render(
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="ArticleOverview">
-          {() => <ArticleOverview navigation={undefined} />}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>,
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="ArticleOverview">
+            {() => <ArticleOverview navigation={undefined} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>,
   );
 
   await waitFor(() => {

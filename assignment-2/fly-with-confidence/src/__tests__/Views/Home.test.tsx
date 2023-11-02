@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import Home from '../../../views/Home';
-import tokenStore from '../../../stores/tokenStore';
+import Home from '../../views/Home';
+import tokenStore from '../../stores/tokenStore';
 import { Provider } from 'react-redux';
 
 describe('Home', () => {
