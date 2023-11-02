@@ -29,7 +29,7 @@ export interface PostFormData {
   title: string,
   content: string,
   categories: string[],
-  image?: string,
+  image?: FormData | string;
   location?: string,
 }
 

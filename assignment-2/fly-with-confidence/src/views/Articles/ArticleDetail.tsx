@@ -10,13 +10,15 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useRoute } from '@react-navigation/native';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
+import { BASE_URL } from '../../../config';
 import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
 import { TextTitle, CategoryLabel, Button } from '../../components';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import ArticleController from '../../controllers/ArticleController';
-import { getMockImage } from '../../helpers/getMockImage';
+import { getSingleImage } from '../../utils/ImageCacher';
+import { isOnline } from '../../utils/NetworkDetection';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -26,12 +28,19 @@ export default function ArticleDetail({ navigation }) {
   // @ts-ignore
   const selectedArticleID = route.params && route.params.articleID;
   const [article, setArticle] = useState<Article | undefined>();
+  const [articleImage, setArticleImage] = useState<string>();
 
   useEffect(() => {
     const fetchArticle = async () => {
       try {
         const article = await ArticleController.getArticle(selectedArticleID);
         setArticle(article);
+
+        if (article) {
+          const localImage = await getSingleImage(article.image);
+          const imageUrl = await isOnline() ? BASE_URL + '/uploads/articles/' + article.image : localImage;
+          setArticleImage(imageUrl);
+        }
       } catch (error) {
         console.error(`Error fetching article with id ${selectedArticleID}:`, error);
       }
@@ -59,11 +68,7 @@ export default function ArticleDetail({ navigation }) {
             <FontAwesomeIcon icon={faBookmark} color={themeColors.white} size={15} />
           </TouchableOpacity>
 
-          <Image
-            testID='article-image'
-            source={article.image ? getMockImage(article.image) : null}
-            style={styles.articleOverviewItemImage}
-          />
+          <Image testID='article-image' source={{ uri: articleImage }} style={styles.articleOverviewItemImage} />
         </View>
       ) : null}
 

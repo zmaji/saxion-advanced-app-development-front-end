@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useRoute } from '@react-navigation/native';
 import { faFaceSmile, faFaceFrown, faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { BASE_URL } from '../../../config';
 import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
@@ -22,7 +23,6 @@ import {
 } from '../../components';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import PostController from '../../controllers/PostController';
-import { getMockImage } from '../../helpers/getMockImage';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -33,6 +33,7 @@ export default function ForumDetail({ navigation }) {
   const selectedPostID = route.params && route.params.postID;
   const [post, setPost] = useState<PostDetail | undefined>();
   const [date, setDate] = useState('');
+  const [postImage, setPostImage] = useState<string>();
 
   const removeTimeStamp = (timestamp: string) => {
     try {
@@ -55,6 +56,9 @@ export default function ForumDetail({ navigation }) {
           setPost(post);
           const dateWithoutTimeStamp = removeTimeStamp(post.date);
           setDate(dateWithoutTimeStamp);
+
+          const imageUrl = post?.image ? BASE_URL + '/uploads/posts/' + post.image : '';
+          setPostImage(imageUrl);
         }
       } catch (error) {
         console.error(`Error fetching post with id ${selectedPostID}:`, error);
@@ -87,10 +91,8 @@ export default function ForumDetail({ navigation }) {
           <FontAwesomeIcon icon={faBookmark} color={themeColors.white} size={15} />
         </TouchableOpacity>
 
-        {post.image && !post.image.includes('forum-post') ? (
-          <Image testID='forum-image' source={{ uri: post.image }} style={styles.forumOverviewItemImage} />
-        ) : post.image && post.image.includes('forum-post') ? (
-          <Image testID='forum-image' source={getMockImage(post.image)} style={styles.forumOverviewItemImage} />
+        {post.image ? (
+          <Image testID='forum-image' source={{ uri: postImage }} style={styles.forumOverviewItemImage} />
         ) : null}
       </View>
 

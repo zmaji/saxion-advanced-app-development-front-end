@@ -6,6 +6,7 @@ import {
   View,
 } from 'react-native';
 import * as React from 'react';
+import { useEffect } from 'react';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -13,10 +14,24 @@ import { globalStyles } from '../styles/global';
 import { themeColorUtils } from '../styles/themeColors';
 import { fontFamilyStyles, typographyStyles } from '../styles/typography';
 import { Button, LoginModal, RegisterModal } from '../components';
+import ArticleController from '../controllers/ArticleController';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default function Home({ navigation }) {
+  // Fetch all articles at start of application to save to the SQLite DB
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        await ArticleController.getArticles();
+      } catch (error) {
+        console.error('Error fetching articles', error);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
   const [isLoginModalVisible, setLoginModalVisible] = React.useState(false);
   const [isRegisterModalVisible, setRegisterModalVisible] = React.useState(false);
 

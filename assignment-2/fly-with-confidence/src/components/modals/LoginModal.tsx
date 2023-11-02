@@ -19,6 +19,7 @@ import TextSubTitle from '../typography/TextSubTitle';
 import FormLabel from '../typography/FormLabel';
 import InputError from '../error/InputError';
 import AuthController from '../../controllers/AuthController';
+import NetworkError from '../../errors/NetworkError';
 
 interface LoginModalProps {
   isVisible: boolean;
@@ -40,7 +41,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
     try {
       const response = await AuthController.loginUser(user);
 
-      if (response) {
+      if (response && response instanceof NetworkError) {
+        Alert.alert('Something went wrong', response.message);
+        closeLoginModal();
+        resetForm();
+      } else if (response) {
         Alert.alert('Login Successful', 'You have successfully logged in.');
         dispatch(setToken(response));
         closeLoginModal();
@@ -55,6 +60,14 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
         setLoginError('Invalid username or password. Please try again.');
       }
     }
+  };
+
+  const resetForm = () => {
+    setUsername('');
+    setPassword('');
+    setUsernameError('');
+    setPasswordError('');
+    setLoginError('');
   };
 
   const handleLogin = () => {
@@ -79,11 +92,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
   };
 
   const handleCloseModal = () => {
-    setUsername('');
-    setPassword('');
-    setUsernameError('');
-    setPasswordError('');
-    setLoginError('');
+    resetForm();
     closeLoginModal();
   };
 

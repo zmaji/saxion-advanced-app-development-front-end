@@ -17,6 +17,7 @@ import TextSubTitle from '../typography/TextSubTitle';
 import FormLabel from '../typography/FormLabel';
 import InputError from '../error/InputError';
 import UserController from '../../controllers/UserController';
+import NetworkError from '../../errors/NetworkError';
 
 interface RegisterModalProps {
   isVisible: boolean;
@@ -50,13 +51,28 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
 
     const response = await UserController.postUser(newUser);
 
-    if (response !== null) {
+    if (response && response instanceof NetworkError) {
+      Alert.alert('Something went wrong', response.message);
+      closeRegisterModal();
+      resetForm();
+    } else if (response) {
       Alert.alert('Registration Successful', 'You can now login on your new account');
       closeRegisterModal();
       onRegisterSuccess();
     } else {
       Alert.alert('Registration failed', 'This username or email is already in use');
     }
+  };
+
+  const resetForm = () => {
+    setUsername('');
+    setEmail('');
+    setPassword('');
+    setPasswordConfirmation('');
+    setUsernameError('');
+    setEmailError('');
+    setPasswordError('');
+    setPasswordConfirmationError('');
   };
 
   const handleRegister = () => {
@@ -104,14 +120,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isVisible, closeRegisterM
   };
 
   const handleCloseModal = () => {
-    setUsername('');
-    setEmail('');
-    setPassword('');
-    setPasswordConfirmation('');
-    setUsernameError('');
-    setEmailError('');
-    setPasswordError('');
-    setPasswordConfirmationError('');
+    resetForm();
     closeRegisterModal();
   };
 

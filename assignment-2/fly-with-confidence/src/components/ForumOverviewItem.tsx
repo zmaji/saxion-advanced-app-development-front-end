@@ -13,11 +13,11 @@ import {
   faFaceSmile,
   faFaceFrown,
 } from '@fortawesome/free-regular-svg-icons';
+import { BASE_URL } from '../../config';
 import { themeColors, themeColorUtils } from '../styles/themeColors';
 import { fontFamilyStyles } from '../styles/typography';
 import { globalStyles } from '../styles/global';
 import CategoryLabel from './labels/CategoryLabel';
-import { getMockImage } from '../helpers/getMockImage';
 
 type ForumOverviewItemProps = {
   title: string,
@@ -50,6 +50,8 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({
     setIsPressed(false);
   };
 
+  const imageUrl = BASE_URL + '/uploads/posts/' + image;
+
   return (
     <TouchableOpacity
       onPressIn={handlePressIn}
@@ -75,10 +77,8 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({
       </View>
 
       {
-        image !== '' && image.includes('mobile') ? (
-          <Image source={{ uri: `file://${image}` }} style={styles.forumOverviewItemImage} testID="forum-item-image" />
-        ) : image !== '' && image.includes('forum-post') ? (
-          <Image source={getMockImage(image)} style={styles.forumOverviewItemImage} testID="forum-item-image" />
+        image !== '' ? (
+          <Image source={{ uri: imageUrl }} style={styles.forumOverviewItemImage} testID="forum-item-image" />
         ) : null
       }
 
