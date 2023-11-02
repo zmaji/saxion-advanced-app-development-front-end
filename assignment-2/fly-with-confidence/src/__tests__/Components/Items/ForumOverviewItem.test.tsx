@@ -3,23 +3,23 @@ import { render, fireEvent } from '@testing-library/react-native';
 import ForumOverviewItem from '../../../components/ForumOverviewItem';
 
 describe('ForumOverviewItem', () => {
-  it('should render the forum item with the provided title, image, content, and onPress', async () => {
+  it('should render the forum item with the provided data', async () => {
     const title = 'Test Forum';
     const image = 'forum-post-1';
     const content = 'This is a test forum content';
     const onPress = jest.fn();
 
     const { getByTestId, getByText } = render(
-        <ForumOverviewItem
-          title={title}
-          image={image}
-          content={content}
-          comments={3}
-          likes={5}
-          dislikes={2}
-          categories={['Category 1', 'Category 2']}
-          onPress={onPress}
-        />,
+      <ForumOverviewItem
+        title={title}
+        image={image}
+        content={content}
+        comments={3}
+        likes={5}
+        dislikes={2}
+        categories={['Category 1', 'Category 2']}
+        onPress={onPress}
+      />,
     );
 
     const titleElement = getByText(title);
@@ -42,8 +42,29 @@ describe('ForumOverviewItem', () => {
     expect(commentsElement.props.children).toBe(3);
     expect(likesElement.props.children).toBe(5);
     expect(dislikesElement.props.children).toBe(2);
+  });
+
+  it('should invoke the onPress function when pressed', () => {
+    const title = 'Test Forum';
+    const onPress = jest.fn();
+
+    const { getByText } = render(
+      <ForumOverviewItem
+        title={title}
+        image="forum-post-1"
+        content="This is a test forum content"
+        comments={3}
+        likes={5}
+        dislikes={2}
+        categories={['Category 1', 'Category 2']}
+        onPress={onPress}
+      />,
+    );
+
+    const titleElement = getByText(title);
 
     fireEvent.press(titleElement);
+
     expect(onPress).toHaveBeenCalledTimes(1);
   });
 });

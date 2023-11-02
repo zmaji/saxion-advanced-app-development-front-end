@@ -7,13 +7,13 @@ import LoginModal from '../../../components/modals/LoginModal';
 const mockStore = configureStore();
 
 describe('LoginModal', () => {
-  it('should render the modal and interact with input fields', async () => {
+  it('should render the login modal and interact with input fields', async () => {
     const store = mockStore();
 
     const { getAllByText, getByPlaceholderText, getByTestId } = render(
-        <Provider store={store}>
-          <LoginModal isVisible={true} closeLoginModal={() => { }} onLoginSuccess={() => { }} />
-        </Provider>,
+      <Provider store={store}>
+        <LoginModal isVisible={true} closeLoginModal={() => { }} onLoginSuccess={() => { }} />
+      </Provider>,
     );
 
     expect(getByTestId('loginModal')).toBeTruthy();
@@ -38,9 +38,9 @@ describe('LoginModal', () => {
     const store = mockStore();
 
     const { getAllByText, getByPlaceholderText, getByText } = render(
-        <Provider store={store}>
-          <LoginModal isVisible={true} closeLoginModal={() => { }} onLoginSuccess={() => { }} />
-        </Provider>,
+      <Provider store={store}>
+        <LoginModal isVisible={true} closeLoginModal={() => { }} onLoginSuccess={() => { }} />
+      </Provider>,
     );
 
     await act(async () => {

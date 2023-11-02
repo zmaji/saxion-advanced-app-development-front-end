@@ -3,13 +3,13 @@ import { render, fireEvent } from '@testing-library/react-native';
 import ArticleOverviewItem from '../../../components/ArticleOverviewItem';
 
 describe('ArticleOverviewItem', () => {
-  it('should render the article item with the provided title, image, and onPress', async () => {
+  it('should render the article item with the provided title, and image', async () => {
     const title = 'Test Article';
     const image = 'education-and-information-1';
     const onPress = jest.fn();
 
     const { getByTestId, getByText } = render(
-        <ArticleOverviewItem title={title} image={image} onPress={onPress} />,
+      <ArticleOverviewItem title={title} image={image} onPress={onPress} />,
     );
 
     const itemElement = getByText(title);
@@ -27,7 +27,7 @@ describe('ArticleOverviewItem', () => {
     const onPress = jest.fn();
 
     const { getByText } = render(
-        <ArticleOverviewItem title={title} image={image} onPress={onPress} />,
+      <ArticleOverviewItem title={title} image={image} onPress={onPress} />,
     );
 
     const itemElement = getByText(title);

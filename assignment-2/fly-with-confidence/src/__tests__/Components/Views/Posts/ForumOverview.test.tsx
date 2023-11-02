@@ -33,22 +33,22 @@ const mockPosts = [
   },
 ];
 
-test('renders forum overview with mock data', async () => {
+test('should render forum overview with mock data', async () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('../../../../controllers/PostController').getPosts.mockResolvedValue(mockPosts);
 
   const Stack = createStackNavigator();
 
   const { getByText, getAllByTestId } = render(
-      <Provider store={tokenStore}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen name="ForumOverview">
-              {() => <ForumOverview navigation={undefined} />}
-            </Stack.Screen>
-          </Stack.Navigator>
-        </NavigationContainer>
-      </Provider>,
+    <Provider store={tokenStore}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="ForumOverview">
+            {() => <ForumOverview navigation={undefined} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>,
   );
 
   await waitFor(() => {
@@ -99,22 +99,22 @@ test('renders forum overview with mock data', async () => {
   });
 });
 
-test('renders forum overview with no data message', async () => {
+test('should render forum overview with no data message', async () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('../../../../controllers/PostController').getPosts.mockResolvedValue([]);
 
   const Stack = createStackNavigator();
 
   const { getByText } = render(
-      <Provider store={tokenStore}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen name="ForumOverview">
-              {() => <ForumOverview navigation={undefined} />}
-            </Stack.Screen>
-          </Stack.Navigator>
-        </NavigationContainer>
-      </Provider>,
+    <Provider store={tokenStore}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="ForumOverview">
+            {() => <ForumOverview navigation={undefined} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>,
   );
 
   await waitFor(() => {

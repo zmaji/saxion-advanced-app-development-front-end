@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 import SelectionScreen from '../../../views/SelectionScreen';
 
-test('renders SelectionScreen component', () => {
+test('should render SelectionScreen component', () => {
   const navigationOptions = [
     {
       id: '1',
@@ -23,9 +23,9 @@ test('renders SelectionScreen component', () => {
   };
 
   const { getByText } = render(
-      <SelectionScreen
-        navigation={navigationMock}
-      />,
+    <SelectionScreen
+      navigation={navigationMock}
+    />,
   );
 
   const mainTitle = getByText('How can we help you?');
