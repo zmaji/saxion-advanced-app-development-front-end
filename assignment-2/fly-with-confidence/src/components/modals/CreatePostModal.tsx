@@ -1,5 +1,3 @@
-import type { PostFormData } from '../../typings/Post';
-
 import React, { useState } from 'react';
 import {
   Modal,
@@ -102,20 +100,37 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isVisible, closeCreat
     }
 
     if (isValid) {
-      const postData: PostFormData = {
-        title: title,
-        content: text,
-        image: image,
-        categories: selectedCategories,
-        location: selectedLocation,
-      };
+      const formData = new FormData();
 
-      const response = await PostController.createPost(postData, tokenString);
+      formData.append('title', title);
+      formData.append('content', text);
+      formData.append('location', selectedLocation);
 
-      if (response) {
-        Alert.alert('Post has been successfully created.');
-        closeCreatePostModal();
-        onCreatePost();
+      if (image) {
+        const imageFile = {
+          uri: image,
+          type: 'image/jpeg',
+          name: image,
+        };
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        formData.append('image', imageFile);
+      }
+
+      selectedCategories.forEach((category) => {
+        formData.append('categories[]', category);
+      });
+
+      try {
+        const response = await PostController.createPost(formData, tokenString);
+
+        if (response) {
+          Alert.alert('Post has been successfully created.');
+          closeCreatePostModal();
+          onCreatePost();
+        }
+      } catch (error) {
+        console.error('Error creating post:', error);
       }
     }
   };

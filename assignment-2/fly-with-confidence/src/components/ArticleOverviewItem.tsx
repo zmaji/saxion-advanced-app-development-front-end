@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   StyleSheet,
@@ -8,10 +8,12 @@ import {
 } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { BASE_URL } from '../../config';
 import { themeColors, themeColorUtils } from '../styles/themeColors';
 import { fontFamilyStyles } from '../styles/typography';
 import { globalStyles } from '../styles/global';
-import { getMockImage } from '../helpers/getMockImage';
+import { isOnline } from '../utils/NetworkDetection';
+import { getSingleImage } from '../utils/ImageCacher';
 
 type ArticleOverviewItemProps = {
   title: string,
@@ -21,6 +23,7 @@ type ArticleOverviewItemProps = {
 
 const ArticleOverviewItem: React.FC<ArticleOverviewItemProps> = ({ title, image, onPress }) => {
   const [isPressed, setIsPressed] = useState(false);
+  const [articleImage, setArticlemage] = useState<string>();
 
   const handlePressIn = () => {
     setIsPressed(true);
@@ -30,6 +33,20 @@ const ArticleOverviewItem: React.FC<ArticleOverviewItemProps> = ({ title, image,
     setIsPressed(false);
   };
 
+  useEffect(() => {
+    const fetchArticleImage = async () => {
+      try {
+        const localImage = await getSingleImage(image);
+        const imageUrl = await isOnline() ? BASE_URL + '/uploads/articles/' + image : localImage;
+        setArticlemage(imageUrl);
+      } catch (error) {
+        console.error('Error fetching article image:', error);
+      }
+    };
+
+    fetchArticleImage();
+  }, []);
+
   return (
     <TouchableOpacity
       onPressIn={handlePressIn}
@@ -38,8 +55,7 @@ const ArticleOverviewItem: React.FC<ArticleOverviewItemProps> = ({ title, image,
       style={[styles.articleOverviewItem, globalStyles.marginBottom, isPressed && styles.articleOverviewItemPressed]}
       onPress={onPress}
     >
-
-      <Image source={getMockImage(image)} style={styles.articleOverviewItemImage} />
+      <Image source={{ uri: articleImage }} style={styles.articleOverviewItemImage} />
       <Text style={[styles.articleOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
 
       <View style={styles.readLinkContainer}>
