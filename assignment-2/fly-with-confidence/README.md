@@ -37,6 +37,19 @@ To get this project up and running, follow these steps:
 **NOTE:** If you're using a public network like Saxion's, use 'npx expo start --tunnel'
 9. Scan the QR code in the console with the Expo Go App (or with the camera if you're using iOS).
 
+## Sample credentials
+For testing purposes, these test users could be used to login to the application:
+
+1.
+Username: zmaji
+Roles: user, admin  
+Password: Password1  
+
+2.
+Username: Gardif  
+Roles: user  
+Password: Password2  
+
 ## Running tests
 The project includes Jest tests to ensure the application work as expected. To run these tests, use the following command:
 `npm run test`.
