@@ -46,11 +46,11 @@ const SidePanelItems = ({ navigation, activeItem, selectedCategory }) => {
   return (
     <View style={styles.sidePanelContainer}>
       <View style={styles.sidePanelHeader}>
-        <TextTitle content={'Menu'}/>
+        <TextTitle content={'Menu'} />
 
         <TouchableOpacity onPress={closeSidePanel} style={styles.closeButton}>
           <Text style={styles.closeText}>Close</Text>
-          <FontAwesomeIcon icon={faXmark} size={24} color={themeColors.darkGrey}/>
+          <FontAwesomeIcon icon={faXmark} size={24} color={themeColors.darkGrey} />
         </TouchableOpacity>
       </View>
 
@@ -107,11 +107,11 @@ const SidePanelItems = ({ navigation, activeItem, selectedCategory }) => {
           />
         </View>
       ) :
-          <SidePanelItem
-            title={'Login'}
-            icon={'arrow-right-from-bracket'}
-            onPress={() => openLoginModal()}
-          />
+        <SidePanelItem
+          title={'Login'}
+          icon={'arrow-right-from-bracket'}
+          onPress={() => openLoginModal()}
+        />
       }
 
       <LoginModal

@@ -55,7 +55,7 @@ const ArticleOverviewItem: React.FC<ArticleOverviewItemProps> = ({ title, image,
       style={[styles.articleOverviewItem, globalStyles.marginBottom, isPressed && styles.articleOverviewItemPressed]}
       onPress={onPress}
     >
-      <Image source={{ uri: articleImage }} style={styles.articleOverviewItemImage} />
+      <Image testID="article-item-image" source={{ uri: articleImage }} style={styles.articleOverviewItemImage} />
       <Text style={[styles.articleOverviewItemTitle, isPressed && themeColorUtils.textColorPrimary]}>{title}</Text>
 
       <View style={styles.readLinkContainer}>

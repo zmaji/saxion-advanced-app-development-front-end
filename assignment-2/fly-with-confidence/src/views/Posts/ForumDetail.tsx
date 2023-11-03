@@ -15,11 +15,18 @@ import { BASE_URL } from '../../../config';
 import { fontFamilyStyles } from '../../styles/typography';
 import { themeColors } from '../../styles/themeColors';
 import { globalStyles } from '../../styles/global';
-import { TextTitle, CategoryLabel, CommentPost } from '../../components';
+import {
+  TextTitle,
+  CategoryLabel,
+  CommentPost,
+  Button,
+} from '../../components';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import PostController from '../../controllers/PostController';
 
-export default function ForumDetail() {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export default function ForumDetail({ navigation }) {
   const route = useRoute();
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -85,7 +92,7 @@ export default function ForumDetail() {
         </TouchableOpacity>
 
         {post.image ? (
-          <Image source={{ uri: postImage }} style={styles.forumOverviewItemImage} />
+          <Image testID='forum-image' source={{ uri: postImage }} style={styles.forumOverviewItemImage} />
         ) : null}
       </View>
 
@@ -120,7 +127,13 @@ export default function ForumDetail() {
         })}
       </View>
     </ScrollView>
-  ) : null;
+  ) :
+    <View style={styles.noContentContainer}>
+      <Text style={styles.noContentMessage}>
+        The forum post you were looking for is currently unavailable
+      </Text>
+      <Button text={'Back to forum overview'} onPress={() => navigation.goBack()} />
+    </View>;
 }
 
 const styles = StyleSheet.create({
@@ -190,5 +203,15 @@ const styles = StyleSheet.create({
   locationText: {
     marginRight: 10,
     color: themeColors.grey,
+  },
+  noContentContainer: {
+    marginTop: 20,
+    padding: 25,
+    borderRadius: 5,
+    backgroundColor: themeColors.darkWhite,
+  },
+  noContentMessage: {
+    marginBottom: 15,
+    ...fontFamilyStyles.montserratRegular,
   },
 });

@@ -78,7 +78,7 @@ const ForumOverviewItem: React.FC<ForumOverviewItemProps> = ({
 
       {
         image !== '' ? (
-          <Image source={{ uri: imageUrl }} style={styles.forumOverviewItemImage} />
+          <Image source={{ uri: imageUrl }} style={styles.forumOverviewItemImage} testID="forum-item-image" />
         ) : null
       }
 

@@ -102,6 +102,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, closeLoginModal, onL
       transparent={true}
       visible={isVisible}
       onRequestClose={closeLoginModal}
+      testID="loginModal"
     >
       <View style={styles.modalView}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>

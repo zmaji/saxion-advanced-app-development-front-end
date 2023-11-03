@@ -73,7 +73,6 @@ export default function Home({ navigation }) {
 
         <Text style={[themeColorUtils.textColorWhite, { fontSize: 16 }]}>
           Already have an account?{' '}
-
           <Text
             style={[themeColorUtils.textColorWhite, fontFamilyStyles.montserratBold, styles.loginLink]}
             onPress={openLoginModal}

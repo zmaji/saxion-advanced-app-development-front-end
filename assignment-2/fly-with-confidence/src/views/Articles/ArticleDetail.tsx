@@ -68,7 +68,7 @@ export default function ArticleDetail({ navigation }) {
             <FontAwesomeIcon icon={faBookmark} color={themeColors.white} size={15} />
           </TouchableOpacity>
 
-          <Image source={{ uri: articleImage }} style={styles.articleOverviewItemImage} />
+          <Image testID='article-image' source={{ uri: articleImage }} style={styles.articleOverviewItemImage} />
         </View>
       ) : null}
 
@@ -76,12 +76,12 @@ export default function ArticleDetail({ navigation }) {
 
     </ScrollView>
   ) :
-  <View style={styles.noContentContainer}>
-    <Text style={styles.noContentMessage}>
-      The article you were looking for is currently unavailable
-    </Text>
-    <Button text={'Back to categories'} onPress={() => navigation.goBack()} />
-  </View>;
+    <View style={styles.noContentContainer}>
+      <Text style={styles.noContentMessage}>
+        The article you were looking for is currently unavailable
+      </Text>
+      <Button text={'Back to categories'} onPress={() => navigation.goBack()} />
+    </View>;
 }
 
 const styles = StyleSheet.create({

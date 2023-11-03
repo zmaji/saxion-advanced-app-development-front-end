@@ -25,10 +25,10 @@ import { themeColors, themeColorUtils } from '../../styles/themeColors';
 import { fontFamilyStyles, typographyStyles } from '../../styles/typography';
 
 type SidePaneItemProps = {
-    title: string,
-    icon?: string,
-    onPress: () => void,
-    active?: boolean
+  title: string,
+  icon?: string,
+  onPress: () => void,
+  active?: boolean
 };
 
 const textIcons: Record<string, IconDefinition> = {
@@ -67,11 +67,11 @@ const SidePanelItem: React.FC<SidePaneItemProps> = ({ title, icon, onPress, acti
         active && styles.activeItemText,
       ]}>
         {icon && (
-          <View style={styles.textIconContainer}>
+          <View testID='sidepanel-item-icon-container' style={styles.textIconContainer}>
 
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-ignore */}
-            <FontAwesomeIcon icon={textIcons[icon]} style={[styles.textIcon, active && styles.activeItemText]}/>
+            <FontAwesomeIcon icon={textIcons[icon]} style={[styles.textIcon, active && styles.activeItemText]} />
           </View>
         )}
 
@@ -79,19 +79,19 @@ const SidePanelItem: React.FC<SidePaneItemProps> = ({ title, icon, onPress, acti
       </Text>
 
       {active &&
-          <FontAwesomeIcon
-            icon={faCircle}
-            size={16}
-            color={themeColors.white}
-          />
+        <FontAwesomeIcon
+          icon={faCircle}
+          size={16}
+          color={themeColors.white}
+        />
       }
 
       {!active &&
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            size={16}
-            color={isPressed && themeColors.primary || themeColors.darkGrey}
-          />
+        <FontAwesomeIcon
+          icon={faChevronRight}
+          size={16}
+          color={isPressed && themeColors.primary || themeColors.darkGrey}
+        />
       }
     </TouchableOpacity>
   );
